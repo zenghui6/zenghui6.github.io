@@ -1,58 +1,168 @@
 <?xml version="1.0" encoding="utf-8"?>
-<search> 
-  
-  
-    
-    <entry>
-      <title>Mysql数据库隔离级别</title>
-      <link href="/2020/02/08/Mysql%E6%95%B0%E6%8D%AE%E5%BA%93%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB/"/>
-      <url>/2020/02/08/Mysql%E6%95%B0%E6%8D%AE%E5%BA%93%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB/</url>
-      
-        <content type="html"><![CDATA[<h1 id="1-事务"><a href="#1-事务" class="headerlink" title="1.事务"></a>1.事务</h1><p>事务只是一个改变,是<strong>一些操作的集合</strong>;<br>用专业的术语讲,它就是一个程序的执行单元;<br><strong>事务本身其实并不包括这4个特性</strong>,我们需要通过某些手段,尽可能的让这个执行单元满足这四个特性,那么我们就称他为一个事务,或者说是一个正确的事务</p><h1 id="2-四特性"><a href="#2-四特性" class="headerlink" title="2,四特性"></a>2,四特性</h1><ol><li>原子性:满足原子操作单元,对数据的操作,要么全部执行,要么全部失败</li><li>一致性:事务开始和完成,数据都必须保持一致</li><li>隔离性:事务之间是相互独立的,中间状态是不可见的</li><li>持久性:数据的修改是永久的</li></ol><h1 id="3-隔离级别"><a href="#3-隔离级别" class="headerlink" title="3,隔离级别"></a>3,隔离级别</h1><h2 id="3-1-并发情况下事务引发的问题"><a href="#3-1-并发情况下事务引发的问题" class="headerlink" title="3.1 并发情况下事务引发的问题"></a>3.1 并发情况下事务引发的问题</h2><pre><code>一般情况下,多个单元操作并发执行,会出现这么几个问题</code></pre><ol><li>脏读:A事务还未提交,B事务就读到了A事务的结果.(破坏了隔离性)</li><li>不可重复读:A事务在本次事务中,对自己未操作过的数据,进行了多次读取,结果出现了不一致或记录不存在的情况.(破坏了一致性,update和delete)</li><li>幻读:A事务在本次事务中,对自己未操作过的数据,进行了多次读取,第一次读取时,记录不存在,第二次读取时,记录出现了.(破坏了一致性,insert)</li></ol><h2 id="3-2解决-制定标准"><a href="#3-2解决-制定标准" class="headerlink" title="3.2解决(制定标准)"></a>3.2解决(制定标准)</h2><p>为了权衡<strong>隔离</strong>与<strong>并发</strong>的矛盾,ISO定义了四个事务的隔离机制,每个级别的隔离程度不同,允许出现的副作用也不同</p><ol><li>读未提交(read-uncommitted):最低级别,只能保证持久性</li><li>不可重复读(read-committed):语句级别的</li><li>可重复读(repeatable-read):事务级别</li><li>串行化(serializable):最高级别,事务与事务完成串行化执行,毫无并发可言,性能极低</li></ol><table><thead><tr><th>事务隔离级别</th><th>脏读</th><th>不可重复读</th><th>幻读</th></tr></thead><tbody><tr><td>读未提交</td><td>会</td><td>会</td><td>会</td></tr><tr><td>不可重复读</td><td>-</td><td>会</td><td>会</td></tr><tr><td>可重复读</td><td>-</td><td>-</td><td>会</td></tr><tr><td>串行化</td><td>-</td><td>-</td><td>-</td></tr></tbody></table><p>注意:这四个级别只是一个标准,各个数据库厂商,并不是完全按照这个标准来做的</p><h2 id="3-3-实现-InnoDB"><a href="#3-3-实现-InnoDB" class="headerlink" title="3.3 实现(InnoDB)"></a>3.3 实现(InnoDB)</h2><h3 id="1-锁机制-阻止事务对数据的操作-各个隔离级别主要体现在读取数据时加的锁和释放时机"><a href="#1-锁机制-阻止事务对数据的操作-各个隔离级别主要体现在读取数据时加的锁和释放时机" class="headerlink" title="1. 锁机制:阻止事务对数据的操作,各个隔离级别主要体现在读取数据时加的锁和释放时机"></a>1. 锁机制:阻止事务对数据的操作,各个隔离级别主要体现在读取数据时加的锁和释放时机</h3><ul><li>RU:事务读取的时候不加锁</li><li>RC: 事务读取的时候加行级共享锁(读到才加锁),一旦读完,立刻释放(并不是事务结束).</li><li>RR: 事务读取时加行级共享锁,直到事务结束才会释放</li><li>SE: 事务读取是加表级共享锁,直到事务结束才会释放<h3 id="2-MVCC机制-生成一个数据快照-并用这个快照来提供一定级别的一致性的读取-也成为了多版本数据控制"><a href="#2-MVCC机制-生成一个数据快照-并用这个快照来提供一定级别的一致性的读取-也成为了多版本数据控制" class="headerlink" title="2. MVCC机制:生成一个数据快照,并用这个快照来提供一定级别的一致性的读取,也成为了多版本数据控制."></a>2. MVCC机制:生成一个数据快照,并用这个快照来提供一定级别的一致性的读取,也成为了多版本数据控制.</h3></li><li>实际就是<strong>CAS版本控制</strong>和<strong>读写分离</strong>的思想</li><li>主要作用于RC和RR级别</li></ul>]]></content>
-      
-      
+<search>
+  <entry>
+    <title>Java查漏补缺</title>
+    <url>/2020/02/08/Java%E6%9F%A5%E6%BC%8F%E8%A1%A5%E7%BC%BA/</url>
+    <content><![CDATA[<h2 id="String-StringBuffer-StringBuilder的区别"><a href="#String-StringBuffer-StringBuilder的区别" class="headerlink" title="String StringBuffer StringBuilder的区别"></a>String StringBuffer StringBuilder的区别</h2><ol>
+<li>操作数量较少的字符串用String，不可修改的字符串；</li>
+<li>在多线程且操作大量字符串用StringBuffer，线程安全，可修改。</li>
+<li>在单线程且操作大量字符串用StringBuilder,速度快，但线程不安全，可修改；<a id="more"></a>
+
+</li>
+</ol>
+<h2 id="变量存放在哪"><a href="#变量存放在哪" class="headerlink" title="变量存放在哪?"></a>变量存放在哪?</h2><p>基本数据类型是放在栈中还是放在堆中，这取决于基本类型在何处声明，下面对数据类型在内存中的存储问题来解释一下：</p>
+<p>   一：在<strong>方法中声明的变量</strong>，即该变量是局部变量，每当<strong>程序调用方法时</strong>，系统都会为该方法建立一个<strong>方法栈</strong>，其所在方法中声明的变量就放在方法栈中，当方法结束系统会释放方法栈，其对应在该方法中声明的变量随着栈的销毁而结束，这就局部变量只能在方法中有效的原因</p>
+<pre><code>在方法中声明的变量可以是基本类型的变量，也可以是引用类型的变量。
+
+   （1）当声明是基本类型的变量的时，其变量名及值（变量名及值是两个概念）是放在方法栈中
+
+   （2）当声明的是引用变量时，所声明的变量（该变量实际上是在方法中存储的是内存地址值）
+       是放在方法的栈中，该变量所指向的对象是放在堆类存中的。</code></pre><p>   二：在类中声明的变量是成员变量，也叫全局变量，放在堆中的（因为全局变量不会随着某个方法执行结束而销毁）。</p>
+<pre><code>同样在类中声明的变量即可是基本类型的变量 也可是引用类型的变量
+
+（1）当声明的是基本类型的变量其变量名及其值放在堆内存中的
+
+（2）引用类型时，其声明的变量仍然会存储一个内存地址值，该内存地址值指向所引用的对象。
+      引用变量名和对应的对象仍然存储在相应的堆中</code></pre><h2 id="请你讲讲数组-Array-和列表-ArrayList-的区别？"><a href="#请你讲讲数组-Array-和列表-ArrayList-的区别？" class="headerlink" title="请你讲讲数组(Array)和列表(ArrayList)的区别？"></a>请你讲讲数组(Array)和列表(ArrayList)的区别？</h2><ol>
+<li>Array可以包含基本类型和对象类型，ArrayList只能包含对象类型(对基本类型实现自动装箱)。</li>
+<li>Array大小是固定的，ArrayList的大小是动态变化的。</li>
+<li>ArrayList提供了更多的方法和特性，比如：addAll()，removeAll()，iterator()等等。</li>
+</ol>
+<h2 id="请你解释什么是值传递和引用传递？"><a href="#请你解释什么是值传递和引用传递？" class="headerlink" title="请你解释什么是值传递和引用传递？"></a>请你解释什么是值传递和引用传递？</h2><ul>
+<li>值传递是针对基本变量而言,传递的是该变量的一个副本,改变副本不影响原变量</li>
+<li>引用传递一般是对于对象型变量而言的,传递的是该对象地址的一个副本, 并不是原对象本身 。 所以对引用对象进行操作会同时改变原对象</li>
+<li>一般认为,java内的传递都是值传递.</li>
+</ul>
+<h2 id="匿名内部类"><a href="#匿名内部类" class="headerlink" title="匿名内部类"></a>匿名内部类</h2><p>匿名内部类也就是没有名字的内部类<br>正因为没有名字，所以匿名内部类只能使用一次，它通常用来简化代码编写</p>
+<p>但使用匿名内部类还有个前提条件：必须继承一个父类或实现一个接口</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">eat</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Person p = <span class="keyword">new</span> Person() &#123;</span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">eat</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                System.out.println(<span class="string">"eat something"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">        p.eat();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>可以看到,我们直接将抽象类Person中的方法在大括号中实现了<br>这样便可以省略一个类的书写<br>匿名内部类还可以直接作用于接口</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo</span> </span>&#123;  <span class="comment">//多线程匿名内部类</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Thread t = <span class="keyword">new</span> Thread() &#123;</span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= <span class="number">5</span>; i++) &#123;</span><br><span class="line">                    System.out.print(i + <span class="string">" "</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">        t.start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="java8-新特性"><a href="#java8-新特性" class="headerlink" title="java8 新特性"></a>java8 新特性</h2><ol>
+<li>lambda表达式 : 允许函数作为另一个方法的参数</li>
+<li>方法引用: 可以直接引用已有Java类或实例的方法或构造器</li>
+<li>默认方法: 在一个接口里有了一个默认的实现方法</li>
+<li>新工具: 新的编译工具和类依赖分析工具</li>
+<li>Stream API: 把真正的函数式编程引入java</li>
+<li>Date Time API :加强对日期时间的处理</li>
+<li>Optional 类 − Optional 类已经成为 Java 8 类库的一部分，用来解决空指针异常。</li>
+<li>avaScript 引擎 − Java 8提供了一个新的Nashorn javascript引擎，它允许我们在JVM上运行特定的javascript应用</li>
+</ol>
+<h2 id="HashCode-Object的默认HashCode-是什么-为什么重写equals-还要重写hashCode"><a href="#HashCode-Object的默认HashCode-是什么-为什么重写equals-还要重写hashCode" class="headerlink" title="HashCode Object的默认HashCode()是什么?为什么重写equals() 还要重写hashCode()?"></a>HashCode Object的默认HashCode()是什么?为什么重写equals() 还要重写hashCode()?</h2><ul>
+<li>Object 的HashCode()方法是<strong>本地方法</strong>,即使用C/C++实现的,该方法直接返回对象的<strong>内存地址</strong></li>
+<li>首先我们要知道HashMap()比较key的时候的过程:</li>
+</ul>
+<ol>
+<li>先求出key的HashCode值,判断是否相等</li>
+<li>若相等再判断equals()是否相等,若相等则认为是相等的</li>
+</ol>
+<blockquote>
+<p>现在有两个Student对象：</p>
+</blockquote>
+<pre><code>Student s1=new Student(&quot;小明&quot;,18);
+
+Student s2=new Student(&quot;小明&quot;,18);</code></pre><p>此时s1.equals(s2)一定返回true</p>
+<p>假如只重写equals而不重写hashcode，那么Student类的hashcode方法就是Object默认的hashcode方法，由于默认的hashcode方法是根据<strong>对象的内存地址</strong>经哈希算法得来的，显然此时<strong>s1!=s2</strong>,故两者的hashcode不一定相等。</p>
+<blockquote>
+<p>HashCode判断key相等,实际上是调用了HashSet()方法.</p>
+</blockquote>
+<p>重载hashCode()是为了对同一个key，能得到相同的Hash Code，这样HashMap就可以定位到我们指定的key上</p>
+]]></content>
       <categories>
-          
-          <category> 数据库 </category>
-          
+        <category>Java</category>
       </categories>
-      
-      
-        <tags>
-            
-            <tag> Mysql </tag>
-            
-            <tag> 事务 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-  
-  
-    
-    
-    <entry>
-      <title>categories</title>
-      <link href="/categories/index.html"/>
-      <url>/categories/index.html</url>
-      
-        <content type="html"><![CDATA[]]></content>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>tags</title>
-      <link href="/tags/index.html"/>
-      <url>/tags/index.html</url>
-      
-        <content type="html"><![CDATA[]]></content>
-      
-    </entry>
-    
-    
-  
+      <tags>
+        <tag>se</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Mysql数据库隔离级别</title>
+    <url>/2020/02/08/Mysql%E6%95%B0%E6%8D%AE%E5%BA%93%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB/</url>
+    <content><![CDATA[<h1 id="1-事务"><a href="#1-事务" class="headerlink" title="1.事务"></a>1.事务</h1><p>事务只是一个改变,是<strong>一些操作的集合</strong>;<br>用专业的术语讲,它就是一个程序的执行单元;<br><strong>事务本身其实并不包括这4个特性</strong>,我们需要通过某些手段,尽可能的让这个执行单元满足这四个特性,那么我们就称他为一个事务,或者说是一个正确的事务</p>
+<a id="more"></a>
+
+
+<h1 id="2-四特性"><a href="#2-四特性" class="headerlink" title="2,四特性"></a>2,四特性</h1><ol>
+<li>原子性:满足原子操作单元,对数据的操作,要么全部执行,要么全部失败</li>
+<li>一致性:事务开始和完成,数据都必须保持一致</li>
+<li>隔离性:事务之间是相互独立的,中间状态是不可见的</li>
+<li>持久性:数据的修改是永久的</li>
+</ol>
+<h1 id="3-隔离级别"><a href="#3-隔离级别" class="headerlink" title="3,隔离级别"></a>3,隔离级别</h1><h2 id="3-1-并发情况下事务引发的问题"><a href="#3-1-并发情况下事务引发的问题" class="headerlink" title="3.1 并发情况下事务引发的问题"></a>3.1 并发情况下事务引发的问题</h2><pre><code>一般情况下,多个单元操作并发执行,会出现这么几个问题</code></pre><ol>
+<li>脏读:A事务还未提交,B事务就读到了A事务的结果.(破坏了隔离性)</li>
+<li>不可重复读:A事务在本次事务中,对自己未操作过的数据,进行了多次读取,结果出现了不一致或记录不存在的情况.(破坏了一致性,update和delete)</li>
+<li>幻读:A事务在本次事务中,对自己未操作过的数据,进行了多次读取,第一次读取时,记录不存在,第二次读取时,记录出现了.(破坏了一致性,insert)</li>
+</ol>
+<h2 id="3-2解决-制定标准"><a href="#3-2解决-制定标准" class="headerlink" title="3.2解决(制定标准)"></a>3.2解决(制定标准)</h2><p>为了权衡<strong>隔离</strong>与<strong>并发</strong>的矛盾,ISO定义了四个事务的隔离机制,每个级别的隔离程度不同,允许出现的副作用也不同</p>
+<ol>
+<li>读未提交(read-uncommitted):最低级别,只能保证持久性</li>
+<li>不可重复读(read-committed):语句级别的</li>
+<li>可重复读(repeatable-read):事务级别</li>
+<li>串行化(serializable):最高级别,事务与事务完成串行化执行,毫无并发可言,性能极低</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>事务隔离级别</th>
+<th>脏读</th>
+<th>不可重复读</th>
+<th>幻读</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>读未提交</td>
+<td>会</td>
+<td>会</td>
+<td>会</td>
+</tr>
+<tr>
+<td>不可重复读</td>
+<td>-</td>
+<td>会</td>
+<td>会</td>
+</tr>
+<tr>
+<td>可重复读</td>
+<td>-</td>
+<td>-</td>
+<td>会</td>
+</tr>
+<tr>
+<td>串行化</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+</tbody></table>
+<p>注意:这四个级别只是一个标准,各个数据库厂商,并不是完全按照这个标准来做的</p>
+<h2 id="3-3-实现-InnoDB"><a href="#3-3-实现-InnoDB" class="headerlink" title="3.3 实现(InnoDB)"></a>3.3 实现(InnoDB)</h2><h3 id="1-锁机制-阻止事务对数据的操作-各个隔离级别主要体现在读取数据时加的锁和释放时机"><a href="#1-锁机制-阻止事务对数据的操作-各个隔离级别主要体现在读取数据时加的锁和释放时机" class="headerlink" title="1. 锁机制:阻止事务对数据的操作,各个隔离级别主要体现在读取数据时加的锁和释放时机"></a>1. 锁机制:阻止事务对数据的操作,各个隔离级别主要体现在读取数据时加的锁和释放时机</h3><ul>
+<li>RU:事务读取的时候不加锁</li>
+<li>RC: 事务读取的时候加行级共享锁(读到才加锁),一旦读完,立刻释放(并不是事务结束).</li>
+<li>RR: 事务读取时加行级共享锁,直到事务结束才会释放</li>
+<li>SE: 事务读取是加表级共享锁,直到事务结束才会释放<h3 id="2-MVCC机制-生成一个数据快照-并用这个快照来提供一定级别的一致性的读取-也成为了多版本数据控制"><a href="#2-MVCC机制-生成一个数据快照-并用这个快照来提供一定级别的一致性的读取-也成为了多版本数据控制" class="headerlink" title="2. MVCC机制:生成一个数据快照,并用这个快照来提供一定级别的一致性的读取,也成为了多版本数据控制."></a>2. MVCC机制:生成一个数据快照,并用这个快照来提供一定级别的一致性的读取,也成为了多版本数据控制.</h3></li>
+<li>实际就是<strong>CAS版本控制</strong>和<strong>读写分离</strong>的思想</li>
+<li>主要作用于RC和RR级别</li>
+</ul>
+]]></content>
+      <categories>
+        <category>数据库</category>
+      </categories>
+      <tags>
+        <tag>Mysql</tag>
+        <tag>事务</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>categories</title>
+    <url>/categories/index.html</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
+    <title>tags</title>
+    <url>/tags/index.html</url>
+    <content><![CDATA[]]></content>
+  </entry>
 </search>
