@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search> 
+  
+  
+    
+    <entry>
+      <title>Mysql数据库隔离级别</title>
+      <link href="/2020/02/08/Mysql%E6%95%B0%E6%8D%AE%E5%BA%93%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB/"/>
+      <url>/2020/02/08/Mysql%E6%95%B0%E6%8D%AE%E5%BA%93%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB/</url>
+      
+        <content type="html"><![CDATA[<h1 id="1-事务"><a href="#1-事务" class="headerlink" title="1.事务"></a>1.事务</h1><p>事务只是一个改变,是<strong>一些操作的集合</strong>;<br>用专业的术语讲,它就是一个程序的执行单元;<br><strong>事务本身其实并不包括这4个特性</strong>,我们需要通过某些手段,尽可能的让这个执行单元满足这四个特性,那么我们就称他为一个事务,或者说是一个正确的事务</p><h1 id="2-四特性"><a href="#2-四特性" class="headerlink" title="2,四特性"></a>2,四特性</h1><ol><li>原子性:满足原子操作单元,对数据的操作,要么全部执行,要么全部失败</li><li>一致性:事务开始和完成,数据都必须保持一致</li><li>隔离性:事务之间是相互独立的,中间状态是不可见的</li><li>持久性:数据的修改是永久的</li></ol><h1 id="3-隔离级别"><a href="#3-隔离级别" class="headerlink" title="3,隔离级别"></a>3,隔离级别</h1><h2 id="3-1-并发情况下事务引发的问题"><a href="#3-1-并发情况下事务引发的问题" class="headerlink" title="3.1 并发情况下事务引发的问题"></a>3.1 并发情况下事务引发的问题</h2><pre><code>一般情况下,多个单元操作并发执行,会出现这么几个问题</code></pre><ol><li>脏读:A事务还未提交,B事务就读到了A事务的结果.(破坏了隔离性)</li><li>不可重复读:A事务在本次事务中,对自己未操作过的数据,进行了多次读取,结果出现了不一致或记录不存在的情况.(破坏了一致性,update和delete)</li><li>幻读:A事务在本次事务中,对自己未操作过的数据,进行了多次读取,第一次读取时,记录不存在,第二次读取时,记录出现了.(破坏了一致性,insert)</li></ol><h2 id="3-2解决-制定标准"><a href="#3-2解决-制定标准" class="headerlink" title="3.2解决(制定标准)"></a>3.2解决(制定标准)</h2><p>为了权衡<strong>隔离</strong>与<strong>并发</strong>的矛盾,ISO定义了四个事务的隔离机制,每个级别的隔离程度不同,允许出现的副作用也不同</p><ol><li>读未提交(read-uncommitted):最低级别,只能保证持久性</li><li>不可重复读(read-committed):语句级别的</li><li>可重复读(repeatable-read):事务级别</li><li>串行化(serializable):最高级别,事务与事务完成串行化执行,毫无并发可言,性能极低</li></ol><table><thead><tr><th>事务隔离级别</th><th>脏读</th><th>不可重复读</th><th>幻读</th></tr></thead><tbody><tr><td>读未提交</td><td>会</td><td>会</td><td>会</td></tr><tr><td>不可重复读</td><td>-</td><td>会</td><td>会</td></tr><tr><td>可重复读</td><td>-</td><td>-</td><td>会</td></tr><tr><td>串行化</td><td>-</td><td>-</td><td>-</td></tr></tbody></table><p>注意:这四个级别只是一个标准,各个数据库厂商,并不是完全按照这个标准来做的</p><h2 id="3-3-实现-InnoDB"><a href="#3-3-实现-InnoDB" class="headerlink" title="3.3 实现(InnoDB)"></a>3.3 实现(InnoDB)</h2><h3 id="1-锁机制-阻止事务对数据的操作-各个隔离级别主要体现在读取数据时加的锁和释放时机"><a href="#1-锁机制-阻止事务对数据的操作-各个隔离级别主要体现在读取数据时加的锁和释放时机" class="headerlink" title="1. 锁机制:阻止事务对数据的操作,各个隔离级别主要体现在读取数据时加的锁和释放时机"></a>1. 锁机制:阻止事务对数据的操作,各个隔离级别主要体现在读取数据时加的锁和释放时机</h3><ul><li>RU:事务读取的时候不加锁</li><li>RC: 事务读取的时候加行级共享锁(读到才加锁),一旦读完,立刻释放(并不是事务结束).</li><li>RR: 事务读取时加行级共享锁,直到事务结束才会释放</li><li>SE: 事务读取是加表级共享锁,直到事务结束才会释放<h3 id="2-MVCC机制-生成一个数据快照-并用这个快照来提供一定级别的一致性的读取-也成为了多版本数据控制"><a href="#2-MVCC机制-生成一个数据快照-并用这个快照来提供一定级别的一致性的读取-也成为了多版本数据控制" class="headerlink" title="2. MVCC机制:生成一个数据快照,并用这个快照来提供一定级别的一致性的读取,也成为了多版本数据控制."></a>2. MVCC机制:生成一个数据快照,并用这个快照来提供一定级别的一致性的读取,也成为了多版本数据控制.</h3></li><li>实际就是<strong>CAS版本控制</strong>和<strong>读写分离</strong>的思想</li><li>主要作用于RC和RR级别</li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> 数据库 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Mysql </tag>
+            
+            <tag> 事务 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+  
+  
+    
+    
+    <entry>
+      <title>categories</title>
+      <link href="/categories/index.html"/>
+      <url>/categories/index.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>tags</title>
+      <link href="/tags/index.html"/>
+      <url>/tags/index.html</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+    </entry>
+    
+    
+  
+</search>
