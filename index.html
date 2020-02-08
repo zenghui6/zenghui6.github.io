@@ -200,7 +200,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2020-02-08 18:52:17 / Modified: 18:55:13" itemprop="dateCreated datePublished" datetime="2020-02-08T18:52:17+08:00">2020-02-08</time>
+              <time title="Created: 2020-02-08 18:52:17 / Modified: 19:00:24" itemprop="dateCreated datePublished" datetime="2020-02-08T18:52:17+08:00">2020-02-08</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -225,47 +225,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="宏观"><a href="#宏观" class="headerlink" title="宏观"></a>宏观</h2><h3 id="数据库锁"><a href="#数据库锁" class="headerlink" title="数据库锁　"></a>数据库锁　</h3><pre><code>粒度小，方便用于集群环境</code></pre><h3 id="代码锁"><a href="#代码锁" class="headerlink" title="代码锁"></a>代码锁</h3><pre><code>粒度大，需要封装</code></pre><h2 id="微观"><a href="#微观" class="headerlink" title="微观"></a>微观</h2><h4 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h4><h4 id="行锁＆表锁"><a href="#行锁＆表锁" class="headerlink" title="行锁＆表锁"></a>行锁＆表锁</h4><p><strong><em>只有明确指定主键，才会执行行锁，否则执行表锁</em></strong></p>
-<blockquote>
-<p>无锁</p>
-</blockquote>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#主键不存在</span></span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> <span class="keyword">user</span> <span class="keyword">where</span> <span class="keyword">id</span> = <span class="number">-1</span> <span class="keyword">for</span> <span class="keyword">update</span>;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>行锁</p>
-</blockquote>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#主键明确</span></span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> <span class="keyword">user</span> <span class="keyword">where</span> <span class="keyword">id</span> =<span class="number">1</span> <span class="keyword">for</span> <span class="keyword">update</span>;</span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> <span class="keyword">user</span> <span class="keyword">where</span> <span class="keyword">id</span>=<span class="number">1</span> <span class="keyword">and</span> <span class="keyword">name</span>=<span class="string">'kkk'</span> <span class="keyword">for</span> <span class="keyword">update</span>;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>表锁</p>
-</blockquote>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#主键不明确</span></span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> <span class="keyword">user</span> <span class="keyword">where</span> <span class="keyword">name</span>=<span class="string">'kkk'</span> <span class="keyword">for</span> <span class="keyword">update</span>;</span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> <span class="keyword">user</span> <span class="keyword">where</span> <span class="keyword">id</span> &lt;&gt; <span class="number">3</span> <span class="keyword">for</span> <span class="keyword">update</span>;</span><br></pre></td></tr></table></figure>
-
-<h2 id="锁算法"><a href="#锁算法" class="headerlink" title="锁算法"></a>锁算法</h2><h3 id="行锁算法"><a href="#行锁算法" class="headerlink" title="行锁算法"></a>行锁算法</h3><p> Record Lock:单个行记录上的锁</p>
-<ul>
-<li>键值在条件范围内</li>
-<li>记录存在</li>
-</ul>
-<p>Gap Lock:间隙锁</p>
-<ul>
-<li>锁定一个范围,但不包含记录本身</li>
-</ul>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#id只有1-50</span></span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> <span class="keyword">user</span> <span class="keyword">where</span> <span class="keyword">id</span>&gt;<span class="number">50</span> <span class="keyword">for</span> <span class="keyword">update</span>;</span><br></pre></td></tr></table></figure>
-
-
-<p>Next-Key Lock:(行&amp;间隙)</p>
-<ul>
-<li>锁定一个范围,并且锁定记录本身<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#id只有1-50</span></span><br><span class="line">  <span class="keyword">select</span> * <span class="keyword">from</span> <span class="keyword">user</span> <span class="keyword">id</span>&gt;<span class="number">49</span> <span class="keyword">for</span> <span class="keyword">update</span>;</span><br></pre></td></tr></table></figure>
-<h3 id="表锁算法"><a href="#表锁算法" class="headerlink" title="表锁算法"></a>表锁算法</h3>意向锁(升级机制)</li>
-<li>当一个事务带着表锁去访问一个加了行锁的资源,那么,此时这个行锁就会升级成意向锁,将表锁住.</li>
-</ul>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#事务A -升级表锁</span></span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> <span class="keyword">user</span> <span class="keyword">where</span> <span class="keyword">id</span>=<span class="number">10</span> <span class="keyword">for</span> <span class="keyword">update</span>;  //此时是行锁</span><br><span class="line"><span class="comment">#事务B -锁表</span></span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> <span class="keyword">user</span> <span class="keyword">where</span> <span class="keyword">name</span>=<span class="string">'kkk'</span> <span class="keyword">for</span> <span class="keyword">update</span>;//升级表锁</span><br></pre></td></tr></table></figure>
-<p>自增锁</p>
-<ul>
-<li>事务插入自增类型的列时,获取自增锁<blockquote>
-<p>  如果一个事务正在往表中插入自增记录,其他事务都必须等待,对于有自增长值的列的并发插入性能较差,事务必须等待</p>
-</blockquote>
-</li>
-</ul>
-
+          <h2 id="宏观"><a href="#宏观" class="headerlink" title="宏观"></a>宏观</h2><h3 id="数据库锁"><a href="#数据库锁" class="headerlink" title="数据库锁　"></a>数据库锁　</h3><pre><code>粒度小，方便用于集群环境</code></pre><h3 id="代码锁"><a href="#代码锁" class="headerlink" title="代码锁"></a>代码锁</h3><pre><code>粒度大，需要封装</code></pre>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/02/08/Mysql%E9%94%81/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 

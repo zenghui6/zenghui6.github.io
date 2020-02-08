@@ -3,7 +3,9 @@
   <entry>
     <title>Mysql锁</title>
     <url>/2020/02/08/Mysql%E9%94%81/</url>
-    <content><![CDATA[<h2 id="宏观"><a href="#宏观" class="headerlink" title="宏观"></a>宏观</h2><h3 id="数据库锁"><a href="#数据库锁" class="headerlink" title="数据库锁　"></a>数据库锁　</h3><pre><code>粒度小，方便用于集群环境</code></pre><h3 id="代码锁"><a href="#代码锁" class="headerlink" title="代码锁"></a>代码锁</h3><pre><code>粒度大，需要封装</code></pre><h2 id="微观"><a href="#微观" class="headerlink" title="微观"></a>微观</h2><h4 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h4><h4 id="行锁＆表锁"><a href="#行锁＆表锁" class="headerlink" title="行锁＆表锁"></a>行锁＆表锁</h4><p><strong><em>只有明确指定主键，才会执行行锁，否则执行表锁</em></strong></p>
+    <content><![CDATA[<h2 id="宏观"><a href="#宏观" class="headerlink" title="宏观"></a>宏观</h2><h3 id="数据库锁"><a href="#数据库锁" class="headerlink" title="数据库锁　"></a>数据库锁　</h3><pre><code>粒度小，方便用于集群环境</code></pre><h3 id="代码锁"><a href="#代码锁" class="headerlink" title="代码锁"></a>代码锁</h3><pre><code>粒度大，需要封装</code></pre><a id="more"></a>
+
+<h2 id="微观"><a href="#微观" class="headerlink" title="微观"></a>微观</h2><h4 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h4><h4 id="行锁＆表锁"><a href="#行锁＆表锁" class="headerlink" title="行锁＆表锁"></a>行锁＆表锁</h4><p><strong><em>只有明确指定主键，才会执行行锁，否则执行表锁</em></strong></p>
 <blockquote>
 <p>无锁</p>
 </blockquote>
