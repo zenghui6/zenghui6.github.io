@@ -26,10 +26,12 @@
 <meta property="og:url" content="http://zhangxuezhi.com/2020/02/08/Java%E6%9F%A5%E6%BC%8F%E8%A1%A5%E7%BC%BA/index.html">
 <meta property="og:site_name" content="の博客">
 <meta property="og:description" content="String StringBuffer StringBuilder的区别 操作数量较少的字符串用String，不可修改的字符串； 在多线程且操作大量字符串用StringBuffer，线程安全，可修改。 在单线程且操作大量字符串用StringBuilder,速度快，但线程不安全，可修改；">
+<meta property="og:image" content="https://s2.ax1x.com/2020/02/10/14y5TS.md.png">
 <meta property="article:published_time" content="2020-02-08T10:11:52.000Z">
-<meta property="article:modified_time" content="2020-02-08T10:14:00.946Z">
+<meta property="article:modified_time" content="2020-02-10T04:19:35.936Z">
 <meta property="article:tag" content="se">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.ax1x.com/2020/02/10/14y5TS.md.png">
 
 <link rel="canonical" href="http://zhangxuezhi.com/2020/02/08/Java%E6%9F%A5%E6%BC%8F%E8%A1%A5%E7%BC%BA/">
 
@@ -200,10 +202,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2020-02-08 18:11:52 / Modified: 18:14:00" itemprop="dateCreated datePublished" datetime="2020-02-08T18:11:52+08:00">2020-02-08</time>
+              <time title="Created: 2020-02-08 18:11:52" itemprop="dateCreated datePublished" datetime="2020-02-08T18:11:52+08:00">2020-02-08</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-02-10 12:19:35" itemprop="dateModified" datetime="2020-02-10T12:19:35+08:00">2020-02-10</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
@@ -230,7 +238,7 @@
         <h2 id="String-StringBuffer-StringBuilder的区别"><a href="#String-StringBuffer-StringBuilder的区别" class="headerlink" title="String StringBuffer StringBuilder的区别"></a>String StringBuffer StringBuilder的区别</h2><ol>
 <li>操作数量较少的字符串用String，不可修改的字符串；</li>
 <li>在多线程且操作大量字符串用StringBuffer，线程安全，可修改。</li>
-<li>在单线程且操作大量字符串用StringBuilder,速度快，但线程不安全，可修改；<a id="more"></a>
+<li>在单线程且操作大量字符串用StringBuilder,速度快，但线程不安全，可修改； <a id="more"></a>
 
 </li>
 </ol>
@@ -288,12 +296,43 @@
 </blockquote>
 <pre><code>Student s1=new Student(&quot;小明&quot;,18);
 
-Student s2=new Student(&quot;小明&quot;,18);</code></pre><p>此时s1.equals(s2)一定返回true</p>
-<p>假如只重写equals而不重写hashcode，那么Student类的hashcode方法就是Object默认的hashcode方法，由于默认的hashcode方法是根据<strong>对象的内存地址</strong>经哈希算法得来的，显然此时<strong>s1!=s2</strong>,故两者的hashcode不一定相等。</p>
+Student s2=new Student(&quot;小明&quot;,18);</code></pre><p>此时,如果不重写equals方法,s1.equals(s2)为false</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Object 源码</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object obj)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (<span class="keyword">this</span> == obj);</span><br><span class="line">    &#125;</span><br><span class="line"><span class="comment">//可知equals的本质就是 == </span></span><br><span class="line"><span class="comment">//String 和包装类都重写了 equals方法</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>假如只重写equals而不重写hashcode，那么Student类的hashcode方法就是Object默认的hashcode方法，由于默认的hashcode方法是<strong>本地方法</strong>是根据<strong>对象的内存地址</strong>经哈希算法得来的，显然此时<strong>s1!=s2</strong>,故两者的hashcode不一定相等。</p>
 <blockquote>
 <p>HashCode判断key相等,实际上是调用了HashSet()方法.</p>
 </blockquote>
 <p>重载hashCode()是为了对同一个key，能得到相同的Hash Code，这样HashMap就可以定位到我们指定的key上</p>
+<h2 id="Java中的Math-round-1-5-等于多少"><a href="#Java中的Math-round-1-5-等于多少" class="headerlink" title="Java中的Math.round(-1.5)等于多少"></a>Java中的Math.round(-1.5)等于多少</h2><blockquote>
+<p>Math.round(-1.5)的返回值是-1</p>
+<p>四舍五入的原理是在参数上加0.5然后向下取整</p>
+</blockquote>
+<h2 id="String-str-“i”-与-String-str-new-String-“i”-一样吗"><a href="#String-str-“i”-与-String-str-new-String-“i”-一样吗" class="headerlink" title="String str = “i” 与 String str = new String(“i”)一样吗?"></a>String str = “i” 与 String str = new String(“i”)一样吗?</h2><p><a href="https://imgchr.com/i/14y5TS" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2020/02/10/14y5TS.md.png" alt="14y5TS.md.png"></a></p>
+<p><strong>堆</strong>：存放对象的实例以及对象的属性和方法</p>
+<p><strong>栈</strong>：储存基本数据类型的值、执行的方法、方法中声明的变量、数组、对象的引用(reference类型)</p>
+<p><strong>方法区</strong>：存储已被虚拟机加载的类元数据信息(元空间)</p>
+<p><strong>运行时常量池</strong>：常量(final)、字符串</p>
+<p>String str=”i”: Java虚拟机会将其分配到<strong><em>常量池</em></strong>中;</p>
+<p>String str = new String(“i”) : 则会分到<strong><em>堆内存</em></strong>中,即使内容一样还是会创建新对象</p>
+<p>在常量池中没有重复的元素,Java虚拟机会先在常量池中检索是否已经存在,如果有那么就直接赋值地址,如果没就创建一个,然后再赋给变量;</p>
+<h2 id="抽象类与接口和普通类的区别"><a href="#抽象类与接口和普通类的区别" class="headerlink" title="抽象类与接口和普通类的区别"></a>抽象类与接口和普通类的区别</h2><ol>
+<li>抽象类要被子类继承,接口要被类实现</li>
+<li>接口只能做方法声明,抽象类中可以作方法声明,也可以做方法实现</li>
+<li>接口里定义的变量只能是公共的静态的变量,抽象类中的变量是普通变量</li>
+<li>抽象类可以有具体的方法和属性,接口只能有抽象方法和不可变常量.</li>
+<li>构造函数: 抽象类可以有构造函数;接口不能有</li>
+<li>抽象类不能直接实例化,普通类可以直接实例化</li>
+</ol>
+<h2 id="Java中的IO流分几种"><a href="#Java中的IO流分几种" class="headerlink" title="Java中的IO流分几种?"></a>Java中的IO流分几种?</h2><p>字节流和字符流.</p>
+<p>字节流和字符流的区别是: 字节流按8位传输以字节为单位输入输出数据,字符流按16位字符为单位输入输出数据.</p>
+<h2 id="BIO-NIO-AIO有什么区别"><a href="#BIO-NIO-AIO有什么区别" class="headerlink" title="BIO,NIO,AIO有什么区别?"></a>BIO,NIO,AIO有什么区别?</h2><ul>
+<li>BIO: Block IO同步阻塞式IO,就是平常使用的IO,它的特点是模式简单使用方便,并发处理能力低.</li>
+<li>NIO: Non IO同步非阻塞IO, 是传统的IO的升级,客户端和服务器端通过Channel(通道) 通讯,实现了多路复用.</li>
+<li>AIO: Asynchronous IO 是NIO的升级,也叫NIO2,实现了异步非阻塞IO,异步IO的操作基于事件和回调机制.</li>
+</ul>
 
     </div>
 
@@ -378,7 +417,7 @@ Student s2=new Student(&quot;小明&quot;,18);</code></pre><p>此时s1.equals(s2
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#String-StringBuffer-StringBuilder的区别"><span class="nav-number">1.</span> <span class="nav-text">String StringBuffer StringBuilder的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#变量存放在哪"><span class="nav-number">2.</span> <span class="nav-text">变量存放在哪?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#请你讲讲数组-Array-和列表-ArrayList-的区别？"><span class="nav-number">3.</span> <span class="nav-text">请你讲讲数组(Array)和列表(ArrayList)的区别？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#请你解释什么是值传递和引用传递？"><span class="nav-number">4.</span> <span class="nav-text">请你解释什么是值传递和引用传递？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#匿名内部类"><span class="nav-number">5.</span> <span class="nav-text">匿名内部类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#java8-新特性"><span class="nav-number">6.</span> <span class="nav-text">java8 新特性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HashCode-Object的默认HashCode-是什么-为什么重写equals-还要重写hashCode"><span class="nav-number">7.</span> <span class="nav-text">HashCode Object的默认HashCode()是什么?为什么重写equals() 还要重写hashCode()?</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#String-StringBuffer-StringBuilder的区别"><span class="nav-number">1.</span> <span class="nav-text">String StringBuffer StringBuilder的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#变量存放在哪"><span class="nav-number">2.</span> <span class="nav-text">变量存放在哪?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#请你讲讲数组-Array-和列表-ArrayList-的区别？"><span class="nav-number">3.</span> <span class="nav-text">请你讲讲数组(Array)和列表(ArrayList)的区别？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#请你解释什么是值传递和引用传递？"><span class="nav-number">4.</span> <span class="nav-text">请你解释什么是值传递和引用传递？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#匿名内部类"><span class="nav-number">5.</span> <span class="nav-text">匿名内部类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#java8-新特性"><span class="nav-number">6.</span> <span class="nav-text">java8 新特性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HashCode-Object的默认HashCode-是什么-为什么重写equals-还要重写hashCode"><span class="nav-number">7.</span> <span class="nav-text">HashCode Object的默认HashCode()是什么?为什么重写equals() 还要重写hashCode()?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java中的Math-round-1-5-等于多少"><span class="nav-number">8.</span> <span class="nav-text">Java中的Math.round(-1.5)等于多少</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#String-str-“i”-与-String-str-new-String-“i”-一样吗"><span class="nav-number">9.</span> <span class="nav-text">String str &#x3D; “i” 与 String str &#x3D; new String(“i”)一样吗?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#抽象类与接口和普通类的区别"><span class="nav-number">10.</span> <span class="nav-text">抽象类与接口和普通类的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java中的IO流分几种"><span class="nav-number">11.</span> <span class="nav-text">Java中的IO流分几种?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BIO-NIO-AIO有什么区别"><span class="nav-number">12.</span> <span class="nav-text">BIO,NIO,AIO有什么区别?</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
