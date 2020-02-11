@@ -27,7 +27,7 @@
 <meta property="og:site_name" content="の博客">
 <meta property="og:description" content="java 数据结构中映射定义了一个接口java.util.Map 它有四个实现类:  HashMap Hashtable LinkedHashMap TreeMap">
 <meta property="article:published_time" content="2020-02-09T07:13:52.000Z">
-<meta property="article:modified_time" content="2020-02-10T04:16:29.863Z">
+<meta property="article:modified_time" content="2020-02-10T05:08:16.873Z">
 <meta property="article:tag" content="HashMap">
 <meta property="article:tag" content="map">
 <meta name="twitter:card" content="summary">
@@ -209,7 +209,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-02-10 12:16:29" itemprop="dateModified" datetime="2020-02-10T12:16:29+08:00">2020-02-10</time>
+                <time title="Modified: 2020-02-10 13:08:16" itemprop="dateModified" datetime="2020-02-10T13:08:16+08:00">2020-02-10</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -255,7 +255,7 @@
 <h3 id="LinkedHashMap"><a href="#LinkedHashMap" class="headerlink" title="LinkedHashMap"></a>LinkedHashMap</h3><p>LinkedHashMap是HashMap的一个子类,保存了记录的插入顺序,在用Iterator遍历LinkedHashMap时,先得到的记录肯定是先插入的,也可以在构造时用带参数,按照应用次数排序.</p>
 <p>在遍历时会比HashMap慢,不过有种情况例外,当HashMap容量很大,实际数据较少时,遍历起来可能会比LinkedHashMap慢,因为LinkedHashMap的遍历速度只与实际数据有关,和容量无关,而HashMap的遍历速度和它的容量有关.</p>
 <h3 id="TreeMap"><a href="#TreeMap" class="headerlink" title="TreeMap"></a>TreeMap</h3><p>*<em>线程不安全 *</em></p>
-<p>TreeMap实现SortMap接口,能够把它保存的记录根据键排序,默认是按键值的升序排序,也可以指定排序的比较器,当用Iterator遍历TreeMap时,得到的记录是排过序的.</p>
+<p>TreeMap实现SortMap接口,基于红黑树的,能够把它保存的记录根据键排序,默认是按键值的升序排序,也可以指定排序的比较器,当用Iterator遍历TreeMap时,得到的记录是排过序的.</p>
 <h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>一般情况下，我们用的最多的是HashMap,在Map 中插入、删除和定位元素，HashMap 是最好的选择。但如果您要按自然顺序或自定义顺序遍历键，那么TreeMap会更好。如果需要输出的顺序和输入的相同,那么用LinkedHashMap 可以实现,它还可以按读取顺序来排列.</p>
 <p>HashMap是一个最常用的Map，它根据键的hashCode值存储数据，根据键可以直接获取它的值，具有很快的访问速度。HashMap最多只允许一条记录的键为NULL，允许多条记录的值为NULL。</p>
 <p>HashMap不支持线程同步，即任一时刻可以有多个线程同时写HashMap，可能会导致数据的不一致性。如果需要同步，可以用Collections的synchronizedMap方法使HashMap具有同步的能力。</p>
@@ -284,7 +284,10 @@
     <a href="/2020/02/08/Mysql%E9%94%81/" rel="prev" title="Mysql锁">
       <i class="fa fa-chevron-left"></i> Mysql锁
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2020/02/10/Java-%E5%AE%B9%E5%99%A8/" rel="next" title="Java 容器">
+      Java 容器 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -358,7 +361,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">4</span>
+          <span class="site-state-item-count">6</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -371,7 +374,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">11</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
