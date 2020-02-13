@@ -1,6 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Java反射和动态代理</title>
+    <url>/2020/02/13/Java%E5%8F%8D%E5%B0%84%E5%92%8C%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86/</url>
+    <content><![CDATA[<p>Spring IOC 使用的是 Java的反射</p>
+<p>Spring AOP 使用的是 动态代理</p>
+<a id="more"></a>
+
+<h3 id="什么是反射"><a href="#什么是反射" class="headerlink" title="什么是反射?"></a>什么是反射?</h3><p>主要是指程序可以访问,检测和修改它本身状态或行为的一种能力</p>
+<p>在Java运行时环境中,对于<strong>任意一个类</strong>,能否知道这个类有哪些属性和方法?对于<strong>任意一个对象</strong> 能否调用它的任意一个方法?</p>
+<p>Java的反射机制主要提供了以下功能:</p>
+<ol>
+<li>在运行时判断任意一个对象所属的类.</li>
+<li>在运行时构造任意一个类的对象</li>
+<li>在运行时判断任意一个类所具有的成员变量和方法</li>
+<li>在运行是调用任意一个对象的方法</li>
+</ol>
+<h3 id="什么是-Java-的序列化-什么情况下需要序列化"><a href="#什么是-Java-的序列化-什么情况下需要序列化" class="headerlink" title="什么是 Java 的序列化? 什么情况下需要序列化?"></a>什么是 Java 的序列化? 什么情况下需要序列化?</h3><p>Java 序列化是为了保存各种对象在内存中的状态,并且可以把保存的对象再读出来.</p>
+<p>以下情况需要使用Java序列化:</p>
+<ul>
+<li>想把内存中的对象状态保存到一个文件中或数据库中的时候;</li>
+<li>想用Socket在网络上传输对象的时候;</li>
+<li>想通用远程方法调用传输对象的时候;</li>
+</ul>
+<p>注意事项:</p>
+<ul>
+<li>某个类可以被序列化,则其子类也可以被序列化</li>
+<li>声明为 static 和 transient 的成员变量,不能被序列化. static 成员变量是描述类级别的属性,transient 表示临时数据</li>
+<li>反序列化读取序列化对象的顺序要保持一致</li>
+</ul>
+<h3 id="静态代理"><a href="#静态代理" class="headerlink" title="静态代理"></a>静态代理</h3><p><code>Proxy</code> : 代理人——代替别人工作的人 “本人”寻找“代理人”工作，但是代理人毕竟是代理人，能代替本人所做的事有限，当代理人无法帮忙时再寻找本人</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestStaticProxy</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        IRegisterService iRegisterService = <span class="keyword">new</span> RegisterServiceImpl();</span><br><span class="line">        IRegisterService proxy = <span class="keyword">new</span> RegisterServiceProxy(iRegisterService);</span><br><span class="line">        proxy.register(<span class="string">"RyanLee"</span>, <span class="string">"123"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//抽象接口</span></span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">IRegisterService</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">register</span><span class="params">(String name, String pwd)</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//真实类</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RegisterServiceImpl</span> <span class="keyword">implements</span> <span class="title">IRegisterService</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">register</span><span class="params">(String name, String pwd)</span> </span>&#123;</span><br><span class="line">        System.out.println(String.format(<span class="string">"【向数据库中插入数据】name：%s，pwd：%s"</span>, name, pwd));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//代理类</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RegisterServiceProxy</span> <span class="keyword">implements</span> <span class="title">IRegisterService</span> </span>&#123;</span><br><span class="line">    <span class="comment">//本人,代理人持有本人的引用,当代理人无法完成要求时,再生成本人</span></span><br><span class="line">    IRegisterService iRegisterService; </span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">RegisterServiceProxy</span><span class="params">(IRegisterService iRegisterService)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.iRegisterService = iRegisterService;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">register</span><span class="params">(String name, String pwd)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"[Proxy]一些前置处理"</span>);</span><br><span class="line">        System.out.println(String.format(<span class="string">"[Proxy]打印注册信息：姓名：%s,密码：%s"</span>, name, pwd));</span><br><span class="line">        iRegisterService.register(name, pwd);</span><br><span class="line">        System.out.println(<span class="string">"[Proxy]一些后置处理"</span>);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>执行结果:</p>
+<figure class="highlight cs"><table><tr><td class="code"><pre><span class="line">[<span class="meta">Proxy</span>]一些前置处理</span><br><span class="line">[<span class="meta">Proxy</span>]打印注册信息：姓名：RyanLee,密码：<span class="number">123</span></span><br><span class="line">【向数据库中插入数据】name：RyanLee，pwd：<span class="number">123</span></span><br><span class="line">[<span class="meta">Proxy</span>]一些后置处理</span><br></pre></td></tr></table></figure>
+
+<h3 id="动态代理"><a href="#动态代理" class="headerlink" title="动态代理"></a>动态代理</h3><p>动态代理: 无需声明代理类.是使用反射和字节码的技术,在<strong>运行期创建指定接口或类的子类</strong>(即动态代理类) 以及其实例对象的技术.</p>
+<p>使用动态代理可以<strong>无侵入的对代码进行增强</strong></p>
+<p><img src="https://s2.ax1x.com/2020/02/13/1qcFqe.jpg" alt="1qcFqe.jpg"></p>
+<p>​            图: java源文件编译生成字节码</p>
+<p><img src="https://s2.ax1x.com/2020/02/13/1qcAVH.jpg" alt="1qcAVH.jpg"></p>
+<p>​                       图: 动态代理生成字节码对象</p>
+<h3 id="动态代理的实现方式"><a href="#动态代理的实现方式" class="headerlink" title="动态代理的实现方式"></a>动态代理的实现方式</h3><h4 id="JDK-原生动态代理"><a href="#JDK-原生动态代理" class="headerlink" title="JDK 原生动态代理"></a>JDK 原生动态代理</h4><p>动态代理类和被代理类必须继承同一个接口.动态代理只能对接口中声明的方法进行代理.</p>
+<h5 id="Proxy"><a href="#Proxy" class="headerlink" title="Proxy"></a>Proxy</h5><p>java.lang.reflect.Proxy 是所有动态代理的父类, 它通过静态方法newProxyInstance() 来创建动态代理的class对象 和 实例</p>
+<h5 id="InvocationHandler"><a href="#InvocationHandler" class="headerlink" title="InvocationHandler"></a>InvocationHandler</h5><p>每个动态代理实例都有一个关联的InvocationHandler (程序调用处理者).通过代理实例调用方法,方法调用请求会被转发给 InvocationHandler 的 invoke (调用) 方法</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.lang.reflect.InvocationHandler;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Proxy;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * JDK动态代理</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestJdkDynamicProxy</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//创建实例</span></span><br><span class="line">        IRegisterService iRegisterService = <span class="keyword">new</span> RegisterServiceImpl();</span><br><span class="line">        <span class="comment">//生成应用调用处理器</span></span><br><span class="line">        RegisterHandler registerHandler = <span class="keyword">new</span> RegisterHandler();</span><br><span class="line">        <span class="comment">//生成代理对象</span></span><br><span class="line">        IRegisterService proxy = (IRegisterService) registerHandler.getProxy(iRegisterService);</span><br><span class="line">        proxy.register(<span class="string">"R1"</span>,<span class="string">"1111"</span>);</span><br><span class="line">        proxy.register(<span class="string">"R2"</span>,<span class="string">"2222"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//接口</span></span><br><span class="line">    <span class="class"><span class="keyword">interface</span> <span class="title">IRegisterService</span></span>&#123;</span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">register</span><span class="params">(String name,String pwd)</span></span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//实现类</span></span><br><span class="line">    <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">RegisterServiceImpl</span> <span class="keyword">implements</span> <span class="title">IRegisterService</span></span>&#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">register</span><span class="params">(String name, String pwd)</span> </span>&#123;</span><br><span class="line">            System.out.println(String.format(<span class="string">"【向数据库中插入数据】name：%s，pwd：%s"</span>, name, pwd));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//代理类</span></span><br><span class="line">    <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">RegisterHandler</span> <span class="keyword">implements</span> <span class="title">InvocationHandler</span></span>&#123;</span><br><span class="line">        Object object;</span><br><span class="line">        <span class="comment">//获取代理对象的class对象和实例</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> Object <span class="title">getProxy</span><span class="params">(Object object)</span></span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.object = object;</span><br><span class="line">            <span class="keyword">return</span> Proxy.newProxyInstance(object.getClass().getClassLoader(),object.getClass().getInterfaces(),<span class="keyword">this</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> Object <span class="title">invoke</span><span class="params">(Object proxy, Method method, Object[] args)</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">            <span class="comment">//这个地方就扩展了代理的类</span></span><br><span class="line">            doBefore();</span><br><span class="line">            Object result = method.invoke(object,args);</span><br><span class="line">            doAfter();</span><br><span class="line">            <span class="keyword">return</span> result;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">doBefore</span><span class="params">()</span></span>&#123;</span><br><span class="line">            System.out.println(<span class="string">"[Proxy]:一些前置处理"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">doAfter</span><span class="params">()</span></span>&#123;</span><br><span class="line">            System.out.println(<span class="string">"[Proxy]:一些后置处理"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="使用-CGLIB"><a href="#使用-CGLIB" class="headerlink" title="使用 CGLIB"></a>使用 CGLIB</h4><p>JDK代理必须要提供接口,而CGLIB则不需要,可以直接代理类</p>
+<blockquote>
+<p>待补充…..</p>
+</blockquote>
+<h3 id="动态代理是什么-应用场景"><a href="#动态代理是什么-应用场景" class="headerlink" title="动态代理是什么? 应用场景?"></a>动态代理是什么? 应用场景?</h3><p>动态代理: 在运行是,创建目标类,可以调用和扩展目标类的方法</p>
+<p>Java 中实现动态代理的方式: JDK中的动态代理 和 Java类库 CGLIb</p>
+<p>应用场景:</p>
+<ul>
+<li><p>统计每个 api 的请求耗时,(扩展目标类:调用前加个时间,调用后加个时间)</p>
+</li>
+<li><p>统一的日志输出</p>
+</li>
+<li><p>校验被调用的 api 是否已经登录和权限鉴定</p>
+</li>
+<li><p>Spring 的 AOP 功能模块就是采用动态代理的机制来实现切面编程</p>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>反射</tag>
+        <tag>动态代理</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Java多线程中的锁</title>
     <url>/2020/02/12/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%AD%E7%9A%84%E9%94%81/</url>
     <content><![CDATA[<h2 id="锁的分类"><a href="#锁的分类" class="headerlink" title="锁的分类:"></a>锁的分类:</h2><h3 id="悲观锁"><a href="#悲观锁" class="headerlink" title="悲观锁"></a>悲观锁</h3><p>很悲观,认为每次去拿数据的时候都认为会修改,所以每次都在拿数据的时候上锁</p>
