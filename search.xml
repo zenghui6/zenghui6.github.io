@@ -1,6 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>SpringMVC工作原理</title>
+    <url>/2020/02/17/SpringMVC%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/</url>
+    <content><![CDATA[<h3 id="四个组件各司其职"><a href="#四个组件各司其职" class="headerlink" title="四个组件各司其职"></a>四个组件各司其职</h3><ul>
+<li>DispatcherServlet: 作为前端控制器,整个流程控制的中心,控制其他组件执行,统一调度,降低组件之间的耦合性,提高每个组件的扩展性</li>
+<li>HandlerMapping: 根据配置文件找到具体的处理者(Hander),并生成处理器对象,和处理器拦截器</li>
+<li>HandlerAdapter: 将处理者对象(Hander)根据规则(例如get post请求方式) 执行不同的Controller</li>
+<li>ViewResolver: 将MAV 解析后 返回具体的 view</li>
+</ul>
+<a id="more"></a>
+
+<p><img src="https://s2.ax1x.com/2020/02/17/3PRjc6.jpg" alt="3PRjc6.jpg"></p>
+<h3 id="SpringMVC工作原理"><a href="#SpringMVC工作原理" class="headerlink" title="SpringMVC工作原理"></a>SpringMVC工作原理</h3><ol>
+<li>用户发送请求到<strong>前端控制器</strong> DispatcherServlet</li>
+<li>DispatcherServlet收到请求调用 HandlerMapping 处理者映射器</li>
+<li>处理者映射器找到具体的处理器(handler) (可以根据xml配置,注解进行查找) , 生成处理器对象和处理器拦截器(如有则生成) 一并返回给DispatcherServlet</li>
+<li>DispatcherServlet调用 HanderAdapter 处理者适配器</li>
+<li>HanderAdapter 经过适配调用具体的处理器 (Controller)</li>
+<li>Controller执行完成返回ModelAndView</li>
+<li>HanderAdapter 将Controller返回的ModelAndView返回给DispatcherServlet</li>
+<li>DispatcherServlet 将 ModelAndView 传给 ViewResolver视图解析器</li>
+<li>ViewResolver解析后返回具体的view</li>
+<li>DispatcherServlet 根据 view进行渲染 (将模型数据填充到视图中)</li>
+<li>DispatcherServlet 响应用户</li>
+</ol>
+]]></content>
+      <categories>
+        <category>SpringMVC</category>
+      </categories>
+      <tags>
+        <tag>SpringMVC</tag>
+        <tag>框架</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Java反射和动态代理</title>
     <url>/2020/02/13/Java%E5%8F%8D%E5%B0%84%E5%92%8C%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86/</url>
     <content><![CDATA[<p>Spring IOC 使用的是 Java的反射</p>
