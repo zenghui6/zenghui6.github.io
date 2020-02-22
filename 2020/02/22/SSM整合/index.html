@@ -28,7 +28,7 @@
 <meta property="og:description" content="SSM脚手架spring + springMVC + Mybatis + log4j + MybatisGenerator  实现了  简单配置  日志打印  逆向文件  上传文件的配置  加入了Json 和 Restful 的配置 (在spring-mvc.xml 和 web.xml)">
 <meta property="og:image" content="https://s2.ax1x.com/2020/02/22/3MQkKe.png">
 <meta property="article:published_time" content="2020-02-22T06:49:29.000Z">
-<meta property="article:modified_time" content="2020-02-22T06:51:31.701Z">
+<meta property="article:modified_time" content="2020-02-22T07:03:19.138Z">
 <meta property="article:tag" content="框架">
 <meta property="article:tag" content="spring">
 <meta property="article:tag" content="springmvc">
@@ -207,7 +207,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2020-02-22 14:49:29 / Modified: 14:51:31" itemprop="dateCreated datePublished" datetime="2020-02-22T14:49:29+08:00">2020-02-22</time>
+              <time title="Created: 2020-02-22 14:49:29 / Modified: 15:03:19" itemprop="dateCreated datePublished" datetime="2020-02-22T14:49:29+08:00">2020-02-22</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -262,13 +262,20 @@
 <li>绑定Sql映射文件的地址: mapperLocation</li>
 </ul>
 </li>
-</ol>
-<p>4 配置dao接口扫描包,动态实现dao接口注入到spring容器中<br>    - 将 sqlSessionFactory 注入 bean 中 : sqlSessionFactoryBeanName<br>        - 扫描 dao 包</p>
-<h4 id="spring-service-xml"><a href="#spring-service-xml" class="headerlink" title="spring-service.xml"></a>spring-service.xml</h4><ol>
-<li>开启注解配置  </li>
-<li>扫描 service 包</li>
-<li>声明事务配置 : DataSourceTransactionManager </li>
-<li>aop 事务支持</li>
+<li><p>配置dao接口扫描包,动态实现dao接口注入到spring容器中</p>
+<ul>
+<li>将 sqlSessionFactory 注入 bean 中 :  sqlSessionFactoryBeanName</li>
+<li>扫描 dao 包<h4 id="spring-service-xml"><a href="#spring-service-xml" class="headerlink" title="spring-service.xml"></a>spring-service.xml</h4></li>
+</ul>
+</li>
+<li><p>开启注解配置  </p>
+</li>
+<li><p>扫描 service 包</p>
+</li>
+<li><p>声明事务配置 : DataSourceTransactionManager </p>
+</li>
+<li><p>aop 事务支持</p>
+</li>
 </ol>
 <h4 id="spring-mvc-xml"><a href="#spring-mvc-xml" class="headerlink" title="spring-mvc.xml:"></a>spring-mvc.xml:</h4><ol>
 <li>注解驱动: 可加入对Json传输的支持</li>

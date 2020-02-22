@@ -33,13 +33,20 @@
 <li>绑定Sql映射文件的地址: mapperLocation</li>
 </ul>
 </li>
-</ol>
-<p>4 配置dao接口扫描包,动态实现dao接口注入到spring容器中<br>    - 将 sqlSessionFactory 注入 bean 中 : sqlSessionFactoryBeanName<br>        - 扫描 dao 包</p>
-<h4 id="spring-service-xml"><a href="#spring-service-xml" class="headerlink" title="spring-service.xml"></a>spring-service.xml</h4><ol>
-<li>开启注解配置  </li>
-<li>扫描 service 包</li>
-<li>声明事务配置 : DataSourceTransactionManager </li>
-<li>aop 事务支持</li>
+<li><p>配置dao接口扫描包,动态实现dao接口注入到spring容器中</p>
+<ul>
+<li>将 sqlSessionFactory 注入 bean 中 :  sqlSessionFactoryBeanName</li>
+<li>扫描 dao 包<h4 id="spring-service-xml"><a href="#spring-service-xml" class="headerlink" title="spring-service.xml"></a>spring-service.xml</h4></li>
+</ul>
+</li>
+<li><p>开启注解配置  </p>
+</li>
+<li><p>扫描 service 包</p>
+</li>
+<li><p>声明事务配置 : DataSourceTransactionManager </p>
+</li>
+<li><p>aop 事务支持</p>
+</li>
 </ol>
 <h4 id="spring-mvc-xml"><a href="#spring-mvc-xml" class="headerlink" title="spring-mvc.xml:"></a>spring-mvc.xml:</h4><ol>
 <li>注解驱动: 可加入对Json传输的支持</li>
