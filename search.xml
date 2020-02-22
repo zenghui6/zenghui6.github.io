@@ -65,6 +65,8 @@
 <li>session过期时间</li>
 <li>添加对 put 和 delete方式的支持</li>
 </ol>
+<p>附整合项目的连接:</p>
+<p><a href="https://github.com/zenghui6/SSM-" target="_blank" rel="noopener">https://github.com/zenghui6/SSM-</a></p>
 ]]></content>
       <categories>
         <category>SSM</category>
