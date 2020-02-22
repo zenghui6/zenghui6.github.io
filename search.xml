@@ -1,6 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>SSM整合</title>
+    <url>/2020/02/22/SSM%E6%95%B4%E5%90%88/</url>
+    <content><![CDATA[<h3 id="SSM脚手架"><a href="#SSM脚手架" class="headerlink" title="SSM脚手架"></a>SSM脚手架</h3><p>spring + springMVC + Mybatis + log4j + MybatisGenerator </p>
+<p>实现了</p>
+<ul>
+<li><p>简单配置</p>
+</li>
+<li><p>日志打印</p>
+</li>
+<li><p>逆向文件</p>
+</li>
+<li><p>上传文件的配置</p>
+</li>
+<li><p>加入了Json 和 Restful 的配置 (在spring-mvc.xml 和 web.xml)</p>
+<a id="more"></a>
+
+
+</li>
+</ul>
+<h4 id="SSM整合步骤"><a href="#SSM整合步骤" class="headerlink" title="SSM整合步骤"></a>SSM整合步骤</h4><p><img src="https://s2.ax1x.com/2020/02/22/3MQkKe.png" alt="3MQkKe.png"></p>
+<h4 id="mybatis-config-xml-简化类命名空间-配置数据源交给spring管理"><a href="#mybatis-config-xml-简化类命名空间-配置数据源交给spring管理" class="headerlink" title="mybatis-config.xml:  简化类命名空间,配置数据源交给spring管理"></a>mybatis-config.xml:  简化类命名空间,配置数据源交给spring管理</h4><h4 id="spring-dao-xml"><a href="#spring-dao-xml" class="headerlink" title="spring-dao.xml :"></a>spring-dao.xml :</h4><ol>
+<li><p>关联数据库文件,引入database.properties</p>
+</li>
+<li><p>配置数据源连接池信息: dataSource</p>
+</li>
+<li><p>配置sqlSessionFactory对象 :</p>
+<ul>
+<li>注入数据源 :dataSource</li>
+<li>绑定mybatis配置文件 : configLocation</li>
+<li>绑定Sql映射文件的地址: mapperLocation</li>
+</ul>
+</li>
+</ol>
+<p>4 配置dao接口扫描包,动态实现dao接口注入到spring容器中<br>    - 将 sqlSessionFactory 注入 bean 中 : sqlSessionFactoryBeanName<br>        - 扫描 dao 包</p>
+<h4 id="spring-service-xml"><a href="#spring-service-xml" class="headerlink" title="spring-service.xml"></a>spring-service.xml</h4><ol>
+<li>开启注解配置  </li>
+<li>扫描 service 包</li>
+<li>声明事务配置 : DataSourceTransactionManager </li>
+<li>aop 事务支持</li>
+</ol>
+<h4 id="spring-mvc-xml"><a href="#spring-mvc-xml" class="headerlink" title="spring-mvc.xml:"></a>spring-mvc.xml:</h4><ol>
+<li>注解驱动: 可加入对Json传输的支持</li>
+<li>静态资源过滤</li>
+<li>扫描 Controller 包<ul>
+<li>扫描@Controller注解</li>
+</ul>
+</li>
+<li>配置视图解析器</li>
+<li>配置文件解析器(可选)</li>
+</ol>
+<h4 id="web-xml"><a href="#web-xml" class="headerlink" title="web.xml"></a>web.xml</h4><ol>
+<li>配置监听器启动Spring容器</li>
+<li>将url控制交给 springMVC 的 DispatcherServlet(核心分发器)</li>
+<li>乱码过滤</li>
+<li>session过期时间</li>
+<li>添加对 put 和 delete方式的支持</li>
+</ol>
+]]></content>
+      <categories>
+        <category>SSM</category>
+      </categories>
+      <tags>
+        <tag>框架</tag>
+        <tag>spring</tag>
+        <tag>springmvc</tag>
+        <tag>mybatis</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>SpringMVC工作原理</title>
     <url>/2020/02/17/SpringMVC%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/</url>
     <content><![CDATA[<h3 id="四个组件各司其职"><a href="#四个组件各司其职" class="headerlink" title="四个组件各司其职"></a>四个组件各司其职</h3><ul>
@@ -30,8 +99,8 @@
         <category>SpringMVC</category>
       </categories>
       <tags>
-        <tag>SpringMVC</tag>
         <tag>框架</tag>
+        <tag>springMVC</tag>
       </tags>
   </entry>
   <entry>
@@ -454,9 +523,15 @@
 <li>ArrayList提供了更多的方法和特性，比如：addAll()，removeAll()，iterator()等等。</li>
 </ol>
 <h2 id="请你解释什么是值传递和引用传递？"><a href="#请你解释什么是值传递和引用传递？" class="headerlink" title="请你解释什么是值传递和引用传递？"></a>请你解释什么是值传递和引用传递？</h2><ul>
-<li>值传递是针对基本变量而言,传递的是该变量的一个副本,改变副本不影响原变量</li>
-<li>引用传递一般是对于对象型变量而言的,传递的是该对象地址的一个副本, 并不是原对象本身 。 所以对引用对象进行操作会同时改变原对象</li>
-<li>一般认为,java内的传递都是值传递.</li>
+<li><p>值传递是针对基本变量而言,传递的是该变量的一个副本,改变副本不影响原变量</p>
+</li>
+<li><p>引用传递一般是对于对象型变量而言的,传递的是该对象地址的一个副本, 并不是原对象本身 。 所以对引用对象进行操作会同时改变原对象</p>
+</li>
+<li><p>一般认为,java内的传递都是值传递.</p>
+<p>在Java中所有的参数传递，不管基本类型还是引用类型，都是值传递，或者说是副本传递。<br>只是在传递过程中：</p>
+<p><strong>如果是对基本数据类型的数据进行操作，由于原始内容和副本都是存储实际值，并且是在不同的栈区，因此形参的操作，不影响原始内容。</strong></p>
+<p><strong>如果是对引用类型的数据进行操作，分两种情况，一种是形参和实参保持指向同一个对象地址，则形参的操作，会影响实参指向的对象的内容。一种是形参被改动指向新的对象地址（如重新赋值引用），则形参的操作，不会影响实参指向的对象的内容。</strong></p>
+</li>
 </ul>
 <h2 id="匿名内部类"><a href="#匿名内部类" class="headerlink" title="匿名内部类"></a>匿名内部类</h2><p>匿名内部类也就是没有名字的内部类<br>正因为没有名字，所以匿名内部类只能使用一次，它通常用来简化代码编写</p>
 <p>但使用匿名内部类还有个前提条件：必须继承一个父类或实现一个接口</p>
@@ -548,14 +623,17 @@ Student s2=new Student(&quot;小明&quot;,18);</code></pre><p>此时,如果不�
 <li>持久性:数据的修改是永久的</li>
 </ol>
 <h1 id="3-隔离级别"><a href="#3-隔离级别" class="headerlink" title="3,隔离级别"></a>3,隔离级别</h1><h2 id="3-1-并发情况下事务引发的问题"><a href="#3-1-并发情况下事务引发的问题" class="headerlink" title="3.1 并发情况下事务引发的问题"></a>3.1 并发情况下事务引发的问题</h2><pre><code>一般情况下,多个单元操作并发执行,会出现这么几个问题</code></pre><ol>
-<li>脏读:A事务还未提交,B事务就读到了A事务的结果.(破坏了隔离性)</li>
-<li>不可重复读:A事务在本次事务中,对自己未操作过的数据,进行了多次读取,结果出现了不一致或记录不存在的情况.(破坏了一致性,update和delete)</li>
-<li>幻读:A事务在本次事务中,对自己未操作过的数据,进行了多次读取,第一次读取时,记录不存在,第二次读取时,记录出现了.(破坏了一致性,insert)</li>
+<li><p>脏读:A事务还未提交,B事务就读到了A事务的结果.(破坏了隔离性)</p>
+</li>
+<li><p>不可重复读:A事务在本次事务中,对自己未操作过的数据,进行了多次读取,结果出现了不一致或记录不存在的情况.(破坏了一致性,update和delete)<strong>指在事务1内，读取了一个数据，事务1还没有结束时，事务2也访问了这个数据，修改了这个数据，并提交。紧接着，事务1又读这个数据。由于事务2的修改，那么事务1两次读到的的数据可能是不一样的，因此称为是不可重复读。</strong></p>
+</li>
+<li><p>幻读:A事务在本次事务中,对自己未操作过的数据,进行了多次读取,第一次读取时,记录不存在,第二次读取时,记录出现了.(破坏了一致性,insert)</p>
+</li>
 </ol>
 <h2 id="3-2解决-制定标准"><a href="#3-2解决-制定标准" class="headerlink" title="3.2解决(制定标准)"></a>3.2解决(制定标准)</h2><p>为了权衡<strong>隔离</strong>与<strong>并发</strong>的矛盾,ISO定义了四个事务的隔离机制,每个级别的隔离程度不同,允许出现的副作用也不同</p>
 <ol>
-<li>读未提交(read-uncommitted):最低级别,只能保证持久性</li>
-<li>不可重复读(read-committed):语句级别的</li>
+<li>未提交读(read-uncommitted):最低级别,只能保证持久性</li>
+<li>提交读(read-committed):语句级别的</li>
 <li>可重复读(repeatable-read):事务级别</li>
 <li>串行化(serializable):最高级别,事务与事务完成串行化执行,毫无并发可言,性能极低</li>
 </ol>
@@ -569,13 +647,13 @@ Student s2=new Student(&quot;小明&quot;,18);</code></pre><p>此时,如果不�
 </tr>
 </thead>
 <tbody><tr>
-<td>读未提交</td>
+<td>未提交读</td>
 <td>会</td>
 <td>会</td>
 <td>会</td>
 </tr>
 <tr>
-<td>不可重复读</td>
+<td>提交读</td>
 <td>-</td>
 <td>会</td>
 <td>会</td>
@@ -594,6 +672,8 @@ Student s2=new Student(&quot;小明&quot;,18);</code></pre><p>此时,如果不�
 </tr>
 </tbody></table>
 <p>注意:这四个级别只是一个标准,各个数据库厂商,并不是完全按照这个标准来做的</p>
+<p><code>&lt;https://blog.csdn.net/Vincent2014Linux/article/details/89669762&gt;</code></p>
+<p>这篇博客总结的非常好</p>
 <h2 id="3-3-实现-InnoDB"><a href="#3-3-实现-InnoDB" class="headerlink" title="3.3 实现(InnoDB)"></a>3.3 实现(InnoDB)</h2><h3 id="1-锁机制-阻止事务对数据的操作-各个隔离级别主要体现在读取数据时加的锁和释放时机"><a href="#1-锁机制-阻止事务对数据的操作-各个隔离级别主要体现在读取数据时加的锁和释放时机" class="headerlink" title="1. 锁机制:阻止事务对数据的操作,各个隔离级别主要体现在读取数据时加的锁和释放时机"></a>1. 锁机制:阻止事务对数据的操作,各个隔离级别主要体现在读取数据时加的锁和释放时机</h3><ul>
 <li>RU:事务读取的时候不加锁</li>
 <li>RC: 事务读取的时候加行级共享锁(读到才加锁),一旦读完,立刻释放(并不是事务结束).</li>
