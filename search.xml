@@ -5,6 +5,8 @@
     <url>/2020/02/22/Spring%E4%BA%8B%E5%8A%A1/</url>
     <content><![CDATA[<p>事务管理对于企业应用来说是至关重要的，当出现异常情况时，它也可以保证数据的一致性。</p>
 <h2 id="Spring事务管理的两种方式"><a href="#Spring事务管理的两种方式" class="headerlink" title="Spring事务管理的两种方式"></a>Spring事务管理的两种方式</h2><p><strong>spring支持编程式事务管理和声明式事务管理两种方式。</strong></p>
+<a id="more"></a>
+
 <ul>
 <li><strong>编程式事务</strong>使用TransactionTemplate或者直接使用底层的PlatformTransactionManager。对于编程式事务管理，spring推荐使用TransactionTemplate。</li>
 <li><strong>声明式事务</strong>是建立在AOP之上的。其本质是对方法前后进行拦截，然后在目标方法开始之前创建或者加入一个事务，在执行完目标方法之后根据执行情况提交或者回滚事务。声明式事务最大的优点就是不需要通过编程的方式管理事务，这样就不需要在业务逻辑代码中掺杂事务管理的代码，只需在配置文件中做相关的事务规则声明(或通过基于@Transactional注解的方式)，便可以将事务规则应用到业务逻辑中。</li>
