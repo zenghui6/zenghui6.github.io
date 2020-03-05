@@ -27,7 +27,7 @@
 <meta property="og:site_name" content="の博客">
 <meta property="og:description" content="并发编程有哪些优点?在我看来,这种现象(并发) 或多或少是由于硬件设计者无计可施了导致的,他们将摩尔定律的责任推给了软件开发者. ​                                    —-Donald Ervin Knuth  充分利用多核CPU的计算能力 方便进行业务拆分,提升应用性能">
 <meta property="article:published_time" content="2020-03-05T01:57:17.000Z">
-<meta property="article:modified_time" content="2020-03-05T02:55:08.747Z">
+<meta property="article:modified_time" content="2020-03-05T04:33:26.165Z">
 <meta property="article:tag" content="多线程">
 <meta property="article:tag" content="并发">
 <meta name="twitter:card" content="summary">
@@ -210,7 +210,7 @@ src="https://github.blog/wp-content/uploads/2008/12/forkme_right_darkblue_121621
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2020-03-05 09:57:17 / Modified: 10:55:08" itemprop="dateCreated datePublished" datetime="2020-03-05T09:57:17+08:00">2020-03-05</time>
+              <time title="Created: 2020-03-05 09:57:17 / Modified: 12:33:26" itemprop="dateCreated datePublished" datetime="2020-03-05T09:57:17+08:00">2020-03-05</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -258,6 +258,26 @@ src="https://github.blog/wp-content/uploads/2008/12/forkme_right_darkblue_121621
 <p><strong>因为java是单继承</strong> ,所以尽量使用实现接口的方式</p>
 </li>
 </ol>
+<h3 id="线程状态的基本操作"><a href="#线程状态的基本操作" class="headerlink" title="线程状态的基本操作"></a>线程状态的基本操作</h3><h4 id="interrupted-中断"><a href="#interrupted-中断" class="headerlink" title="interrupted(中断)"></a>interrupted(中断)</h4><p>   中断一个线程, 有一个中断标志位,一个线程可以使用interrupt()方法对该线程进行中断操作,同时该线程可以调用 isInterrupted方法来判断中断标志位</p>
+<blockquote>
+<p>如果该线程调用了wait() ,sleep()或者join()方法时,interrupt()方法会抛出InterruptedException, 并且标志位将会被清除</p>
+</blockquote>
+<h4 id="join"><a href="#join" class="headerlink" title="join"></a>join</h4><p>join方法可以看做是线程间的协作,很多时候,一个线程的输入可能非常依赖另一个线程的输出;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JoinDemo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Thread previousThread = Thread.currentThread();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= <span class="number">10</span>; i++) &#123;</span><br><span class="line">            Thread curThread = <span class="keyword">new</span> JoinThread(previousThread);</span><br><span class="line">            curThread.start();</span><br><span class="line">            previousThread = curThread;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">JoinThread</span> <span class="keyword">extends</span> <span class="title">Thread</span> </span>&#123;</span><br><span class="line">        <span class="keyword">private</span> Thread thread;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">JoinThread</span><span class="params">(Thread thread)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.thread = thread;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                thread.join();</span><br><span class="line">                System.out.println(thread.getName() + <span class="string">" terminated."</span>);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在上面例子中创建了10个线程,每个线程都会等待前一个线程结束才会继续运行.可以通俗理解成接力,前一个线程将接力棒传给下一个线程,然后又传给下一个线程……</p>
+<h4 id="sleep"><a href="#sleep" class="headerlink" title="sleep"></a>sleep</h4><blockquote>
+<p>sleep()  VS wait()</p>
+</blockquote>
+<p>两者的主要区别:</p>
+<ol>
+<li>类的不同: sleep() 来自 Thread的静态方法, wait() 来自 Object的实例方法.</li>
+<li>释放锁: sleep() 不释放锁; wait()释放锁.</li>
+<li>用法不同: sleep() 时间到会自动恢复; wait()可以使用 notify()/notifyAll() 直接唤醒.</li>
+</ol>
+<h4 id="yield"><a href="#yield" class="headerlink" title="yield"></a>yield</h4><p>这是一个静态方法,一旦执行,它会使当前线程让出CPU,但是,需要注意的是,让出的CPU并不是代表当前线程不再运行了,如果在下一次竞争中,又获得了CPU时间片当前线程依然会继续运行,另外,让出的时间片只会分配给当前线程<strong>相同优先级的线程</strong></p>
+<h3 id="守护线程Daemon"><a href="#守护线程Daemon" class="headerlink" title="守护线程Daemon"></a>守护线程Daemon</h3><p>守护线程是一种特殊的线程,就像它的名字一样,他是系统的守护者,在后台默认地守护一些系统服务,比如垃圾回收线程,JIT线程就可以理解守护线程.与之对应的就是用户线程,用户线程就可以任务是系统的工作线程,它会完成整个系统的业务操作.用户线程完全结束后就意味着整个系统的业务任务全部结束了,因此系统就没有对象需要守护了,守护线程自然会退出.</p>
+<p>守护进程会在mian进程结束后结束</p>
 
     </div>
 
@@ -340,7 +360,7 @@ src="https://github.blog/wp-content/uploads/2008/12/forkme_right_darkblue_121621
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#并发编程有哪些优点"><span class="nav-number">1.</span> <span class="nav-text">并发编程有哪些优点?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#并发编程有哪些缺点"><span class="nav-number">2.</span> <span class="nav-text">并发编程有哪些缺点:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#用户创建线程的三种方式"><span class="nav-number">3.</span> <span class="nav-text">用户创建线程的三种方式:</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#并发编程有哪些优点"><span class="nav-number">1.</span> <span class="nav-text">并发编程有哪些优点?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#并发编程有哪些缺点"><span class="nav-number">2.</span> <span class="nav-text">并发编程有哪些缺点:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#用户创建线程的三种方式"><span class="nav-number">3.</span> <span class="nav-text">用户创建线程的三种方式:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线程状态的基本操作"><span class="nav-number">4.</span> <span class="nav-text">线程状态的基本操作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#interrupted-中断"><span class="nav-number">4.1.</span> <span class="nav-text">interrupted(中断)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#join"><span class="nav-number">4.2.</span> <span class="nav-text">join</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#sleep"><span class="nav-number">4.3.</span> <span class="nav-text">sleep</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#yield"><span class="nav-number">4.4.</span> <span class="nav-text">yield</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#守护线程Daemon"><span class="nav-number">5.</span> <span class="nav-text">守护线程Daemon</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
