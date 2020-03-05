@@ -1,6 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>并发编程</title>
+    <url>/2020/03/05/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/</url>
+    <content><![CDATA[<h3 id="并发编程有哪些优点"><a href="#并发编程有哪些优点" class="headerlink" title="并发编程有哪些优点?"></a>并发编程有哪些优点?</h3><p>在我看来,这种现象(并发) 或多或少是由于硬件设计者无计可施了导致的,他们将摩尔定律的责任推给了软件开发者.</p>
+<p>​                                    —-Donald Ervin Knuth</p>
+<ol>
+<li>充分利用多核CPU的计算能力</li>
+<li>方便进行业务拆分,提升应用性能</li>
+</ol>
+<a id="more"></a>
+
+<h3 id="并发编程有哪些缺点"><a href="#并发编程有哪些缺点" class="headerlink" title="并发编程有哪些缺点:"></a>并发编程有哪些缺点:</h3><ol>
+<li>频繁的上下文切换</li>
+<li>线程安全</li>
+</ol>
+<h3 id="用户创建线程的三种方式"><a href="#用户创建线程的三种方式" class="headerlink" title="用户创建线程的三种方式:"></a>用户创建线程的三种方式:</h3><ol>
+<li><p>通过继承Thread类, 重写run方法;</p>
+</li>
+<li><p>通过实现runable接口;</p>
+</li>
+<li><p>通过实现callable接口;</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CreateThreadDemo</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//1.继承Thread</span></span><br><span class="line">        Thread thread = <span class="keyword">new</span> Thread() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                System.out.println(<span class="string">"继承Thread"</span>);</span><br><span class="line">                <span class="keyword">super</span>.run();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">        thread.start();</span><br><span class="line">        <span class="comment">//2.实现runable接口</span></span><br><span class="line">        Thread thread1 = <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                System.out.println(<span class="string">"实现runable接口"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        thread1.start();</span><br><span class="line">        <span class="comment">//3.实现callable接口</span></span><br><span class="line">        ExecutorService service = Executors.newSingleThreadExecutor();</span><br><span class="line">        Future&lt;String&gt; future = service.submit(<span class="keyword">new</span> Callable() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> String <span class="title">call</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="string">"通过实现Callable接口"</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            String result = future.get();</span><br><span class="line">            System.out.println(result);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (ExecutionException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>因为java是单继承</strong> ,所以尽量使用实现接口的方式</p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>多线程</tag>
+        <tag>并发</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>trie 前缀树</title>
+    <url>/2020/03/04/trie-%E5%89%8D%E7%BC%80%E6%A0%91/</url>
+    <content><![CDATA[<h3 id="什么是Trie"><a href="#什么是Trie" class="headerlink" title="什么是Trie"></a>什么是Trie</h3><p>每个节点有 若干个指向下个节点的指针</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Node</span></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> c;</span><br><span class="line">    Map&lt;<span class="keyword">char</span>, Node&gt; next;	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://s2.ax1x.com/2020/03/04/355ENT.png" alt="355ENT.png"></p>
+]]></content>
+      <categories>
+        <category>数据结构</category>
+      </categories>
+      <tags>
+        <tag>树</tag>
+        <tag>前缀树</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Sql刷题知识点总结</title>
     <url>/2020/03/02/Sql%E5%88%B7%E9%A2%98%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/</url>
     <content><![CDATA[<h3 id="inner-join-内连接"><a href="#inner-join-内连接" class="headerlink" title="inner join (内连接)"></a>inner join (内连接)</h3><p>在两张表进行连接查询时,只保留两张表中完全匹配的结果集</p>
@@ -246,6 +299,12 @@
 <p>docker build -t n2  .     n2表示镜像名,    .  指定当前目录下的Dockerfile去构建</p>
 <p>docker  save (镜像名)  -&gt; 1.tar </p>
 <p>将镜像压缩打包,别拿到文件后可以直接load</p>
+<h3 id="创建自定义网络"><a href="#创建自定义网络" class="headerlink" title="创建自定义网络"></a>创建自定义网络</h3><p>docker network create –subnet=192.168.88.1/24 network_hadoop</p>
+<p>docker network list</p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">NETWORK ID          NAME                DRIVER              SCOPE</span><br><span class="line">1fb22da7d8a3       <span class="built_in"> bridge </span>            <span class="built_in"> bridge </span>             local</span><br><span class="line">fe259334b842        host                host                local</span><br><span class="line">8c5971ff48d8        network_hadoop         <span class="built_in"> bridge </span>             local</span><br><span class="line">3aaf0356c19c        none                <span class="literal">null</span>                local</span><br></pre></td></tr></table></figure>
+
+<p>启动容器,指定网段和ip指定</p>
+<p>hadoop0 –hostname hadoop0 –net network_hadoop –ip 192.168.10.30 -d -P -p 50070:50070 -p 8088:8088 hadoop</p>
 ]]></content>
       <categories>
         <category>Docker</category>
@@ -639,6 +698,7 @@
 <li>synchronized 可以给类,方法,代码块加锁,而Lock 只能给代码块加锁</li>
 <li>synchronized 不需要手动获取锁和释放锁;使用简单,发生异常会自动释放锁,不会造成死锁;而Lock 需要自己加锁和释放锁,如果使用不当,没有 unLock() 区释放就会造成死锁</li>
 <li>通过Lock可以知道有没有成功获取锁, 而synchronized却没法办到</li>
+<li>当线程进入到<strong>synchronized</strong>方法或者synchronized代码块时,线程切换到的是<strong>BLOCKED</strong>状态,而使用<strong>lock</strong>进行加锁时,线程切换的是<strong>WAITING</strong>或<strong>TIME_WAITING</strong>状态,因为lock会调用LockSupport的方法</li>
 </ul>
 ]]></content>
       <categories>

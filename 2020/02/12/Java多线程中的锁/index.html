@@ -27,7 +27,7 @@
 <meta property="og:site_name" content="の博客">
 <meta property="og:description" content="锁的分类:悲观锁很悲观,认为每次去拿数据的时候都认为会修改,所以每次都在拿数据的时候上锁">
 <meta property="article:published_time" content="2020-02-12T01:38:52.000Z">
-<meta property="article:modified_time" content="2020-02-13T03:35:15.611Z">
+<meta property="article:modified_time" content="2020-03-05T02:54:45.367Z">
 <meta property="article:tag" content="多线程">
 <meta property="article:tag" content="锁">
 <meta name="twitter:card" content="summary">
@@ -216,7 +216,7 @@ src="https://github.blog/wp-content/uploads/2008/12/forkme_right_darkblue_121621
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-02-13 11:35:15" itemprop="dateModified" datetime="2020-02-13T11:35:15+08:00">2020-02-13</time>
+                <time title="Modified: 2020-03-05 10:54:45" itemprop="dateModified" datetime="2020-03-05T10:54:45+08:00">2020-03-05</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -309,6 +309,7 @@ src="https://github.blog/wp-content/uploads/2008/12/forkme_right_darkblue_121621
 <li>synchronized 可以给类,方法,代码块加锁,而Lock 只能给代码块加锁</li>
 <li>synchronized 不需要手动获取锁和释放锁;使用简单,发生异常会自动释放锁,不会造成死锁;而Lock 需要自己加锁和释放锁,如果使用不当,没有 unLock() 区释放就会造成死锁</li>
 <li>通过Lock可以知道有没有成功获取锁, 而synchronized却没法办到</li>
+<li>当线程进入到<strong>synchronized</strong>方法或者synchronized代码块时,线程切换到的是<strong>BLOCKED</strong>状态,而使用<strong>lock</strong>进行加锁时,线程切换的是<strong>WAITING</strong>或<strong>TIME_WAITING</strong>状态,因为lock会调用LockSupport的方法</li>
 </ul>
 
     </div>
@@ -409,20 +410,20 @@ src="https://github.blog/wp-content/uploads/2008/12/forkme_right_darkblue_121621
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-count">18</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-count">9</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-count">26</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
