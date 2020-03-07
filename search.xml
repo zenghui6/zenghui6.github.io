@@ -1,6 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>通过实现addViewController方法完成页面转跳</title>
+    <url>/2020/03/07/%E9%80%9A%E8%BF%87%E5%AE%9E%E7%8E%B0addViewController%E6%96%B9%E6%B3%95%E5%AE%8C%E6%88%90%E9%A1%B5%E9%9D%A2%E8%BD%AC%E8%B7%B3/</url>
+    <content><![CDATA[<h3 id="实现WebMvcConfigurer接口"><a href="#实现WebMvcConfigurer接口" class="headerlink" title="实现WebMvcConfigurer接口"></a>实现WebMvcConfigurer接口</h3><p>今天突然发现一个很好用的方法,来实现页面的跳转</p>
+<p>以前我写页面跳转都是写一个Controller</p>
+<p>现在可以通过addViewControllers来完成了</p>
+<a id="more"></a>
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com.zenghui.wangpan.controller;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Controller;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.GetMapping;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@ClassName</span> PageController</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span>: 用作页面转跳</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> zeng</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2020/3/6</span></span><br><span class="line"><span class="comment"> **/</span></span><br><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PageController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@GetMapping</span>(<span class="string">"/login"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">login</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"index"</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@GetMapping</span>(<span class="string">"/"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">index</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"u-admin/index"</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>现在可以通过addViewController方法来完成</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com.zenghui.wangpan.controller;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.servlet.config.annotation.ViewControllerRegistry;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.servlet.config.annotation.WebMvcConfigurer;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@ClassName</span> PageWebMvcConfig</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span>: 通过实现addViewController方法进行页面转跳,刚刚学到的,</span></span><br><span class="line"><span class="comment"> * 哈哈,比一个写Controller舒服多了</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> zeng</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2020/3/7</span></span><br><span class="line"><span class="comment"> **/</span></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PageWebMvcConfig</span> <span class="keyword">implements</span> <span class="title">WebMvcConfigurer</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 实现该方法可以实现页面转跳</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> registry</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addViewControllers</span><span class="params">(ViewControllerRegistry registry)</span> </span>&#123;</span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 转跳登录页面</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        registry.addViewController(<span class="string">"/login"</span>).setViewName(<span class="string">"index"</span>);</span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 转跳首页</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        registry.addViewController(<span class="string">"/"</span>).setViewName(<span class="string">"u-admin/index"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 重定向到首页</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        registry.addRedirectViewController(<span class="string">"/test"</span>,<span class="string">"/"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+]]></content>
+      <categories>
+        <category>SpringBoot</category>
+      </categories>
+      <tags>
+        <tag>框架</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>并发编程</title>
     <url>/2020/03/05/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/</url>
     <content><![CDATA[<h3 id="并发编程有哪些优点"><a href="#并发编程有哪些优点" class="headerlink" title="并发编程有哪些优点?"></a>并发编程有哪些优点?</h3><p>在我看来,这种现象(并发) 或多或少是由于硬件设计者无计可施了导致的,他们将摩尔定律的责任推给了软件开发者.</p>
@@ -46,6 +73,9 @@
 <h4 id="yield"><a href="#yield" class="headerlink" title="yield"></a>yield</h4><p>这是一个静态方法,一旦执行,它会使当前线程让出CPU,但是,需要注意的是,让出的CPU并不是代表当前线程不再运行了,如果在下一次竞争中,又获得了CPU时间片当前线程依然会继续运行,另外,让出的时间片只会分配给当前线程<strong>相同优先级的线程</strong></p>
 <h3 id="守护线程Daemon"><a href="#守护线程Daemon" class="headerlink" title="守护线程Daemon"></a>守护线程Daemon</h3><p>守护线程是一种特殊的线程,就像它的名字一样,他是系统的守护者,在后台默认地守护一些系统服务,比如垃圾回收线程,JIT线程就可以理解守护线程.与之对应的就是用户线程,用户线程就可以任务是系统的工作线程,它会完成整个系统的业务操作.用户线程完全结束后就意味着整个系统的业务任务全部结束了,因此系统就没有对象需要守护了,守护线程自然会退出.</p>
 <p>守护进程会在mian进程结束后结束</p>
+<blockquote>
+<p>mian线程的结束不代表整个程序结束,所有线程全部结束才算程序结束</p>
+</blockquote>
 ]]></content>
       <categories>
         <category>Java</category>

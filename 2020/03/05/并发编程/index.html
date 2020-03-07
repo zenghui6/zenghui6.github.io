@@ -27,7 +27,7 @@
 <meta property="og:site_name" content="の博客">
 <meta property="og:description" content="并发编程有哪些优点?在我看来,这种现象(并发) 或多或少是由于硬件设计者无计可施了导致的,他们将摩尔定律的责任推给了软件开发者. ​                                    —-Donald Ervin Knuth  充分利用多核CPU的计算能力 方便进行业务拆分,提升应用性能">
 <meta property="article:published_time" content="2020-03-05T01:57:17.000Z">
-<meta property="article:modified_time" content="2020-03-05T04:33:26.165Z">
+<meta property="article:modified_time" content="2020-03-05T04:39:53.207Z">
 <meta property="article:tag" content="多线程">
 <meta property="article:tag" content="并发">
 <meta name="twitter:card" content="summary">
@@ -210,7 +210,7 @@ src="https://github.blog/wp-content/uploads/2008/12/forkme_right_darkblue_121621
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2020-03-05 09:57:17 / Modified: 12:33:26" itemprop="dateCreated datePublished" datetime="2020-03-05T09:57:17+08:00">2020-03-05</time>
+              <time title="Created: 2020-03-05 09:57:17 / Modified: 12:39:53" itemprop="dateCreated datePublished" datetime="2020-03-05T09:57:17+08:00">2020-03-05</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -278,6 +278,9 @@ src="https://github.blog/wp-content/uploads/2008/12/forkme_right_darkblue_121621
 <h4 id="yield"><a href="#yield" class="headerlink" title="yield"></a>yield</h4><p>这是一个静态方法,一旦执行,它会使当前线程让出CPU,但是,需要注意的是,让出的CPU并不是代表当前线程不再运行了,如果在下一次竞争中,又获得了CPU时间片当前线程依然会继续运行,另外,让出的时间片只会分配给当前线程<strong>相同优先级的线程</strong></p>
 <h3 id="守护线程Daemon"><a href="#守护线程Daemon" class="headerlink" title="守护线程Daemon"></a>守护线程Daemon</h3><p>守护线程是一种特殊的线程,就像它的名字一样,他是系统的守护者,在后台默认地守护一些系统服务,比如垃圾回收线程,JIT线程就可以理解守护线程.与之对应的就是用户线程,用户线程就可以任务是系统的工作线程,它会完成整个系统的业务操作.用户线程完全结束后就意味着整个系统的业务任务全部结束了,因此系统就没有对象需要守护了,守护线程自然会退出.</p>
 <p>守护进程会在mian进程结束后结束</p>
+<blockquote>
+<p>mian线程的结束不代表整个程序结束,所有线程全部结束才算程序结束</p>
+</blockquote>
 
     </div>
 
@@ -300,7 +303,10 @@ src="https://github.blog/wp-content/uploads/2008/12/forkme_right_darkblue_121621
     <a href="/2020/03/04/trie-%E5%89%8D%E7%BC%80%E6%A0%91/" rel="prev" title="trie 前缀树">
       <i class="fa fa-chevron-left"></i> trie 前缀树
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2020/03/07/%E9%80%9A%E8%BF%87%E5%AE%9E%E7%8E%B0addViewController%E6%96%B9%E6%B3%95%E5%AE%8C%E6%88%90%E9%A1%B5%E9%9D%A2%E8%BD%AC%E8%B7%B3/" rel="next" title="通过实现addViewController方法完成页面转跳">
+      通过实现addViewController方法完成页面转跳 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -374,14 +380,14 @@ src="https://github.blog/wp-content/uploads/2008/12/forkme_right_darkblue_121621
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">18</span>
+          <span class="site-state-item-count">19</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-count">10</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
