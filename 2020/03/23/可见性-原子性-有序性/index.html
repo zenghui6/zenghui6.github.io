@@ -20,19 +20,19 @@
     var CONFIG = {"hostname":"zhangxuezhi.com","root":"/","scheme":"Pisces","version":"7.7.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"path":"search.xml","motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="宏观数据库锁　粒度小，方便用于集群环境代码锁粒度大，需要封装">
+  <meta name="description" content="源头之一: 缓存导致可见性问题  提供线程对共享变量的修改,另外一个线程能够立刻看到,我们称为可见性  多核时代,每个CPU都有自己的缓存,这时CPU缓存与内存的数据的一致性就没那么容易解决了 源头之二: 线程切换带来的原子性问题早期的操作系统是基于进程来调度CPU,不同进程间是不共享内存空间的, 现代操作系统是基于更轻量的线程来调度,而一个进程创建的所有线程,都是共享一个存储空间的 count">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Mysql锁">
-<meta property="og:url" content="http://zhangxuezhi.com/2020/02/08/Mysql%E9%94%81/index.html">
+<meta property="og:title" content="可见性,原子性,有序性">
+<meta property="og:url" content="http://zhangxuezhi.com/2020/03/23/%E5%8F%AF%E8%A7%81%E6%80%A7-%E5%8E%9F%E5%AD%90%E6%80%A7-%E6%9C%89%E5%BA%8F%E6%80%A7/index.html">
 <meta property="og:site_name" content="の博客">
-<meta property="og:description" content="宏观数据库锁　粒度小，方便用于集群环境代码锁粒度大，需要封装">
-<meta property="article:published_time" content="2020-02-08T10:52:17.000Z">
-<meta property="article:modified_time" content="2020-02-08T11:00:24.655Z">
-<meta property="article:tag" content="Mysql">
-<meta property="article:tag" content="数据库锁">
+<meta property="og:description" content="源头之一: 缓存导致可见性问题  提供线程对共享变量的修改,另外一个线程能够立刻看到,我们称为可见性  多核时代,每个CPU都有自己的缓存,这时CPU缓存与内存的数据的一致性就没那么容易解决了 源头之二: 线程切换带来的原子性问题早期的操作系统是基于进程来调度CPU,不同进程间是不共享内存空间的, 现代操作系统是基于更轻量的线程来调度,而一个进程创建的所有线程,都是共享一个存储空间的 count">
+<meta property="article:published_time" content="2020-03-23T11:09:29.000Z">
+<meta property="article:modified_time" content="2020-03-23T12:35:26.543Z">
+<meta property="article:tag" content="并发">
+<meta property="article:tag" content="极客时间">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://zhangxuezhi.com/2020/02/08/Mysql%E9%94%81/">
+<link rel="canonical" href="http://zhangxuezhi.com/2020/03/23/%E5%8F%AF%E8%A7%81%E6%80%A7-%E5%8E%9F%E5%AD%90%E6%80%A7-%E6%9C%89%E5%BA%8F%E6%80%A7/">
 
 
 <script id="page-configurations">
@@ -44,7 +44,7 @@
   };
 </script>
 
-  <title>Mysql锁 | の博客</title>
+  <title>可见性,原子性,有序性 | の博客</title>
   
 
 
@@ -186,7 +186,7 @@ src="https://github.blog/wp-content/uploads/2008/12/forkme_right_darkblue_121621
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://zhangxuezhi.com/2020/02/08/Mysql%E9%94%81/">
+    <link itemprop="mainEntityOfPage" href="http://zhangxuezhi.com/2020/03/23/%E5%8F%AF%E8%A7%81%E6%80%A7-%E5%8E%9F%E5%AD%90%E6%80%A7-%E6%9C%89%E5%BA%8F%E6%80%A7/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -199,7 +199,7 @@ src="https://github.blog/wp-content/uploads/2008/12/forkme_right_darkblue_121621
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Mysql锁
+          可见性,原子性,有序性
         </h1>
 
         <div class="post-meta">
@@ -210,7 +210,7 @@ src="https://github.blog/wp-content/uploads/2008/12/forkme_right_darkblue_121621
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2020-02-08 18:52:17 / Modified: 19:00:24" itemprop="dateCreated datePublished" datetime="2020-02-08T18:52:17+08:00">2020-02-08</time>
+              <time title="Created: 2020-03-23 19:09:29 / Modified: 20:35:26" itemprop="dateCreated datePublished" datetime="2020-03-23T19:09:29+08:00">2020-03-23</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -218,8 +218,8 @@ src="https://github.blog/wp-content/uploads/2008/12/forkme_right_darkblue_121621
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index">
-                    <span itemprop="name">数据库</span>
+                  <a href="/categories/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/" itemprop="url" rel="index">
+                    <span itemprop="name">并发编程</span>
                   </a>
                 </span>
             </span>
@@ -235,48 +235,45 @@ src="https://github.blog/wp-content/uploads/2008/12/forkme_right_darkblue_121621
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="宏观"><a href="#宏观" class="headerlink" title="宏观"></a>宏观</h2><h3 id="数据库锁"><a href="#数据库锁" class="headerlink" title="数据库锁　"></a>数据库锁　</h3><pre><code>粒度小，方便用于集群环境</code></pre><h3 id="代码锁"><a href="#代码锁" class="headerlink" title="代码锁"></a>代码锁</h3><pre><code>粒度大，需要封装</code></pre><a id="more"></a>
-
-<h2 id="微观"><a href="#微观" class="headerlink" title="微观"></a>微观</h2><h4 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h4><h4 id="行锁＆表锁"><a href="#行锁＆表锁" class="headerlink" title="行锁＆表锁"></a>行锁＆表锁</h4><p><strong><em>只有明确指定主键，才会执行行锁，否则执行表锁</em></strong></p>
+        <h3 id="源头之一-缓存导致可见性问题"><a href="#源头之一-缓存导致可见性问题" class="headerlink" title="源头之一: 缓存导致可见性问题"></a>源头之一: 缓存导致可见性问题</h3><blockquote>
+<p> 提供线程对共享变量的修改,另外一个线程能够立刻看到,我们称为<strong>可见性</strong></p>
+</blockquote>
+<p>多核时代,每个CPU都有自己的缓存,这时CPU缓存与内存的数据的一致性就没那么容易解决了</p>
+<h3 id="源头之二-线程切换带来的原子性问题"><a href="#源头之二-线程切换带来的原子性问题" class="headerlink" title="源头之二: 线程切换带来的原子性问题"></a>源头之二: 线程切换带来的原子性问题</h3><p><strong>早期的操作系统</strong>是基于<strong>进程</strong>来调度CPU,不同进程间是不共享内存空间的,</p>
+<p><strong>现代操作系统</strong>是基于更轻量的<strong>线程</strong>来调度,而一个进程创建的所有线程,都是共享一个存储空间的</p>
+<p><code>count += 1</code></p>
+<p>至少需要三条指令</p>
+<ul>
+<li>指令1: 首先,需要把变量 count 从内存加载到 CPU 的寄存器;</li>
+<li>指令2: 之后, 在寄存器中执行 +1 操作</li>
+<li>指令3: 最后,将结果写入内存 (缓存机制导致可能写入的是CPU缓存而不是内存)</li>
+</ul>
+<p>操作系统做任务切换,可以发生在任何一条<strong><em>CPU 指令</em></strong>执行完.</p>
 <blockquote>
-<p>无锁</p>
+<p>我们把一个或者多个操作在CPU执行的过程中不被中断的特效称为<strong>原子性</strong></p>
 </blockquote>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#主键不存在</span></span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> <span class="keyword">user</span> <span class="keyword">where</span> <span class="keyword">id</span> = <span class="number">-1</span> <span class="keyword">for</span> <span class="keyword">update</span>;</span><br></pre></td></tr></table></figure>
+<h3 id="源头之三-编译优化带来的有序性问题"><a href="#源头之三-编译优化带来的有序性问题" class="headerlink" title="源头之三: 编译优化带来的有序性问题"></a>源头之三: 编译优化带来的有序性问题</h3><blockquote>
+<p><strong>有序性</strong>: 程序按照代码的先后顺序执行</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;</span><br><span class="line">  <span class="keyword">static</span> Singleton instance;</span><br><span class="line">  <span class="function"><span class="keyword">static</span> Singleton <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (instance == <span class="keyword">null</span>) &#123;</span><br><span class="line">      <span class="keyword">synchronized</span>(Singleton<span class="class">.<span class="keyword">class</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (instance == <span class="keyword">null</span>)</span><br><span class="line">          instance = <span class="keyword">new</span> Singleton();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> instance;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们以为的new 操作:</p>
+<ol>
+<li>分配一块内存 M;</li>
+<li>在内存 M 上初始化 Singleton对象;</li>
+<li>然后 M 的地址赋值给 instance变量</li>
+</ol>
+<p>但是实际上优化后执行路径却是这样的:</p>
+<ol>
+<li>分配一块内存 M;</li>
+<li>将 M 的地址赋值给 instance 变量;</li>
+<li>最后将内存 M 上初始化 Singleton对象;</li>
+</ol>
+<p><strong>出现问题</strong> 在new的 第二步 发生了线程切换, 此时 M 地址的实例没有初始化为 null, 线程二执行到 <strong>synchronized</strong> 外的 instance == null ,使用该实例 就会发生空指针异常</p>
+<h4 id="在线程正运行synchronized修饰的代码块中时-会出现线程切换吗"><a href="#在线程正运行synchronized修饰的代码块中时-会出现线程切换吗" class="headerlink" title="在线程正运行synchronized修饰的代码块中时,会出现线程切换吗?"></a>在线程正运行synchronized修饰的代码块中时,会出现线程切换吗?</h4><p>答: 在同步代码块里,线程也可能被操作系统<strong>剥夺cpu的使用权</strong>,但是其他线程此时是拿不到同步代码块的锁,所有其他线程不会执行同步代码块的代码</p>
 <blockquote>
-<p>行锁</p>
+<p><strong>注意</strong>: volatile 只能保证可见性和有序性,<strong>无法保证原子性</strong></p>
 </blockquote>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#主键明确</span></span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> <span class="keyword">user</span> <span class="keyword">where</span> <span class="keyword">id</span> =<span class="number">1</span> <span class="keyword">for</span> <span class="keyword">update</span>;</span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> <span class="keyword">user</span> <span class="keyword">where</span> <span class="keyword">id</span>=<span class="number">1</span> <span class="keyword">and</span> <span class="keyword">name</span>=<span class="string">'kkk'</span> <span class="keyword">for</span> <span class="keyword">update</span>;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>表锁</p>
-</blockquote>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#主键不明确</span></span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> <span class="keyword">user</span> <span class="keyword">where</span> <span class="keyword">name</span>=<span class="string">'kkk'</span> <span class="keyword">for</span> <span class="keyword">update</span>;</span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> <span class="keyword">user</span> <span class="keyword">where</span> <span class="keyword">id</span> &lt;&gt; <span class="number">3</span> <span class="keyword">for</span> <span class="keyword">update</span>;</span><br></pre></td></tr></table></figure>
-
-<h2 id="锁算法"><a href="#锁算法" class="headerlink" title="锁算法"></a>锁算法</h2><h3 id="行锁算法"><a href="#行锁算法" class="headerlink" title="行锁算法"></a>行锁算法</h3><p> Record Lock:单个行记录上的锁</p>
-<ul>
-<li>键值在条件范围内</li>
-<li>记录存在</li>
-</ul>
-<p>Gap Lock:间隙锁</p>
-<ul>
-<li>锁定一个范围,但不包含记录本身</li>
-</ul>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#id只有1-50</span></span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> <span class="keyword">user</span> <span class="keyword">where</span> <span class="keyword">id</span>&gt;<span class="number">50</span> <span class="keyword">for</span> <span class="keyword">update</span>;</span><br></pre></td></tr></table></figure>
-
-
-<p>Next-Key Lock:(行&amp;间隙)</p>
-<ul>
-<li>锁定一个范围,并且锁定记录本身<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#id只有1-50</span></span><br><span class="line">  <span class="keyword">select</span> * <span class="keyword">from</span> <span class="keyword">user</span> <span class="keyword">id</span>&gt;<span class="number">49</span> <span class="keyword">for</span> <span class="keyword">update</span>;</span><br></pre></td></tr></table></figure>
-<h3 id="表锁算法"><a href="#表锁算法" class="headerlink" title="表锁算法"></a>表锁算法</h3>意向锁(升级机制)</li>
-<li>当一个事务带着表锁去访问一个加了行锁的资源,那么,此时这个行锁就会升级成意向锁,将表锁住.</li>
-</ul>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#事务A -升级表锁</span></span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> <span class="keyword">user</span> <span class="keyword">where</span> <span class="keyword">id</span>=<span class="number">10</span> <span class="keyword">for</span> <span class="keyword">update</span>;  //此时是行锁</span><br><span class="line"><span class="comment">#事务B -锁表</span></span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> <span class="keyword">user</span> <span class="keyword">where</span> <span class="keyword">name</span>=<span class="string">'kkk'</span> <span class="keyword">for</span> <span class="keyword">update</span>;//升级表锁</span><br></pre></td></tr></table></figure>
-<p>自增锁</p>
-<ul>
-<li>事务插入自增类型的列时,获取自增锁<blockquote>
-<p>  如果一个事务正在往表中插入自增记录,其他事务都必须等待,对于有自增长值的列的并发插入性能较差,事务必须等待</p>
-</blockquote>
-</li>
-</ul>
 
     </div>
 
@@ -286,8 +283,8 @@ src="https://github.blog/wp-content/uploads/2008/12/forkme_right_darkblue_121621
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/Mysql/" rel="tag"># Mysql</a>
-              <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93%E9%94%81/" rel="tag"># 数据库锁</a>
+              <a href="/tags/%E5%B9%B6%E5%8F%91/" rel="tag"># 并发</a>
+              <a href="/tags/%E6%9E%81%E5%AE%A2%E6%97%B6%E9%97%B4/" rel="tag"># 极客时间</a>
           </div>
 
         
@@ -296,13 +293,10 @@ src="https://github.blog/wp-content/uploads/2008/12/forkme_right_darkblue_121621
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2020/02/08/Java%E6%9F%A5%E6%BC%8F%E8%A1%A5%E7%BC%BA/" rel="prev" title="Java查漏补缺">
-      <i class="fa fa-chevron-left"></i> Java查漏补缺
+    <a href="/2020/03/14/Arrays%E7%B1%BB%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95/" rel="prev" title="Arrays类常用方法">
+      <i class="fa fa-chevron-left"></i> Arrays类常用方法
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2020/02/09/map%E7%9A%84%E5%88%86%E7%B1%BB%E5%92%8C%E5%B8%B8%E8%A7%81%E6%83%85%E5%86%B5/" rel="next" title="map的分类和常见情况">
-      map的分类和常见情况 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -362,7 +356,7 @@ src="https://github.blog/wp-content/uploads/2008/12/forkme_right_darkblue_121621
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#宏观"><span class="nav-number">1.</span> <span class="nav-text">宏观</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据库锁"><span class="nav-number">1.1.</span> <span class="nav-text">数据库锁　</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码锁"><span class="nav-number">1.2.</span> <span class="nav-text">代码锁</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#微观"><span class="nav-number">2.</span> <span class="nav-text">微观</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#分类"><span class="nav-number">2.0.1.</span> <span class="nav-text">分类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#行锁＆表锁"><span class="nav-number">2.0.2.</span> <span class="nav-text">行锁＆表锁</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#锁算法"><span class="nav-number">3.</span> <span class="nav-text">锁算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#行锁算法"><span class="nav-number">3.1.</span> <span class="nav-text">行锁算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#表锁算法"><span class="nav-number">3.2.</span> <span class="nav-text">表锁算法</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#源头之一-缓存导致可见性问题"><span class="nav-number">1.</span> <span class="nav-text">源头之一: 缓存导致可见性问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#源头之二-线程切换带来的原子性问题"><span class="nav-number">2.</span> <span class="nav-text">源头之二: 线程切换带来的原子性问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#源头之三-编译优化带来的有序性问题"><span class="nav-number">3.</span> <span class="nav-text">源头之三: 编译优化带来的有序性问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#在线程正运行synchronized修饰的代码块中时-会出现线程切换吗"><span class="nav-number">3.1.</span> <span class="nav-text">在线程正运行synchronized修饰的代码块中时,会出现线程切换吗?</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
