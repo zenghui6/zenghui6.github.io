@@ -20,14 +20,14 @@
     var CONFIG = {"hostname":"zhangxuezhi.com","root":"/","scheme":"Pisces","version":"7.7.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"path":"search.xml","motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="源头之一: 缓存导致可见性问题  提供线程对共享变量的修改,另外一个线程能够立刻看到,我们称为可见性  多核时代,每个CPU都有自己的缓存,这时CPU缓存与内存的数据的一致性就没那么容易解决了 源头之二: 线程切换带来的原子性问题早期的操作系统是基于进程来调度CPU,不同进程间是不共享内存空间的, 现代操作系统是基于更轻量的线程来调度,而一个进程创建的所有线程,都是共享一个存储空间的 count">
+  <meta name="description" content="源头之一: 缓存导致可见性问题  提供线程对共享变量的修改,另外一个线程能够立刻看到,我们称为可见性  多核时代,每个CPU都有自己的缓存,这时CPU缓存与内存的数据的一致性就没那么容易解决了">
 <meta property="og:type" content="article">
 <meta property="og:title" content="可见性,原子性,有序性">
 <meta property="og:url" content="http://zhangxuezhi.com/2020/03/23/%E5%8F%AF%E8%A7%81%E6%80%A7-%E5%8E%9F%E5%AD%90%E6%80%A7-%E6%9C%89%E5%BA%8F%E6%80%A7/index.html">
 <meta property="og:site_name" content="の博客">
-<meta property="og:description" content="源头之一: 缓存导致可见性问题  提供线程对共享变量的修改,另外一个线程能够立刻看到,我们称为可见性  多核时代,每个CPU都有自己的缓存,这时CPU缓存与内存的数据的一致性就没那么容易解决了 源头之二: 线程切换带来的原子性问题早期的操作系统是基于进程来调度CPU,不同进程间是不共享内存空间的, 现代操作系统是基于更轻量的线程来调度,而一个进程创建的所有线程,都是共享一个存储空间的 count">
+<meta property="og:description" content="源头之一: 缓存导致可见性问题  提供线程对共享变量的修改,另外一个线程能够立刻看到,我们称为可见性  多核时代,每个CPU都有自己的缓存,这时CPU缓存与内存的数据的一致性就没那么容易解决了">
 <meta property="article:published_time" content="2020-03-23T11:09:29.000Z">
-<meta property="article:modified_time" content="2020-03-23T12:35:26.543Z">
+<meta property="article:modified_time" content="2020-03-23T12:37:15.377Z">
 <meta property="article:tag" content="并发">
 <meta property="article:tag" content="极客时间">
 <meta name="twitter:card" content="summary">
@@ -210,7 +210,7 @@ src="https://github.blog/wp-content/uploads/2008/12/forkme_right_darkblue_121621
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2020-03-23 19:09:29 / Modified: 20:35:26" itemprop="dateCreated datePublished" datetime="2020-03-23T19:09:29+08:00">2020-03-23</time>
+              <time title="Created: 2020-03-23 19:09:29 / Modified: 20:37:15" itemprop="dateCreated datePublished" datetime="2020-03-23T19:09:29+08:00">2020-03-23</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -239,6 +239,8 @@ src="https://github.blog/wp-content/uploads/2008/12/forkme_right_darkblue_121621
 <p> 提供线程对共享变量的修改,另外一个线程能够立刻看到,我们称为<strong>可见性</strong></p>
 </blockquote>
 <p>多核时代,每个CPU都有自己的缓存,这时CPU缓存与内存的数据的一致性就没那么容易解决了</p>
+<a id="more"></a>
+
 <h3 id="源头之二-线程切换带来的原子性问题"><a href="#源头之二-线程切换带来的原子性问题" class="headerlink" title="源头之二: 线程切换带来的原子性问题"></a>源头之二: 线程切换带来的原子性问题</h3><p><strong>早期的操作系统</strong>是基于<strong>进程</strong>来调度CPU,不同进程间是不共享内存空间的,</p>
 <p><strong>现代操作系统</strong>是基于更轻量的<strong>线程</strong>来调度,而一个进程创建的所有线程,都是共享一个存储空间的</p>
 <p><code>count += 1</code></p>

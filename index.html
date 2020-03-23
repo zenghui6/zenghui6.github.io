@@ -207,7 +207,7 @@ src="https://github.blog/wp-content/uploads/2008/12/forkme_right_darkblue_121621
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2020-03-23 19:09:29 / Modified: 20:35:26" itemprop="dateCreated datePublished" datetime="2020-03-23T19:09:29+08:00">2020-03-23</time>
+              <time title="Created: 2020-03-23 19:09:29 / Modified: 20:37:15" itemprop="dateCreated datePublished" datetime="2020-03-23T19:09:29+08:00">2020-03-23</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -236,42 +236,14 @@ src="https://github.blog/wp-content/uploads/2008/12/forkme_right_darkblue_121621
 <p> 提供线程对共享变量的修改,另外一个线程能够立刻看到,我们称为<strong>可见性</strong></p>
 </blockquote>
 <p>多核时代,每个CPU都有自己的缓存,这时CPU缓存与内存的数据的一致性就没那么容易解决了</p>
-<h3 id="源头之二-线程切换带来的原子性问题"><a href="#源头之二-线程切换带来的原子性问题" class="headerlink" title="源头之二: 线程切换带来的原子性问题"></a>源头之二: 线程切换带来的原子性问题</h3><p><strong>早期的操作系统</strong>是基于<strong>进程</strong>来调度CPU,不同进程间是不共享内存空间的,</p>
-<p><strong>现代操作系统</strong>是基于更轻量的<strong>线程</strong>来调度,而一个进程创建的所有线程,都是共享一个存储空间的</p>
-<p><code>count += 1</code></p>
-<p>至少需要三条指令</p>
-<ul>
-<li>指令1: 首先,需要把变量 count 从内存加载到 CPU 的寄存器;</li>
-<li>指令2: 之后, 在寄存器中执行 +1 操作</li>
-<li>指令3: 最后,将结果写入内存 (缓存机制导致可能写入的是CPU缓存而不是内存)</li>
-</ul>
-<p>操作系统做任务切换,可以发生在任何一条<strong><em>CPU 指令</em></strong>执行完.</p>
-<blockquote>
-<p>我们把一个或者多个操作在CPU执行的过程中不被中断的特效称为<strong>原子性</strong></p>
-</blockquote>
-<h3 id="源头之三-编译优化带来的有序性问题"><a href="#源头之三-编译优化带来的有序性问题" class="headerlink" title="源头之三: 编译优化带来的有序性问题"></a>源头之三: 编译优化带来的有序性问题</h3><blockquote>
-<p><strong>有序性</strong>: 程序按照代码的先后顺序执行</p>
-</blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;</span><br><span class="line">  <span class="keyword">static</span> Singleton instance;</span><br><span class="line">  <span class="function"><span class="keyword">static</span> Singleton <span class="title">getInstance</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (instance == <span class="keyword">null</span>) &#123;</span><br><span class="line">      <span class="keyword">synchronized</span>(Singleton<span class="class">.<span class="keyword">class</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (instance == <span class="keyword">null</span>)</span><br><span class="line">          instance = <span class="keyword">new</span> Singleton();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> instance;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>我们以为的new 操作:</p>
-<ol>
-<li>分配一块内存 M;</li>
-<li>在内存 M 上初始化 Singleton对象;</li>
-<li>然后 M 的地址赋值给 instance变量</li>
-</ol>
-<p>但是实际上优化后执行路径却是这样的:</p>
-<ol>
-<li>分配一块内存 M;</li>
-<li>将 M 的地址赋值给 instance 变量;</li>
-<li>最后将内存 M 上初始化 Singleton对象;</li>
-</ol>
-<p><strong>出现问题</strong> 在new的 第二步 发生了线程切换, 此时 M 地址的实例没有初始化为 null, 线程二执行到 <strong>synchronized</strong> 外的 instance == null ,使用该实例 就会发生空指针异常</p>
-<h4 id="在线程正运行synchronized修饰的代码块中时-会出现线程切换吗"><a href="#在线程正运行synchronized修饰的代码块中时-会出现线程切换吗" class="headerlink" title="在线程正运行synchronized修饰的代码块中时,会出现线程切换吗?"></a>在线程正运行synchronized修饰的代码块中时,会出现线程切换吗?</h4><p>答: 在同步代码块里,线程也可能被操作系统<strong>剥夺cpu的使用权</strong>,但是其他线程此时是拿不到同步代码块的锁,所有其他线程不会执行同步代码块的代码</p>
-<blockquote>
-<p><strong>注意</strong>: volatile 只能保证可见性和有序性,<strong>无法保证原子性</strong></p>
-</blockquote>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/03/23/%E5%8F%AF%E8%A7%81%E6%80%A7-%E5%8E%9F%E5%AD%90%E6%80%A7-%E6%9C%89%E5%BA%8F%E6%80%A7/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
