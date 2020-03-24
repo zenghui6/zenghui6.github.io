@@ -1,6 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Java内存模型,如何解决可见性和有序性问题</title>
+    <url>/2020/03/24/Java%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B-%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3%E5%8F%AF%E8%A7%81%E6%80%A7%E5%92%8C%E6%9C%89%E5%BA%8F%E6%80%A7%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<p>我们已经知道,导致可见性的原因是CPU缓存, 导致有序性的原因是编译优化,</p>
+<p>那解决可见性和有序性的方法就是<strong>禁用缓存和编译优化</strong>,但是这样会使程序性能堪忧</p>
+<p>合理的方法是<strong>按需禁用缓存以及编译优化</strong> .</p>
+<p>Java内存模型规范了JVM如何提供需禁用缓存和编译优化的方法,具体来说,这些方法包括 <strong>volatile , sysnchronized 和final</strong> 三个关键字,以及六项<strong>Happens-Before</strong>规则 </p>
+<a id="more"></a>
+
+<h3 id="Happens-Before规则"><a href="#Happens-Before规则" class="headerlink" title="Happens-Before规则"></a>Happens-Before规则</h3><h4 id="程序的顺序性规则"><a href="#程序的顺序性规则" class="headerlink" title="程序的顺序性规则"></a>程序的顺序性规则</h4><p>在<strong>一个线程</strong>里面,程序前面对某个变量的修改一定是对后续操作可见的</p>
+<h4 id="Volatile-变量规则"><a href="#Volatile-变量规则" class="headerlink" title="Volatile 变量规则"></a>Volatile 变量规则</h4><p>对一个<strong>volatile</strong>变量的写操作 后续对这个volatile 变量的读操作可见</p>
+<h4 id="传递性"><a href="#传递性" class="headerlink" title="传递性"></a>传递性</h4><p>这条规则是指如果 A Happens-Before B , 且 B Happens-Before C , 那么 </p>
+<p>A Happens-Before C</p>
+<p><strong>结合规则一 和 规则二</strong></p>
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="http://yanxuan.nosdn.127.net/de5b3ca0e04f8a721ae5a7355f6a4da8.png" alt="UTOOLS1585013409592.png"></p>
+<p>从图中,我们可以看到:</p>
+<ol>
+<li>“ x = 42”  Happens-Before 写变量 “v=true” , 这是规则 1 的内容</li>
+<li>写变量 “v=true” Happens-Before 读变量 “v=true” , 这是规则2的内容</li>
+</ol>
+<p>再根据这个传递性规则,我们得到 –&gt; “x = 42 “ Happens-Before 读变量 “v=true”,这意味着 :<strong>如果线程 B 读到了 “v = true” , 那么线程 A 设置 “x =42”对线程 B 是可见的</strong></p>
+<h4 id="管程中锁的规则"><a href="#管程中锁的规则" class="headerlink" title="管程中锁的规则"></a>管程中锁的规则</h4><p>这条规则是值<strong>对一个锁的解锁 Happens-Before 于后续对这个锁的加锁</strong></p>
+<p>管程是什么: 管程是一种通用的同步原语, 在 Java 中指的就是 synchronized;</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">synchronized</span> (<span class="keyword">this</span>) &#123; <span class="comment">// 此处自动加锁</span></span><br><span class="line">  <span class="comment">// x 是共享变量, 初始值 =10</span></span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">this</span>.x &lt; <span class="number">12</span>) &#123;</span><br><span class="line">    <span class="keyword">this</span>.x = <span class="number">12</span>; </span><br><span class="line">  &#125;  </span><br><span class="line">&#125; <span class="comment">// 此处自动解锁</span></span><br></pre></td></tr></table></figure>
+
+<p>可以这样理解：假设 x 的初始值是 10，线程 A 执行完代码块后 x 的值会变成 12（执行完自动释放锁），线程 B 进入代码块时，能够看到线程 A 对 x 的写操作，也就是线程 B 能够看到 x==12。这个也是符合我们直觉的，应该不难理解。</p>
+<h4 id="线程-start-规则"><a href="#线程-start-规则" class="headerlink" title="线程 start() 规则"></a>线程 start() 规则</h4><p>这条是关于线程启动的,它是指主线程 A 启动 子线程 B 后,子线程 B能够看到主线程在启动线程 B 前的操作.</p>
+<h4 id="线程-join-规则"><a href="#线程-join-规则" class="headerlink" title="线程 join() 规则"></a>线程 join() 规则</h4><p>这条是关于线程等待的,他是指主线程 A 等待子线程 B 完成(主线程 A 通过 调用子线程 B 的 join() 方法 实现) , 当子线程 B完成后 (主线程 A中 join() 方法返回) ,主线程能够看到子线程的操作.当然” 看到 “ 指的是对<strong>共享变量</strong> 的操作.</p>
+<h3 id="final-关键字"><a href="#final-关键字" class="headerlink" title="final 关键字"></a>final 关键字</h3><p>final 修饰变量时，初衷是告诉编译器：这个变量生而不变，可以可劲儿优化</p>
+<p>当一个对象包含final修饰的实例字段时，其他线程能够看到已经初始化的final实例字段，这是安全的。</p>
+<p>wo</p>
+]]></content>
+      <categories>
+        <category>并发编程</category>
+      </categories>
+      <tags>
+        <tag>并发</tag>
+        <tag>极客时间</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>可见性,原子性,有序性</title>
     <url>/2020/03/23/%E5%8F%AF%E8%A7%81%E6%80%A7-%E5%8E%9F%E5%AD%90%E6%80%A7-%E6%9C%89%E5%BA%8F%E6%80%A7/</url>
     <content><![CDATA[<h3 id="源头之一-缓存导致可见性问题"><a href="#源头之一-缓存导致可见性问题" class="headerlink" title="源头之一: 缓存导致可见性问题"></a>源头之一: 缓存导致可见性问题</h3><blockquote>
