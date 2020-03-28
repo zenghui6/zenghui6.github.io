@@ -1,6 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>快速排序及其优化</title>
+    <url>/2020/03/27/%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F%E5%8F%8A%E5%85%B6%E4%BC%98%E5%8C%96/</url>
+    <content><![CDATA[<h3 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h3><h4 id="思想"><a href="#思想" class="headerlink" title="思想"></a>思想</h4><p>快速排序是属于交换排序的基本思想. 选择一个基准值 val , 把比 val 小的放前面,比val 大的放后面, 最后把val 放在两个区域中间, val 就到了最终的位置</p>
+<p>很明显快排是一个<strong>原地排序</strong>, 也是一个<strong>不稳定排序</strong></p>
+<p>时间复杂度: O (nlogn)</p>
+<a id="more"></a>
+
+<h4 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h4><ol>
+<li>把数组的第一个元素作为 key ,先用变量 key 存下来, 设置两个指针, i 用来标记遍历的元素, <strong>j-1用来标记 &lt; key 区间的最后一个元素</strong></li>
+<li>i = start+1 ;  j  = start (start 表示排序数组开始点); </li>
+<li>遇到array[i] 小于 key 的情况, 就把array[i] 和 array[j] 交换, 然后 j++ ; i ++ ; </li>
+<li>遇到array[i] 大于 key 的情况, 就继续判断下一个 i++; </li>
+<li>当遍历完之后把key 放在 j处, 也就是最终位置处</li>
+<li>运用递归,接着把[start, j-1] 和 [j+1, end] 进行第2,3,4,5 操作</li>
+<li>直到 start  &gt;= end, 退出递归</li>
+</ol>
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>排序算法</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>细粒度锁锁定多个资源出现死锁,怎么办?</title>
     <url>/2020/03/27/%E7%BB%86%E7%B2%92%E5%BA%A6%E9%94%81%E4%B8%80%E4%B8%8D%E5%B0%8F%E5%BF%83%E5%87%BA%E7%8E%B0%E6%AD%BB%E9%94%81-%E6%80%8E%E4%B9%88%E5%8A%9E/</url>
     <content><![CDATA[<p>上一篇文章中,我们使用 Account.class 作为互斥锁, 但是这个会让所有账户操作都是串行的,例如账户 A 转账账户 B, 账户 C 转账 账户 D 这两个转账在现实世界是可以并行的,但是这个方案却被串行化了,这样的话,性能太差.</p>
