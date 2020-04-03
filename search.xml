@@ -1,6 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>RabbitMQ基础</title>
+    <url>/2020/04/03/RabbitMQ%E5%9F%BA%E7%A1%80/</url>
+    <content><![CDATA[<h3 id="什么是MQ"><a href="#什么是MQ" class="headerlink" title="什么是MQ?"></a>什么是MQ?</h3><p><code>MQ</code> (Message Quene) : 翻译为 消息队列 ,通过典型的 生产者 和 消费者 模型,<strong>生产者</strong>不断向消息队列中生产消息,<strong>消费者</strong>不断的从队列中获取消息。因为消息的生产和消费都是异步的,而且只关心消息的发送和接收,没有业务逻辑的侵入,轻松的实现系统间解耦。别名为 消息中间件 通过利用高效可靠的消息传递机制进行平台无关的数据交流,并基于数据通信来进行分布式系统的集成。</p>
+<a id="more"></a>
+
+<h3 id="不同MQ特点"><a href="#不同MQ特点" class="headerlink" title="不同MQ特点"></a>不同MQ特点</h3><figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line">1.ActiveMQ</span><br><span class="line">ActiveMQ 是Apache出品,最流行的,能力强劲的开源消</span><br><span class="line">息总线。它是一个完全支持JMS规范的的消息中间件。丰富的</span><br><span class="line">API,多种集群架构模式让ActiveMQ在业界成为老牌的消息中间</span><br><span class="line">件,在中小型企业颇受欢迎!</span><br><span class="line"></span><br><span class="line">2.Kafka</span><br><span class="line"></span><br><span class="line">Kafka是LinkedIn开源的分布式发布-订阅消息系统,目</span><br><span class="line">前归属于Apache顶级项目。Kafka主要特点是基于Pull的模式</span><br><span class="line">来处理消息消费,</span><br><span class="line">追求高吞吐量,一开始的目的就是用于日志收集和传输。</span><br><span class="line">0.8版本开始支持复制,不支持事务,对消息的重复、丢失、错</span><br><span class="line">误没有严格要求,</span><br><span class="line">适合产生大量数据的互联网服务的数据收集业务。</span><br><span class="line"></span><br><span class="line">3.RocketMQ</span><br><span class="line"></span><br><span class="line">RocketMQ是阿里开源的消息中间件,它是纯Java开发,具</span><br><span class="line">有高吞吐量、高可用性、适合大规模分布式系统应用的特点。</span><br><span class="line">RocketMQ思路起</span><br><span class="line">源于Kafka,但并不是Kafka的一个Copy,它对消息的可</span><br><span class="line">靠传输及事务性做了优化,目前在阿里集团被广泛应用于交易、</span><br><span class="line">充值、流计算、消</span><br><span class="line">息推送、日志流式处理、binglog分发等场景。</span><br><span class="line"></span><br><span class="line">4.RabbitMQ</span><br><span class="line"></span><br><span class="line">RabbitMQ是使用Erlang语言开发的开源消息队列系统,</span><br><span class="line">基于AMQP协议来实现。AMQP的主要特征是面向消息、队列、路</span><br><span class="line">由(包括点对点和发布/订阅)、可靠性、安全。AMQP协议更多用在企业系统</span><br><span class="line">内对数据一致性、稳定性和可靠性要求很高的场景,对性能和吞</span><br><span class="line">吐量的要求还在</span><br><span class="line">其次。</span><br></pre></td></tr></table></figure>
+
+<h3 id="7个数据模型"><a href="#7个数据模型" class="headerlink" title="7个数据模型"></a>7个数据模型</h3><ol>
+<li>简单的一对一</li>
+<li>work queues</li>
+<li>publish/subscribe</li>
+<li>Routing</li>
+<li>Topic</li>
+<li>RPC</li>
+<li>public/confirm</li>
+</ol>
+]]></content>
+      <categories>
+        <category>RabbitMQ</category>
+      </categories>
+      <tags>
+        <tag>消息中间件</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Swagger笔记</title>
     <url>/2020/04/01/Swagger%E7%AC%94%E8%AE%B0/</url>
     <content><![CDATA[<p><strong>学习目标：</strong></p>
@@ -1132,6 +1157,7 @@
 
 <p>启动容器,指定网段和ip指定</p>
 <p>docker run -d –name itcast01 -h itcast01 –net network_hadoop –ip 192.168.88.88 -P -p 8088:8088 -p 50070:50070 –privileged=true registry.cn-beijing.aliyuncs.com/jing-studio/centos7-hadoop /usr/sbin/init</p>
+<h3 id="停止全部运行的容器"><a href="#停止全部运行的容器" class="headerlink" title="停止全部运行的容器"></a>停止全部运行的容器</h3><p>docker stop $(docker ps -aq)</p>
 ]]></content>
       <categories>
         <category>Docker</category>

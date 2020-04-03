@@ -182,6 +182,83 @@ src="https://github.blog/wp-content/uploads/2008/12/forkme_right_darkblue_121621
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://zhangxuezhi.com/2020/04/03/RabbitMQ%E5%9F%BA%E7%A1%80/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="Try your Best">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="の博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/03/RabbitMQ%E5%9F%BA%E7%A1%80/" class="post-title-link" itemprop="url">RabbitMQ基础</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-04-03 13:04:24 / Modified: 18:54:32" itemprop="dateCreated datePublished" datetime="2020-04-03T13:04:24+08:00">2020-04-03</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/RabbitMQ/" itemprop="url" rel="index">
+                    <span itemprop="name">RabbitMQ</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="什么是MQ"><a href="#什么是MQ" class="headerlink" title="什么是MQ?"></a>什么是MQ?</h3><p><code>MQ</code> (Message Quene) : 翻译为 消息队列 ,通过典型的 生产者 和 消费者 模型,<strong>生产者</strong>不断向消息队列中生产消息,<strong>消费者</strong>不断的从队列中获取消息。因为消息的生产和消费都是异步的,而且只关心消息的发送和接收,没有业务逻辑的侵入,轻松的实现系统间解耦。别名为 消息中间件 通过利用高效可靠的消息传递机制进行平台无关的数据交流,并基于数据通信来进行分布式系统的集成。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/04/03/RabbitMQ%E5%9F%BA%E7%A1%80/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
     <link itemprop="mainEntityOfPage" href="http://zhangxuezhi.com/2020/04/01/Swagger%E7%AC%94%E8%AE%B0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -535,89 +612,11 @@ src="https://github.blog/wp-content/uploads/2008/12/forkme_right_darkblue_121621
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-Hans">
-    <link itemprop="mainEntityOfPage" href="http://zhangxuezhi.com/2020/03/27/%E7%BB%86%E7%B2%92%E5%BA%A6%E9%94%81%E4%B8%80%E4%B8%8D%E5%B0%8F%E5%BF%83%E5%87%BA%E7%8E%B0%E6%AD%BB%E9%94%81-%E6%80%8E%E4%B9%88%E5%8A%9E/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="Try your Best">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="の博客">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/03/27/%E7%BB%86%E7%B2%92%E5%BA%A6%E9%94%81%E4%B8%80%E4%B8%8D%E5%B0%8F%E5%BF%83%E5%87%BA%E7%8E%B0%E6%AD%BB%E9%94%81-%E6%80%8E%E4%B9%88%E5%8A%9E/" class="post-title-link" itemprop="url">细粒度锁锁定多个资源出现死锁,怎么办?</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2020-03-27 09:10:46 / Modified: 11:48:15" itemprop="dateCreated datePublished" datetime="2020-03-27T09:10:46+08:00">2020-03-27</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/" itemprop="url" rel="index">
-                    <span itemprop="name">并发编程</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>上一篇文章中,我们使用 Account.class 作为互斥锁, 但是这个会让所有账户操作都是串行的,例如账户 A 转账账户 B, 账户 C 转账 账户 D 这两个转账在现实世界是可以并行的,但是这个方案却被串行化了,这样的话,性能太差.</p>
-<h3 id="向现实世界要答案"><a href="#向现实世界要答案" class="headerlink" title="向现实世界要答案"></a>向现实世界要答案</h3><p>只要我们能仿照现实世界做转账操作,串行问题就解决了.</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/03/27/%E7%BB%86%E7%B2%92%E5%BA%A6%E9%94%81%E4%B8%80%E4%B8%8D%E5%B0%8F%E5%BF%83%E5%87%BA%E7%8E%B0%E6%AD%BB%E9%94%81-%E6%80%8E%E4%B9%88%E5%8A%9E/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -683,20 +682,20 @@ src="https://github.blog/wp-content/uploads/2008/12/forkme_right_darkblue_121621
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">30</span>
+          <span class="site-state-item-count">31</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-count">15</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">34</span>
+        <span class="site-state-item-count">35</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
