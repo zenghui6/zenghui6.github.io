@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"zhangxuezhi.com","root":"/","scheme":"Pisces","version":"7.7.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"path":"search.xml","motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="并发编程有哪些优点?在我看来,这种现象(并发) 或多或少是由于硬件设计者无计可施了导致的,他们将摩尔定律的责任推给了软件开发者. ​                                    —-Donald Ervin Knuth  充分利用多核CPU的计算能力 方便进行业务拆分,提升应用性能">
+<meta property="og:type" content="article">
+<meta property="og:title" content="并发编程">
+<meta property="og:url" content="http://zhangxuezhi.com/2020/03/05/%E6%9E%81%E5%AE%A2%E6%97%B6%E9%97%B4%E5%A4%9A%E7%BA%BF%E7%A8%8B/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/index.html">
+<meta property="og:site_name" content="の博客">
+<meta property="og:description" content="并发编程有哪些优点?在我看来,这种现象(并发) 或多或少是由于硬件设计者无计可施了导致的,他们将摩尔定律的责任推给了软件开发者. ​                                    —-Donald Ervin Knuth  充分利用多核CPU的计算能力 方便进行业务拆分,提升应用性能">
+<meta property="article:published_time" content="2020-03-05T01:57:17.000Z">
+<meta property="article:modified_time" content="2020-03-05T04:39:53.207Z">
+<meta property="article:tag" content="多线程">
+<meta property="article:tag" content="并发">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://zhangxuezhi.com/2020/03/05/%E6%9E%81%E5%AE%A2%E6%97%B6%E9%97%B4%E5%A4%9A%E7%BA%BF%E7%A8%8B/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>并发编程 | の博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+<a href="https://github.com/zenghui6" target="_blank" rel="noopener">
+<img width="149" height="149" 
+style="position: absolute; top: 0; right: 0; border: 0;" 
+src="https://github.blog/wp-content/uploads/2008/12/forkme_right_darkblue_121621.png?resize=149%2C149" class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1">
+</a>
+
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">の博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">记录生活 记录学习</p>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="http://zhangxuezhi.com/2020/03/05/%E6%9E%81%E5%AE%A2%E6%97%B6%E9%97%B4%E5%A4%9A%E7%BA%BF%E7%A8%8B/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="Try your Best">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="の博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          并发编程
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-03-05 09:57:17 / Modified: 12:39:53" itemprop="dateCreated datePublished" datetime="2020-03-05T09:57:17+08:00">2020-03-05</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="并发编程有哪些优点"><a href="#并发编程有哪些优点" class="headerlink" title="并发编程有哪些优点?"></a>并发编程有哪些优点?</h3><p>在我看来,这种现象(并发) 或多或少是由于硬件设计者无计可施了导致的,他们将摩尔定律的责任推给了软件开发者.</p>
+<p>​                                    —-Donald Ervin Knuth</p>
+<ol>
+<li>充分利用多核CPU的计算能力</li>
+<li>方便进行业务拆分,提升应用性能</li>
+</ol>
+<a id="more"></a>
+
+<h3 id="并发编程有哪些缺点"><a href="#并发编程有哪些缺点" class="headerlink" title="并发编程有哪些缺点:"></a>并发编程有哪些缺点:</h3><ol>
+<li>频繁的上下文切换</li>
+<li>线程安全</li>
+</ol>
+<h3 id="用户创建线程的三种方式"><a href="#用户创建线程的三种方式" class="headerlink" title="用户创建线程的三种方式:"></a>用户创建线程的三种方式:</h3><ol>
+<li><p>通过继承Thread类, 重写run方法;</p>
+</li>
+<li><p>通过实现runable接口;</p>
+</li>
+<li><p>通过实现callable接口;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CreateThreadDemo</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//1.继承Thread</span></span><br><span class="line">        Thread thread = <span class="keyword">new</span> Thread() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                System.out.println(<span class="string">"继承Thread"</span>);</span><br><span class="line">                <span class="keyword">super</span>.run();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">        thread.start();</span><br><span class="line">        <span class="comment">//2.实现runable接口</span></span><br><span class="line">        Thread thread1 = <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                System.out.println(<span class="string">"实现runable接口"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        thread1.start();</span><br><span class="line">        <span class="comment">//3.实现callable接口</span></span><br><span class="line">        ExecutorService service = Executors.newSingleThreadExecutor();</span><br><span class="line">        Future&lt;String&gt; future = service.submit(<span class="keyword">new</span> Callable() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> String <span class="title">call</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="string">"通过实现Callable接口"</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            String result = future.get();</span><br><span class="line">            System.out.println(result);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (ExecutionException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>因为java是单继承</strong> ,所以尽量使用实现接口的方式</p>
+</li>
+</ol>
+<h3 id="线程状态的基本操作"><a href="#线程状态的基本操作" class="headerlink" title="线程状态的基本操作"></a>线程状态的基本操作</h3><h4 id="interrupted-中断"><a href="#interrupted-中断" class="headerlink" title="interrupted(中断)"></a>interrupted(中断)</h4><p>   中断一个线程, 有一个中断标志位,一个线程可以使用interrupt()方法对该线程进行中断操作,同时该线程可以调用 isInterrupted方法来判断中断标志位</p>
+<blockquote>
+<p>如果该线程调用了wait() ,sleep()或者join()方法时,interrupt()方法会抛出InterruptedException, 并且标志位将会被清除</p>
+</blockquote>
+<h4 id="join"><a href="#join" class="headerlink" title="join"></a>join</h4><p>join方法可以看做是线程间的协作,很多时候,一个线程的输入可能非常依赖另一个线程的输出;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JoinDemo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Thread previousThread = Thread.currentThread();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= <span class="number">10</span>; i++) &#123;</span><br><span class="line">            Thread curThread = <span class="keyword">new</span> JoinThread(previousThread);</span><br><span class="line">            curThread.start();</span><br><span class="line">            previousThread = curThread;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">JoinThread</span> <span class="keyword">extends</span> <span class="title">Thread</span> </span>&#123;</span><br><span class="line">        <span class="keyword">private</span> Thread thread;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">JoinThread</span><span class="params">(Thread thread)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">this</span>.thread = thread;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                thread.join();</span><br><span class="line">                System.out.println(thread.getName() + <span class="string">" terminated."</span>);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在上面例子中创建了10个线程,每个线程都会等待前一个线程结束才会继续运行.可以通俗理解成接力,前一个线程将接力棒传给下一个线程,然后又传给下一个线程……</p>
+<h4 id="sleep"><a href="#sleep" class="headerlink" title="sleep"></a>sleep</h4><blockquote>
+<p>sleep()  VS wait()</p>
+</blockquote>
+<p>两者的主要区别:</p>
+<ol>
+<li>类的不同: sleep() 来自 Thread的静态方法, wait() 来自 Object的实例方法.</li>
+<li>释放锁: sleep() 不释放锁; wait()释放锁.</li>
+<li>用法不同: sleep() 时间到会自动恢复; wait()可以使用 notify()/notifyAll() 直接唤醒.</li>
+</ol>
+<h4 id="yield"><a href="#yield" class="headerlink" title="yield"></a>yield</h4><p>这是一个静态方法,一旦执行,它会使当前线程让出CPU,但是,需要注意的是,让出的CPU并不是代表当前线程不再运行了,如果在下一次竞争中,又获得了CPU时间片当前线程依然会继续运行,另外,让出的时间片只会分配给当前线程<strong>相同优先级的线程</strong></p>
+<h3 id="守护线程Daemon"><a href="#守护线程Daemon" class="headerlink" title="守护线程Daemon"></a>守护线程Daemon</h3><p>守护线程是一种特殊的线程,就像它的名字一样,他是系统的守护者,在后台默认地守护一些系统服务,比如垃圾回收线程,JIT线程就可以理解守护线程.与之对应的就是用户线程,用户线程就可以任务是系统的工作线程,它会完成整个系统的业务操作.用户线程完全结束后就意味着整个系统的业务任务全部结束了,因此系统就没有对象需要守护了,守护线程自然会退出.</p>
+<p>守护进程会在mian进程结束后结束</p>
+<blockquote>
+<p>mian线程的结束不代表整个程序结束,所有线程全部结束才算程序结束</p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" rel="tag"># 多线程</a>
+              <a href="/tags/%E5%B9%B6%E5%8F%91/" rel="tag"># 并发</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/03/04/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/trie-%E5%89%8D%E7%BC%80%E6%A0%91/" rel="prev" title="trie 前缀树">
+      <i class="fa fa-chevron-left"></i> trie 前缀树
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/03/07/%E9%80%9A%E8%BF%87%E5%AE%9E%E7%8E%B0addViewController%E6%96%B9%E6%B3%95%E5%AE%8C%E6%88%90%E9%A1%B5%E9%9D%A2%E8%BD%AC%E8%B7%B3/" rel="next" title="通过实现addViewController方法完成页面转跳">
+      通过实现addViewController方法完成页面转跳 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#并发编程有哪些优点"><span class="nav-number">1.</span> <span class="nav-text">并发编程有哪些优点?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#并发编程有哪些缺点"><span class="nav-number">2.</span> <span class="nav-text">并发编程有哪些缺点:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#用户创建线程的三种方式"><span class="nav-number">3.</span> <span class="nav-text">用户创建线程的三种方式:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线程状态的基本操作"><span class="nav-number">4.</span> <span class="nav-text">线程状态的基本操作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#interrupted-中断"><span class="nav-number">4.1.</span> <span class="nav-text">interrupted(中断)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#join"><span class="nav-number">4.2.</span> <span class="nav-text">join</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#sleep"><span class="nav-number">4.3.</span> <span class="nav-text">sleep</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#yield"><span class="nav-number">4.4.</span> <span class="nav-text">yield</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#守护线程Daemon"><span class="nav-number">5.</span> <span class="nav-text">守护线程Daemon</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name"></p>
+  <div class="site-description" itemprop="description">Try your Best</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">39</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">40</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder"></span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.2.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.7.1
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="//cdn.bootcss.com/animejs/3.1.0/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>!function(e){var c=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function i(){for(var r=0;r<c.length;r++)t=c[r],0<=(n=t.getBoundingClientRect()).bottom&&0<=n.left&&n.top<=(e.innerHeight||document.documentElement.clientHeight)&&function(){var t,n,e,i,o=c[r];t=o,n=function(){c=c.filter(function(t){return o!==t})},e=new Image,i=t.getAttribute("data-original"),e.onload=function(){t.src=i,n&&n()},e.src=i}();var t,n}i(),e.addEventListener("scroll",function(){var t,n;t=i,n=e,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(n)},500)})}(this);</script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script></body>
+</html>
