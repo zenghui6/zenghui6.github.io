@@ -104,28 +104,6 @@
     
   </li>
   
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/contact" class="waves-effect waves-light">
-      
-      <i class="fas fa-comments" style="zoom: 0.6;"></i>
-      
-      <span>留言板</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/friends" class="waves-effect waves-light">
-      
-      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
-      
-      <span>友情链接</span>
-    </a>
-    
-  </li>
-  
   <li>
     <a href="#searchModal" class="modal-trigger waves-effect waves-light">
       <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
@@ -202,28 +180,6 @@
 			    <i class="fa-fw fas fa-user-circle"></i>
 			
 			关于
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/contact" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-comments"></i>
-			
-			留言板
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/friends" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-address-book"></i>
-			
-			友情链接
 		</a>
           
         </li>
@@ -502,8 +458,15 @@
 <h4 id="synchronized-锁升级过程"><a href="#synchronized-锁升级过程" class="headerlink" title="synchronized 锁升级过程:"></a>synchronized 锁升级过程:</h4><p><strong><em>偏向锁  -&gt;  轻量级锁 -&gt; 重量级锁</em></strong></p>
 <p> 使用 synchronized 关键字锁住某个代码块时,一开始<strong><em>锁对象</em></strong></p>
 <p>(就是下面代码中的object)并不是重量级锁,而是偏向锁.</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Object object = <span class="keyword">new</span> Object();</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">synchronized</span>(object)&#123;</span><br><span class="line">            <span class="comment">//do something</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">class</span> <span class="token class-name">Test</span><span class="token punctuation">{</span>
+    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> Object object <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Object</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">test</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">synchronized</span><span class="token punctuation">(</span>object<span class="token punctuation">)</span><span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">//do something</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
 <p><strong><em>偏向锁</em></strong> 的纸面意思就是”<strong><em>偏向于第一个获取它的线程</em></strong>“的锁.线程执行完同步代码块后,并不会主动释放偏向锁.</p>
 <p>当第二次达到同步代码块时,线程会判断此时持有锁的线程是否就是自己 (持有锁的线程ID在对象头里存储),如果是则正常往下执行.<strong><em>由于之前没有释放,这里就不需要重新加锁</em></strong>,如果从头到尾都是一个线程在使用锁,很明显偏向锁几乎没有额外开销,性能极高.</p>
 <p>一但有第二个线程加入<strong><em>锁竞争</em></strong>, 偏向锁转换为<strong><em>轻量级锁(自旋锁)</em></strong>.只有当某个线程获取锁时,发现锁已经被占用,需要等待其释放,则说明发生了锁竞争.</p>
@@ -537,10 +500,13 @@
 <p>CAS 利用 CPU指令,从硬件上保证了原子性,以达到类似锁的效果.</p>
 <p>从乐观锁的整个流程中可以看出,<strong>并没有加锁和解锁</strong>的操作,因此乐观锁策略也被称为<strong>无锁编程</strong>.换句话说,乐观锁其实不是”锁”,它仅仅是一个循环重试的CAS算法而已</p>
 <p>在Java中也是通过navtive方法实现的CAS</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">Unsafe</span></span>&#123;</span><br><span class="line">    ...</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">native</span> <span class="keyword">boolean</span> <span class="title">compareAndSwapObject</span><span class="params">(Object var1,<span class="keyword">long</span> var2, Object var4, Object var5)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">native</span> <span class="keyword">boolean</span> <span class="title">compareAndSwapInt</span><span class="params">(Object var1,<span class="keyword">long</span> var2, <span class="keyword">int</span> var4 ,<span class="keyword">int</span> var5)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">native</span> <span class="keyword">boolean</span> <span class="title">compareAndSwapLong</span><span class="params">(Object var1,<span class="keyword">long</span> var2, Long var4,Long var5)</span></span>;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
+<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">final</span> <span class="token keyword">class</span> <span class="token class-name">Unsafe</span><span class="token punctuation">{</span>
+    <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+    <span class="token keyword">public</span> <span class="token keyword">final</span> <span class="token keyword">native</span> <span class="token keyword">boolean</span> <span class="token function">compareAndSwapObject</span><span class="token punctuation">(</span>Object var1<span class="token punctuation">,</span><span class="token keyword">long</span> var2<span class="token punctuation">,</span> Object var4<span class="token punctuation">,</span> Object var5<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">public</span> <span class="token keyword">final</span> <span class="token keyword">native</span> <span class="token keyword">boolean</span> <span class="token function">compareAndSwapInt</span><span class="token punctuation">(</span>Object var1<span class="token punctuation">,</span><span class="token keyword">long</span> var2<span class="token punctuation">,</span> <span class="token keyword">int</span> var4 <span class="token punctuation">,</span><span class="token keyword">int</span> var5<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">public</span> <span class="token keyword">final</span> <span class="token keyword">native</span> <span class="token keyword">boolean</span> <span class="token function">compareAndSwapLong</span><span class="token punctuation">(</span>Object var1<span class="token punctuation">,</span><span class="token keyword">long</span> var2<span class="token punctuation">,</span> Long var4<span class="token punctuation">,</span>Long var5<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token punctuation">}</span></code></pre>
 <h4 id="atomic"><a href="#atomic" class="headerlink" title="atomic"></a>atomic</h4><p>Java中使用的各种锁基本上是<strong>悲观锁</strong>,Java中的乐观锁在java.util.concurrent.atomic下面的原子类.</p>
 <h3 id="怎么预防死锁"><a href="#怎么预防死锁" class="headerlink" title="怎么预防死锁?"></a>怎么预防死锁?</h3><p>为什么会造成死锁:</p>
 <ol>
@@ -800,8 +766,6 @@ Spring AOP 使用的是 动态代理
 
 <!-- 代码语言 -->
 
-<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
-
 
 <!-- 代码块复制 -->
 
@@ -846,7 +810,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             contentSelector: '#articleContent',
             headingsOffset: -($(window).height() * 0.4 - 45),
             collapseDepth: Number('0'),
-            headingSelector: 'h2, h3, h4'
+            headingSelector: 'h2, h3, h4, h5'
         });
 
         // modify the toc link href to support Chinese.
@@ -858,7 +822,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
 
         // modify the heading title id to support Chinese.
         i = 0;
-        $('#articleContent').children('h2, h3, h4').each(function () {
+        $('#articleContent').children('h2, h3, h4, h5').each(function () {
             $(this).attr('id', tocHeading + (++i));
         });
 
@@ -952,7 +916,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
         <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
                    server="netease"
                    type="playlist"
-                   id="503838841"
+                   id="426843371"
                    fixed='true'
                    autoplay='false'
                    theme='#42b983'

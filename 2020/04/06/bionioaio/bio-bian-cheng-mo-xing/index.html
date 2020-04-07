@@ -104,28 +104,6 @@
     
   </li>
   
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/contact" class="waves-effect waves-light">
-      
-      <i class="fas fa-comments" style="zoom: 0.6;"></i>
-      
-      <span>留言板</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/friends" class="waves-effect waves-light">
-      
-      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
-      
-      <span>友情链接</span>
-    </a>
-    
-  </li>
-  
   <li>
     <a href="#searchModal" class="modal-trigger waves-effect waves-light">
       <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
@@ -202,28 +180,6 @@
 			    <i class="fa-fw fas fa-user-circle"></i>
 			
 			关于
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/contact" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-comments"></i>
-			
-			留言板
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/friends" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-address-book"></i>
-			
-			友情链接
 		</a>
           
         </li>
@@ -474,14 +430,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.3k
+                    1.2k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    6 分
+                    5 分
                 </div>
                 
 
@@ -496,25 +452,363 @@
 <h4 id="一个服务端需要"><a href="#一个服务端需要" class="headerlink" title="一个服务端需要:"></a>一个服务端需要:</h4><ul>
 <li>一个主线程, 用来监听和接收数据</li>
 </ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.zenghui.demo.bio.server;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.BufferedWriter;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.io.OutputStreamWriter;</span><br><span class="line"><span class="keyword">import</span> java.io.Writer;</span><br><span class="line"><span class="keyword">import</span> java.net.ServerSocket;</span><br><span class="line"><span class="keyword">import</span> java.net.Socket;</span><br><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@ClassName</span> ChatServer</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span>: TODO</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> zeng</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2020/4/6</span></span><br><span class="line"><span class="comment"> **/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ChatServer</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">int</span> DEFAULT_PORT = <span class="number">8888</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> String QUIT = <span class="string">"quit"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> ServerSocket serverSocket;</span><br><span class="line">    <span class="comment">// 保存在线用户 已经 向他们发信息所用到的 Writer</span></span><br><span class="line">    <span class="keyword">private</span> Map&lt;Integer, Writer&gt; connectedClients;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ChatServer</span><span class="params">()</span></span>&#123;</span><br><span class="line">        connectedClients = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取客户端的连接</span></span><br><span class="line"><span class="comment">     * 对connectedClients 操作有线程安全性问题</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> socket</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">addClient</span><span class="params">(Socket socket)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (socket != <span class="keyword">null</span>)&#123;</span><br><span class="line">            <span class="keyword">int</span> port = socket.getPort();</span><br><span class="line">            BufferedWriter writer = <span class="keyword">new</span> BufferedWriter(</span><br><span class="line">                    <span class="keyword">new</span> OutputStreamWriter(socket.getOutputStream())</span><br><span class="line">            );</span><br><span class="line">            connectedClients.put(port,writer);</span><br><span class="line">            System.out.println(<span class="string">"客户端["</span> + port + <span class="string">"]连接到客户端"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 客户端下线</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> socket</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> IOException</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">removeClient</span><span class="params">(Socket socket)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (socket != <span class="keyword">null</span>)&#123;</span><br><span class="line">            <span class="keyword">int</span> port = socket.getPort();</span><br><span class="line">            <span class="keyword">if</span> (connectedClients.containsKey(port))&#123;</span><br><span class="line">                <span class="comment">//writer 是装饰者模式的 外层, writer关闭 包裹的socket 也会关闭</span></span><br><span class="line">                connectedClients.get(port).close();</span><br><span class="line">            &#125;</span><br><span class="line">            connectedClients.remove(port);</span><br><span class="line">            System.out.println(<span class="string">"客户端["</span> + port + <span class="string">"]已断开连接"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 转发消息,转发给其他客户端</span></span><br><span class="line"><span class="comment">     * 读取也可能有线程安全性, 别的刚写入的没有读到</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> socket 发送者 的客户端 socket</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> fwdMsg 发送的消息</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">forwardMessage</span><span class="params">(Socket socket, String fwdMsg)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (Integer id : connectedClients.keySet()) &#123;</span><br><span class="line">            <span class="comment">//将消息转发给非 发送者</span></span><br><span class="line">            <span class="keyword">if</span> (!id.equals(socket.getPort()))&#123;</span><br><span class="line">                Writer writer = connectedClients.get(id);</span><br><span class="line">                writer.write(fwdMsg);</span><br><span class="line">                writer.flush();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 是否客户端退出</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> msg</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">readyToQuit</span><span class="params">(String msg)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> QUIT.equals(msg);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 关闭 serverSocket</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span>  <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">close</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (serverSocket != <span class="keyword">null</span>)&#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                serverSocket.close();</span><br><span class="line">                System.out.println(<span class="string">"关闭serverSocket"</span>);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">start</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="comment">//绑定监听端口</span></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            serverSocket = <span class="keyword">new</span> ServerSocket(DEFAULT_PORT);</span><br><span class="line">            System.out.println(<span class="string">"启动服务器,监听端口: "</span> + DEFAULT_PORT +<span class="string">"..."</span>);</span><br><span class="line"></span><br><span class="line">            <span class="comment">//监听是否有客户端连接</span></span><br><span class="line">            <span class="keyword">while</span> (<span class="keyword">true</span>)&#123;</span><br><span class="line">                <span class="comment">//等待客户端连接</span></span><br><span class="line">                Socket socket = serverSocket.accept();</span><br><span class="line">                <span class="comment">// BIO 要为每个连接创建 CharHandler 线程</span></span><br><span class="line">                <span class="keyword">new</span> Thread( <span class="keyword">new</span> ChatHandler(<span class="keyword">this</span>,socket)).start();</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;<span class="keyword">finally</span> &#123;</span><br><span class="line">            close();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        ChatServer server = <span class="keyword">new</span> ChatServer();</span><br><span class="line">        server.start();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre class=" language-Java"><code class="language-Java">package com.zenghui.demo.bio.server;
 
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * @ClassName ChatServer
+ * @Description: TODO
+ * @Author zeng
+ * @Date 2020/4/6
+ **/
+public class ChatServer {
+
+    private final int DEFAULT_PORT = 8888;
+    private final String QUIT = "quit";
+
+    private ServerSocket serverSocket;
+    // 保存在线用户 已经 向他们发信息所用到的 Writer
+    private Map<Integer, Writer> connectedClients;
+
+    public ChatServer(){
+        connectedClients = new HashMap<>();
+    }
+
+    /**
+     * 获取客户端的连接
+     * 对connectedClients 操作有线程安全性问题
+     * @param socket
+     */
+    public synchronized void addClient(Socket socket) throws IOException {
+        if (socket != null){
+            int port = socket.getPort();
+            BufferedWriter writer = new BufferedWriter(
+                    new OutputStreamWriter(socket.getOutputStream())
+            );
+            connectedClients.put(port,writer);
+            System.out.println("客户端[" + port + "]连接到客户端");
+        }
+    }
+
+    /**
+     * 客户端下线
+     * @param socket
+     * @throws IOException
+     */
+    public synchronized void removeClient(Socket socket) throws IOException {
+        if (socket != null){
+            int port = socket.getPort();
+            if (connectedClients.containsKey(port)){
+                //writer 是装饰者模式的 外层, writer关闭 包裹的socket 也会关闭
+                connectedClients.get(port).close();
+            }
+            connectedClients.remove(port);
+            System.out.println("客户端[" + port + "]已断开连接");
+        }
+    }
+
+    /**
+     * 转发消息,转发给其他客户端
+     * 读取也可能有线程安全性, 别的刚写入的没有读到
+     * @param socket 发送者 的客户端 socket
+     * @param fwdMsg 发送的消息
+     */
+    public synchronized void forwardMessage(Socket socket, String fwdMsg) throws IOException {
+        for (Integer id : connectedClients.keySet()) {
+            //将消息转发给非 发送者
+            if (!id.equals(socket.getPort())){
+                Writer writer = connectedClients.get(id);
+                writer.write(fwdMsg);
+                writer.flush();
+            }
+        }
+    }
+
+    /**
+     * 是否客户端退出
+     * @param msg
+     * @return
+     */
+    public boolean readyToQuit(String msg){
+        return QUIT.equals(msg);
+    }
+
+    /**
+     * 关闭 serverSocket
+     */
+    public  synchronized void close(){
+        if (serverSocket != null){
+            try {
+                serverSocket.close();
+                System.out.println("关闭serverSocket");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void start(){
+        //绑定监听端口
+        try {
+            serverSocket = new ServerSocket(DEFAULT_PORT);
+            System.out.println("启动服务器,监听端口: " + DEFAULT_PORT +"...");
+
+            //监听是否有客户端连接
+            while (true){
+                //等待客户端连接
+                Socket socket = serverSocket.accept();
+                // BIO 要为每个连接创建 CharHandler 线程
+                new Thread( new ChatHandler(this,socket)).start();
+
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }finally {
+            close();
+        }
+    }
+
+    public static void main(String[] args) {
+        ChatServer server = new ChatServer();
+        server.start();
+    }
+
+}
+</code></pre>
 <ul>
 <li>一个子线程,专门用来向在线用户转发信息</li>
 </ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.zenghui.demo.bio.server;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.BufferedReader;</span><br><span class="line"><span class="keyword">import</span> java.io.BufferedWriter;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.io.InputStreamReader;</span><br><span class="line"><span class="keyword">import</span> java.net.Socket;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@ClassName</span> ChatHandler</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span>: TODO</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> zeng</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2020/4/6</span></span><br><span class="line"><span class="comment"> **/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ChatHandler</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//服务端</span></span><br><span class="line">    <span class="keyword">private</span> ChatServer server;</span><br><span class="line">    <span class="comment">//客户端</span></span><br><span class="line">    <span class="keyword">private</span> Socket socket;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ChatHandler</span><span class="params">(ChatServer server, Socket socket)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.server = server;</span><br><span class="line">        <span class="keyword">this</span>.socket = socket;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//BIO 每对应一个客户都要创建一个 ChatHandler 用来传递消息</span></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">//存储 新上线用户</span></span><br><span class="line">            server.addClient(socket);</span><br><span class="line"></span><br><span class="line">            <span class="comment">//读取用户发送的消息</span></span><br><span class="line">            BufferedReader reader = <span class="keyword">new</span> BufferedReader(</span><br><span class="line">                    <span class="keyword">new</span> InputStreamReader(socket.getInputStream())</span><br><span class="line">            );</span><br><span class="line"></span><br><span class="line">            String msg = <span class="keyword">null</span>;</span><br><span class="line">            <span class="comment">//客户端还在输入信息</span></span><br><span class="line">            <span class="keyword">while</span> ((msg = reader.readLine()) != <span class="keyword">null</span>)&#123;</span><br><span class="line">                String fwdMsg = <span class="string">"客户端["</span> + socket.getPort()+<span class="string">"]:"</span> + msg + <span class="string">"\n"</span>;</span><br><span class="line">                System.out.print(fwdMsg);</span><br><span class="line"></span><br><span class="line">                <span class="comment">//将消息转发给聊天室里在线的其他用户</span></span><br><span class="line">                server.forwardMessage(socket, fwdMsg);</span><br><span class="line"></span><br><span class="line">                <span class="comment">//检查用户是否准备退出</span></span><br><span class="line">                <span class="keyword">if</span> (server.readyToQuit(msg))&#123;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;<span class="keyword">finally</span> &#123;</span><br><span class="line">            <span class="comment">//客户端下线, 从在线表中删除</span></span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                server.removeClient(socket);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre class=" language-Java"><code class="language-Java">package com.zenghui.demo.bio.server;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.Socket;
+
+/**
+ * @ClassName ChatHandler
+ * @Description: TODO
+ * @Author zeng
+ * @Date 2020/4/6
+ **/
+public class ChatHandler implements Runnable {
+
+    //服务端
+    private ChatServer server;
+    //客户端
+    private Socket socket;
+
+    public ChatHandler(ChatServer server, Socket socket){
+        this.server = server;
+        this.socket = socket;
+    }
+
+    //BIO 每对应一个客户都要创建一个 ChatHandler 用来传递消息
+
+    @Override
+    public void run() {
+        try {
+            //存储 新上线用户
+            server.addClient(socket);
+
+            //读取用户发送的消息
+            BufferedReader reader = new BufferedReader(
+                    new InputStreamReader(socket.getInputStream())
+            );
+
+            String msg = null;
+            //客户端还在输入信息
+            while ((msg = reader.readLine()) != null){
+                String fwdMsg = "客户端[" + socket.getPort()+"]:" + msg + "\n";
+                System.out.print(fwdMsg);
+
+                //将消息转发给聊天室里在线的其他用户
+                server.forwardMessage(socket, fwdMsg);
+
+                //检查用户是否准备退出
+                if (server.readyToQuit(msg)){
+                    break;
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }finally {
+            //客户端下线, 从在线表中删除
+            try {
+                server.removeClient(socket);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+}
+</code></pre>
 <h4 id="一个客户端需要"><a href="#一个客户端需要" class="headerlink" title="一个客户端需要:"></a>一个客户端需要:</h4><ul>
 <li>主线程, 用来接收服务端数据</li>
 </ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.zenghui.demo.bio.client;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.*;</span><br><span class="line"><span class="keyword">import</span> java.net.Socket;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 发生消息给服务器, 接收转发过来的消息</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@ClassName</span> ChatClient</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span>: TODO</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> zeng</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2020/4/6</span></span><br><span class="line"><span class="comment"> **/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ChatClient</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> String DEFAULT_SERVER_HOST = <span class="string">"127.0.0.1"</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">int</span> DEFAULT_SERVER_PORT = <span class="number">8888</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> String QUIT =<span class="string">"quit"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Socket socket;</span><br><span class="line">    <span class="keyword">private</span> BufferedReader reader;</span><br><span class="line">    <span class="keyword">private</span> BufferedWriter writer;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 客户端发生消息</span></span><br><span class="line"><span class="comment">     * 异常不在函数处理, 给调用者处理</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> msg 消息</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> IOException</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">send</span><span class="params">(String msg)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        <span class="comment">//输出流没有被关闭</span></span><br><span class="line">        <span class="keyword">if</span> (!socket.isOutputShutdown())&#123;</span><br><span class="line">            writer.write(msg+<span class="string">"\n"</span>);</span><br><span class="line">            writer.flush();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 从服务端接收消息</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> IOException</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">receive</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        String msg = <span class="keyword">null</span>;</span><br><span class="line">        <span class="comment">//输入流是开放状态</span></span><br><span class="line">        <span class="keyword">if</span> (!socket.isInputShutdown())&#123;</span><br><span class="line">            msg = reader.readLine();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> msg;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//检查用户是否准备退出</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">readyToQuit</span><span class="params">(String msg)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> QUIT.equals(msg);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">close</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (writer != <span class="keyword">null</span>)&#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                System.out.println(<span class="string">"关闭客户端socket"</span>);</span><br><span class="line">                writer.close();</span><br><span class="line">            &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">start</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">//创建socket实例</span></span><br><span class="line">            socket = <span class="keyword">new</span> Socket(DEFAULT_SERVER_HOST,DEFAULT_SERVER_PORT);</span><br><span class="line"></span><br><span class="line">            <span class="comment">//创建IO 流</span></span><br><span class="line">            reader = <span class="keyword">new</span> BufferedReader(</span><br><span class="line">                    <span class="keyword">new</span> InputStreamReader(socket.getInputStream())</span><br><span class="line">            );</span><br><span class="line">            writer = <span class="keyword">new</span> BufferedWriter(</span><br><span class="line">                    <span class="keyword">new</span> OutputStreamWriter(socket.getOutputStream())</span><br><span class="line">            );</span><br><span class="line"></span><br><span class="line">            <span class="comment">//处理用户的输入, 因为等待用户输入是个阻塞的行为, 应该重新创个线程去专门等待用户输入,</span></span><br><span class="line">            <span class="comment">//否则没法接收数据</span></span><br><span class="line">            <span class="keyword">new</span> Thread(<span class="keyword">new</span> UserInputHandler(<span class="keyword">this</span>)).start();</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 读取服务器转发的信息</span></span><br><span class="line">            String msg = <span class="keyword">null</span>;</span><br><span class="line">            <span class="keyword">while</span> ((msg = receive()) != <span class="keyword">null</span>)&#123;</span><br><span class="line">                System.out.println(msg);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;<span class="keyword">finally</span> &#123;</span><br><span class="line">            close();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        ChatClient chatClient = <span class="keyword">new</span> ChatClient();</span><br><span class="line">        chatClient.start();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre class=" language-Java"><code class="language-Java">package com.zenghui.demo.bio.client;
 
+import java.io.*;
+import java.net.Socket;
 
+/**
+ * 发生消息给服务器, 接收转发过来的消息
+ * @ClassName ChatClient
+ * @Description: TODO
+ * @Author zeng
+ * @Date 2020/4/6
+ **/
+public class ChatClient {
 
+    private final String DEFAULT_SERVER_HOST = "127.0.0.1";
+    private final int DEFAULT_SERVER_PORT = 8888;
+    private final String QUIT ="quit";
+
+    private Socket socket;
+    private BufferedReader reader;
+    private BufferedWriter writer;
+
+    /**
+     * 客户端发生消息
+     * 异常不在函数处理, 给调用者处理
+     * @param msg 消息
+     * @throws IOException
+     */
+    public void send(String msg) throws IOException {
+        //输出流没有被关闭
+        if (!socket.isOutputShutdown()){
+            writer.write(msg+"\n");
+            writer.flush();
+        }
+    }
+
+    /**
+     * 从服务端接收消息
+     * @return
+     * @throws IOException
+     */
+    public String receive() throws IOException {
+        String msg = null;
+        //输入流是开放状态
+        if (!socket.isInputShutdown()){
+            msg = reader.readLine();
+        }
+        return msg;
+    }
+
+    //检查用户是否准备退出
+    public boolean readyToQuit(String msg){
+        return QUIT.equals(msg);
+    }
+
+    public void close(){
+        if (writer != null){
+            try {
+                System.out.println("关闭客户端socket");
+                writer.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void start(){
+        try {
+            //创建socket实例
+            socket = new Socket(DEFAULT_SERVER_HOST,DEFAULT_SERVER_PORT);
+
+            //创建IO 流
+            reader = new BufferedReader(
+                    new InputStreamReader(socket.getInputStream())
+            );
+            writer = new BufferedWriter(
+                    new OutputStreamWriter(socket.getOutputStream())
+            );
+
+            //处理用户的输入, 因为等待用户输入是个阻塞的行为, 应该重新创个线程去专门等待用户输入,
+            //否则没法接收数据
+            new Thread(new UserInputHandler(this)).start();
+
+            // 读取服务器转发的信息
+            String msg = null;
+            while ((msg = receive()) != null){
+                System.out.println(msg);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }finally {
+            close();
+        }
+    }
+
+    public static void main(String[] args) {
+        ChatClient chatClient = new ChatClient();
+        chatClient.start();
+    }
+
+}
+</code></pre>
 <ul>
 <li>一个用户输入线程, 专门来监听用户输入和和发送数据</li>
 </ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.zenghui.demo.bio.client;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.BufferedReader;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.io.InputStreamReader;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 用来处理用户的输入 的 线程 , 这样客户端就可以接收来自服务器的数据</span></span><br><span class="line"><span class="comment"> * 该线程要独立于主线程之外</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@ClassName</span> UserInputHandler</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span>: TODO</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> zeng</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2020/4/6</span></span><br><span class="line"><span class="comment"> **/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserInputHandler</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> ChatClient chatClient;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">UserInputHandler</span><span class="params">(ChatClient chatClient)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.chatClient = chatClient;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">             <span class="keyword">try</span> &#123;</span><br><span class="line">                 <span class="comment">//等待用户输入消息</span></span><br><span class="line">                 BufferedReader consoleReader = <span class="keyword">new</span> BufferedReader(</span><br><span class="line">                         <span class="keyword">new</span> InputStreamReader(System.in)</span><br><span class="line">                 );</span><br><span class="line"></span><br><span class="line">                 <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">                     String input = consoleReader.readLine();</span><br><span class="line"></span><br><span class="line">                     <span class="comment">//向服务器发送消息</span></span><br><span class="line">                     chatClient.send(input);</span><br><span class="line"></span><br><span class="line">                     <span class="comment">//检查是否准备退出</span></span><br><span class="line">                     <span class="keyword">if</span> (chatClient.readyToQuit(input))&#123;</span><br><span class="line">                         <span class="keyword">break</span>;</span><br><span class="line">                     &#125;</span><br><span class="line">                 &#125;</span><br><span class="line">             &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">                 e.printStackTrace();</span><br><span class="line">             &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre class=" language-Java"><code class="language-Java">package com.zenghui.demo.bio.client;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+/**
+ * 用来处理用户的输入 的 线程 , 这样客户端就可以接收来自服务器的数据
+ * 该线程要独立于主线程之外
+ * @ClassName UserInputHandler
+ * @Description: TODO
+ * @Author zeng
+ * @Date 2020/4/6
+ **/
+public class UserInputHandler implements Runnable {
+
+    private ChatClient chatClient;
+
+    public UserInputHandler(ChatClient chatClient){
+        this.chatClient = chatClient;
+    }
+
+    @Override
+    public void run() {
+
+             try {
+                 //等待用户输入消息
+                 BufferedReader consoleReader = new BufferedReader(
+                         new InputStreamReader(System.in)
+                 );
+
+                 while (true) {
+                     String input = consoleReader.readLine();
+
+                     //向服务器发送消息
+                     chatClient.send(input);
+
+                     //检查是否准备退出
+                     if (chatClient.readyToQuit(input)){
+                         break;
+                     }
+                 }
+             } catch (IOException e) {
+                 e.printStackTrace();
+             }
+    }
+}
+</code></pre>
 <h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>BIO 线程会阻塞,只能干一件事, 需要通过额外的子线程去完成其他任务</p>
 
             </div>
@@ -770,8 +1064,6 @@ StringWriter
 
 <!-- 代码语言 -->
 
-<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
-
 
 <!-- 代码块复制 -->
 
@@ -816,7 +1108,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             contentSelector: '#articleContent',
             headingsOffset: -($(window).height() * 0.4 - 45),
             collapseDepth: Number('0'),
-            headingSelector: 'h2, h3, h4'
+            headingSelector: 'h2, h3, h4, h5'
         });
 
         // modify the toc link href to support Chinese.
@@ -828,7 +1120,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
 
         // modify the heading title id to support Chinese.
         i = 0;
-        $('#articleContent').children('h2, h3, h4').each(function () {
+        $('#articleContent').children('h2, h3, h4, h5').each(function () {
             $(this).attr('id', tocHeading + (++i));
         });
 
@@ -922,7 +1214,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
         <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
                    server="netease"
                    type="playlist"
-                   id="503838841"
+                   id="426843371"
                    fixed='true'
                    autoplay='false'
                    theme='#42b983'

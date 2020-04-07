@@ -104,28 +104,6 @@
     
   </li>
   
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/contact" class="waves-effect waves-light">
-      
-      <i class="fas fa-comments" style="zoom: 0.6;"></i>
-      
-      <span>留言板</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/friends" class="waves-effect waves-light">
-      
-      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
-      
-      <span>友情链接</span>
-    </a>
-    
-  </li>
-  
   <li>
     <a href="#searchModal" class="modal-trigger waves-effect waves-light">
       <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
@@ -202,28 +180,6 @@
 			    <i class="fa-fw fas fa-user-circle"></i>
 			
 			关于
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/contact" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-comments"></i>
-			
-			留言板
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/friends" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-address-book"></i>
-			
-			友情链接
 		</a>
           
         </li>
@@ -470,14 +426,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    2.5k
+                    2.4k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    11 分
+                    10 分
                 </div>
                 
 
@@ -492,48 +448,75 @@
 <h2 id="Arrays类的常用方法"><a href="#Arrays类的常用方法" class="headerlink" title="Arrays类的常用方法"></a>Arrays类的常用方法</h2><h3 id="Arrays-asList-T…data"><a href="#Arrays-asList-T…data" class="headerlink" title="Arrays.asList(T…data)"></a>Arrays.asList(T…data)</h3><blockquote>
 <p>注意:该方法返回的是Arrays内部静态类 ArrayList,而不是我们平常使用的ArrayList, 该静态类 没有覆盖父类 add() ,remove() 等方法.</p>
 </blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Integer&gt; list = Arrays.asList(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>);</span><br><span class="line">list.forEach(System.out::println); <span class="comment">// 1 2 3</span></span><br></pre></td></tr></table></figure>
-
+<pre class=" language-java"><code class="language-java">List<span class="token operator">&lt;</span>Integer<span class="token operator">></span> list <span class="token operator">=</span> Arrays<span class="token punctuation">.</span><span class="token function">asList</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+list<span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span>System<span class="token punctuation">.</span>out<span class="token operator">:</span><span class="token operator">:</span>println<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 1 2 3</span></code></pre>
 <ul>
 <li><p>如果将基本数据类型的数组作为参数传入,该方法会把整个数组当成一个元素</p>
 <a id="more"></a>
 
 </li>
 </ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span>[] data = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;;</span><br><span class="line">List&lt;<span class="keyword">int</span>[]&gt; list = Arrays.asList(data);</span><br><span class="line">System.out.println(list.size()); <span class="comment">// 1</span></span><br><span class="line">System.out.println(Arrays.toString(list.get(<span class="number">0</span>))); <span class="comment">// [1, 2, 3]</span></span><br></pre></td></tr></table></figure>
-
+<pre class=" language-java"><code class="language-java"><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> data <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+List<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token operator">></span> list <span class="token operator">=</span> Arrays<span class="token punctuation">.</span><span class="token function">asList</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token punctuation">;</span>
+System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>list<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 1</span>
+System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>Arrays<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span>list<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// [1, 2, 3]</span></code></pre>
 <h3 id="Arrays-fill-Object-array-Object-obj"><a href="#Arrays-fill-Object-array-Object-obj" class="headerlink" title="Arrays.fill(Object[] array,Object obj)"></a>Arrays.fill(Object[] array,Object obj)</h3><ul>
 <li>用指定元素填充整个数组(会替换掉数组中原来的元素)</li>
 </ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Integer[] data = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>&#125;;</span><br><span class="line">Arrays.fill(data, <span class="number">9</span>);</span><br><span class="line">System.out.println(Arrays.toString(data)); <span class="comment">// [9, 9, 9, 9]</span></span><br></pre></td></tr></table></figure>
-
+<pre class=" language-java"><code class="language-java">Integer<span class="token punctuation">[</span><span class="token punctuation">]</span> data <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+Arrays<span class="token punctuation">.</span><span class="token function">fill</span><span class="token punctuation">(</span>data<span class="token punctuation">,</span> <span class="token number">9</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>Arrays<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// [9, 9, 9, 9]</span></code></pre>
 <h3 id="Arrays-fill-Object-array-int-fromIndex-int-toIndex-Object-obj"><a href="#Arrays-fill-Object-array-int-fromIndex-int-toIndex-Object-obj" class="headerlink" title="Arrays.fill(Object[] array,int fromIndex,int toIndex,Object obj)"></a>Arrays.fill(Object[] array,int fromIndex,int toIndex,Object obj)</h3><ul>
 <li>用指定元素填充数组,从起始位置到结束位置,<strong>取头不取尾</strong>(会替换掉数组中原来的元素)</li>
 </ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Integer[] data = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>&#125;;</span><br><span class="line">Arrays.fill(data, <span class="number">0</span>, <span class="number">2</span>, <span class="number">9</span>);</span><br><span class="line">System.out.println(Arrays.toString(data)); <span class="comment">// [9, 9, 3, 4]</span></span><br></pre></td></tr></table></figure>
-
+<pre class=" language-java"><code class="language-java">Integer<span class="token punctuation">[</span><span class="token punctuation">]</span> data <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+Arrays<span class="token punctuation">.</span><span class="token function">fill</span><span class="token punctuation">(</span>data<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">9</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>Arrays<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// [9, 9, 3, 4]</span></code></pre>
 <h3 id="Arrays-sort-Object-array"><a href="#Arrays-sort-Object-array" class="headerlink" title="Arrays.sort(Object[] array)"></a>Arrays.sort(Object[] array)</h3><ul>
 <li><p>对数组元素进行排序(串行排序)</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">String[] data = &#123;<span class="string">"1"</span>, <span class="string">"4"</span>, <span class="string">"3"</span>, <span class="string">"2"</span>&#125;;</span><br><span class="line">System.out.println(Arrays.toString(data)); <span class="comment">// [1, 4, 3, 2]</span></span><br><span class="line">Arrays.sort(data);</span><br><span class="line">System.out.println(Arrays.toString(data)); <span class="comment">// [1, 2, 3, 4]</span></span><br></pre></td></tr></table></figure>
-
+<pre class=" language-java"><code class="language-java">String<span class="token punctuation">[</span><span class="token punctuation">]</span> data <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token string">"1"</span><span class="token punctuation">,</span> <span class="token string">"4"</span><span class="token punctuation">,</span> <span class="token string">"3"</span><span class="token punctuation">,</span> <span class="token string">"2"</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>Arrays<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// [1, 4, 3, 2]</span>
+Arrays<span class="token punctuation">.</span><span class="token function">sort</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token punctuation">;</span>
+System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>Arrays<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// [1, 2, 3, 4]</span></code></pre>
 </li>
 </ul>
 <h3 id="Arrays-sort-T-array-Comparator-lt-super-T-gt-comparator"><a href="#Arrays-sort-T-array-Comparator-lt-super-T-gt-comparator" class="headerlink" title="Arrays.sort(T[] array,Comparator&lt;? super T&gt; comparator)"></a>Arrays.sort(T[] array,Comparator&lt;? super T&gt; comparator)</h3><ul>
 <li><p>使用自定义比较器,对数组元素进行排序(串行排序)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">String[] data &#x3D; &#123;&quot;1&quot;, &quot;4&quot;, &quot;3&quot;, &quot;2&quot;&#125;;</span><br><span class="line">System.out.println(Arrays.toString(data)); &#x2F;&#x2F; [1, 4, 3, 2]</span><br><span class="line">&#x2F;&#x2F; 实现降序排序，返回-1放左边，1放右边，0保持不变</span><br><span class="line">Arrays.sort(data, (str1, str2) -&gt; &#123;</span><br><span class="line">    if (str1.compareTo(str2) &gt; 0) &#123;</span><br><span class="line">		return -1;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        return 1;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line">System.out.println(Arrays.toString(data)); &#x2F;&#x2F; [4, 3, 2, 1]</span><br></pre></td></tr></table></figure>
-
+<pre class=" language-jav"><code class="language-jav">String[] data = {"1", "4", "3", "2"};
+System.out.println(Arrays.toString(data)); // [1, 4, 3, 2]
+// 实现降序排序，返回-1放左边，1放右边，0保持不变
+Arrays.sort(data, (str1, str2) -> {
+    if (str1.compareTo(str2) > 0) {
+        return -1;
+    } else {
+        return 1;
+    }
+});
+System.out.println(Arrays.toString(data)); // [4, 3, 2, 1]</code></pre>
 </li>
 </ul>
 <h3 id="Arrays-sort-Object-array-int-fromIndex-int-toIndex"><a href="#Arrays-sort-Object-array-int-fromIndex-int-toIndex" class="headerlink" title="Arrays.sort(Object[] array,int fromIndex,int toIndex)"></a>Arrays.sort(Object[] array,int fromIndex,int toIndex)</h3><ul>
 <li><p>对指定范围内的数组元素进行排序</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">String[] data = &#123;<span class="string">"1"</span>, <span class="string">"4"</span>, <span class="string">"3"</span>, <span class="string">"2"</span>&#125;;</span><br><span class="line">System.out.println(Arrays.toString(data)); <span class="comment">// [1, 4, 3, 2]</span></span><br><span class="line"><span class="comment">// 对下标[0, 3)的元素进行排序，即对1，4，3进行排序，2保持不变</span></span><br><span class="line">Arrays.sort(data, <span class="number">0</span>, <span class="number">3</span>);</span><br><span class="line">System.out.println(Arrays.toString(data)); <span class="comment">// [1, 3, 4, 2]</span></span><br></pre></td></tr></table></figure>
-
+<pre class=" language-java"><code class="language-java">String<span class="token punctuation">[</span><span class="token punctuation">]</span> data <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token string">"1"</span><span class="token punctuation">,</span> <span class="token string">"4"</span><span class="token punctuation">,</span> <span class="token string">"3"</span><span class="token punctuation">,</span> <span class="token string">"2"</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>Arrays<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// [1, 4, 3, 2]</span>
+<span class="token comment" spellcheck="true">// 对下标[0, 3)的元素进行排序，即对1，4，3进行排序，2保持不变</span>
+Arrays<span class="token punctuation">.</span><span class="token function">sort</span><span class="token punctuation">(</span>data<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>Arrays<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// [1, 3, 4, 2]</span></code></pre>
 </li>
 </ul>
 <h3 id="Arrays-sort-T-array-int-fromIndex-int-toIndex-Comparator-lt-super-T-gt-c"><a href="#Arrays-sort-T-array-int-fromIndex-int-toIndex-Comparator-lt-super-T-gt-c" class="headerlink" title="Arrays.sort(T[] array, int fromIndex, int toIndex, Comparator&lt;? super T&gt; c)"></a>Arrays.sort(T[] array, int fromIndex, int toIndex, Comparator&lt;? super T&gt; c)</h3><ul>
 <li><p>使用自定义比较器,对指定范围内的数组元素进行排序</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">String[] data = &#123;<span class="string">"1"</span>, <span class="string">"4"</span>, <span class="string">"3"</span>, <span class="string">"2"</span>&#125;;</span><br><span class="line">System.out.println(Arrays.toString(data)); <span class="comment">// [1, 4, 3, 2]</span></span><br><span class="line"><span class="comment">// 对下标[0, 3)的元素进行降序排序，即对1，4，3进行降序排序，2保持不变</span></span><br><span class="line">Arrays.sort(data, <span class="number">0</span>, <span class="number">3</span>, (str1, str2) -&gt; &#123;</span><br><span class="line">	<span class="keyword">if</span> (str1.compareTo(str2) &gt; <span class="number">0</span>) &#123;</span><br><span class="line">		<span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;);</span><br><span class="line">System.out.println(Arrays.toString(data)); <span class="comment">//[4,3,1,2]</span></span><br></pre></td></tr></table></figure>
-
+<pre class=" language-java"><code class="language-java">String<span class="token punctuation">[</span><span class="token punctuation">]</span> data <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token string">"1"</span><span class="token punctuation">,</span> <span class="token string">"4"</span><span class="token punctuation">,</span> <span class="token string">"3"</span><span class="token punctuation">,</span> <span class="token string">"2"</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>Arrays<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// [1, 4, 3, 2]</span>
+<span class="token comment" spellcheck="true">// 对下标[0, 3)的元素进行降序排序，即对1，4，3进行降序排序，2保持不变</span>
+Arrays<span class="token punctuation">.</span><span class="token function">sort</span><span class="token punctuation">(</span>data<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>str1<span class="token punctuation">,</span> str2<span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>str1<span class="token punctuation">.</span><span class="token function">compareTo</span><span class="token punctuation">(</span>str2<span class="token punctuation">)</span> <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>Arrays<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//[4,3,1,2]</span></code></pre>
 </li>
 </ul>
 <h3 id="Arrays-parallelSort-Object-array"><a href="#Arrays-parallelSort-Object-array" class="headerlink" title="Arrays.parallelSort(Object[] array)"></a>Arrays.parallelSort(Object[] array)</h3><blockquote>
@@ -541,126 +524,228 @@
 </blockquote>
 <ul>
 <li><p>对数组元素进行排序,当<strong>数据规模较大</strong>时,会有更好的性能</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">String[] data = &#123;<span class="string">"1"</span>, <span class="string">"4"</span>, <span class="string">"3"</span>, <span class="string">"2"</span>&#125;;</span><br><span class="line">Arrays.parallelSort(data);</span><br><span class="line">System.out.println(Arrays.toString(data)); <span class="comment">// [1, 2, 3, 4]</span></span><br></pre></td></tr></table></figure>
-
+<pre class=" language-java"><code class="language-java">String<span class="token punctuation">[</span><span class="token punctuation">]</span> data <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token string">"1"</span><span class="token punctuation">,</span> <span class="token string">"4"</span><span class="token punctuation">,</span> <span class="token string">"3"</span><span class="token punctuation">,</span> <span class="token string">"2"</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+Arrays<span class="token punctuation">.</span><span class="token function">parallelSort</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token punctuation">;</span>
+System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>Arrays<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// [1, 2, 3, 4]</span></code></pre>
 </li>
 </ul>
 <h3 id="Arrays-binarySearch-Object-array-Object-key"><a href="#Arrays-binarySearch-Object-array-Object-key" class="headerlink" title="Arrays.binarySearch(Object[] array,Object key)"></a>Arrays.binarySearch(Object[] array,Object key)</h3><ul>
 <li><p>使用二分法查找数组内指定元素的索引值</p>
 </li>
 <li><p>源码</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">binarySearch</span><span class="params">(<span class="keyword">long</span>[] a, <span class="keyword">int</span> fromIndex, <span class="keyword">int</span> toIndex,</span></span></span><br><span class="line"><span class="function"><span class="params">                                  <span class="keyword">long</span> key)</span> </span>&#123;</span><br><span class="line">       rangeCheck(a.length, fromIndex, toIndex);</span><br><span class="line">       <span class="keyword">return</span> binarySearch0(a, fromIndex, toIndex, key);</span><br><span class="line">   &#125;</span><br><span class="line">  </span><br><span class="line">  </span><br><span class="line">   <span class="comment">// Like public version, but without range checks.</span></span><br><span class="line">   <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">binarySearch0</span><span class="params">(<span class="keyword">long</span>[] a, <span class="keyword">int</span> fromIndex, <span class="keyword">int</span> toIndex,</span></span></span><br><span class="line"><span class="function"><span class="params">                                    <span class="keyword">long</span> key)</span> </span>&#123;</span><br><span class="line">       <span class="keyword">int</span> low = fromIndex;</span><br><span class="line">       <span class="keyword">int</span> high = toIndex - <span class="number">1</span>;</span><br><span class="line">  </span><br><span class="line">       <span class="keyword">while</span> (low &lt;= high) &#123;</span><br><span class="line">           <span class="comment">//无符号右移</span></span><br><span class="line">           <span class="keyword">int</span> mid = (low + high) &gt;&gt;&gt; <span class="number">1</span>;</span><br><span class="line">           <span class="keyword">long</span> midVal = a[mid];</span><br><span class="line">  </span><br><span class="line">           <span class="keyword">if</span> (midVal &lt; key)</span><br><span class="line">               low = mid + <span class="number">1</span>;</span><br><span class="line">           <span class="keyword">else</span> <span class="keyword">if</span> (midVal &gt; key)</span><br><span class="line">               high = mid - <span class="number">1</span>;</span><br><span class="line">           <span class="keyword">else</span></span><br><span class="line">               <span class="keyword">return</span> mid; <span class="comment">// key found</span></span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">return</span> -(low + <span class="number">1</span>);  <span class="comment">// key not found.</span></span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<pre class=" language-Java"><code class="language-Java"> public static int binarySearch(long[] a, int fromIndex, int toIndex,
+                                   long key) {
+        rangeCheck(a.length, fromIndex, toIndex);
+        return binarySearch0(a, fromIndex, toIndex, key);
+    }
 
-<p>从源码源码可以看出:</p>
-<ul>
-<li>当搜索元素是数组元素时,返回该元素的索引值</li>
-<li>当搜索元素不是数组元素时,返回 - (索引值 + 1)</li>
-</ul>
-<p>具体用法可以看下面例子</p>
-<ul>
-<li><p>搜索元素是数组元素,返回该元素索引值</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Integer[] data = &#123;<span class="number">1</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">7</span>&#125;;</span><br><span class="line">Arrays.sort(data);</span><br><span class="line">System.out.println(Arrays.binarySearch(data, <span class="number">1</span>)); <span class="comment">// 0</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>搜索元素不是数组元素,且小于数组中的最小值</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Integer[] data = &#123;<span class="number">1</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">7</span>&#125;;</span><br><span class="line">Arrays.sort(data);</span><br><span class="line"><span class="comment">// 此时程序会把数组看作 &#123;0, 1, 3, 5, 7&#125;，此时0的索引值为0，则搜索0时返回 -(0 + 1) = -1</span></span><br><span class="line">System.out.println(Arrays.binarySearch(data, <span class="number">0</span>)); <span class="comment">// -1</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>搜索元素不是数组元素,且大于数组中的最大值</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Integer[] data = &#123;<span class="number">1</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">7</span>&#125;;</span><br><span class="line">Arrays.sort(data);</span><br><span class="line"><span class="comment">// 此时程序会把数组看作 &#123;1, 3, 5, 7， 9&#125;，此时9的索引值为4，则搜索8时返回 -(4 + 1) = -5</span></span><br><span class="line">System.out.println(Arrays.binarySearch(data, <span class="number">9</span>)); <span class="comment">// -5</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>搜索元素不是数组元素,但是在数组范围内</p>
+</code></pre>
 </li>
 </ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Integer[] data = &#123;<span class="number">1</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">7</span>&#125;;</span><br><span class="line">Arrays.sort(data);</span><br><span class="line"><span class="comment">// 此时程序会把数组看作 &#123;1, 2, 3, 5, 7&#125;，此时2的索引值为1，则搜索2时返回 -(1 + 1) = -2</span></span><br><span class="line">System.out.println(Arrays.binarySearch(data, <span class="number">2</span>)); <span class="comment">// -2</span></span><br></pre></td></tr></table></figure>
+<pre><code>  // Like public version, but without range checks.
+  private static int binarySearch0(long[] a, int fromIndex, int toIndex,
+                                   long key) {
+      int low = fromIndex;
+      int high = toIndex - 1;
 
-</li>
-</ul>
-<h3 id="Arrays-binarySearch-Object-array-int-fromIndex-int-toIndex-Object-object"><a href="#Arrays-binarySearch-Object-array-int-fromIndex-int-toIndex-Object-object" class="headerlink" title="Arrays.binarySearch(Object[] array, int fromIndex, int toIndex,Object object)"></a>Arrays.binarySearch(Object[] array, int fromIndex, int toIndex,Object object)</h3><ul>
+      while (low &lt;= high) {
+          //无符号右移
+          int mid = (low + high) &gt;&gt;&gt; 1;
+          long midVal = a[mid];
+
+          if (midVal &lt; key)
+              low = mid + 1;
+          else if (midVal &gt; key)
+              high = mid - 1;
+          else
+              return mid; // key found
+      }
+      return -(low + 1);  // key not found.
+  }</code></pre><pre><code>
+  从源码源码可以看出:
+
+  * 当搜索元素是数组元素时,返回该元素的索引值
+  * 当搜索元素不是数组元素时,返回 - (索引值 + 1)
+
+  具体用法可以看下面例子
+
+  - 搜索元素是数组元素,返回该元素索引值
+
+    ```Java
+    Integer[] data = {1, 3, 5, 7};
+    Arrays.sort(data);
+    System.out.println(Arrays.binarySearch(data, 1)); // 0
+    ```
+
+  - 搜索元素不是数组元素,且小于数组中的最小值
+
+    ```java
+    Integer[] data = {1, 3, 5, 7};
+    Arrays.sort(data);
+    // 此时程序会把数组看作 {0, 1, 3, 5, 7}，此时0的索引值为0，则搜索0时返回 -(0 + 1) = -1
+    System.out.println(Arrays.binarySearch(data, 0)); // -1
+    ```
+
+  - 搜索元素不是数组元素,且大于数组中的最大值
+
+    ```java
+    Integer[] data = {1, 3, 5, 7};
+    Arrays.sort(data);
+    // 此时程序会把数组看作 {1, 3, 5, 7， 9}，此时9的索引值为4，则搜索8时返回 -(4 + 1) = -5
+    System.out.println(Arrays.binarySearch(data, 9)); // -5
+    ```
+
+  - 搜索元素不是数组元素,但是在数组范围内
+
+  ```java
+  Integer[] data = {1, 3, 5, 7};
+  Arrays.sort(data);
+  // 此时程序会把数组看作 {1, 2, 3, 5, 7}，此时2的索引值为1，则搜索2时返回 -(1 + 1) = -2
+  System.out.println(Arrays.binarySearch(data, 2)); // -2</code></pre><h3 id="Arrays-binarySearch-Object-array-int-fromIndex-int-toIndex-Object-object"><a href="#Arrays-binarySearch-Object-array-int-fromIndex-int-toIndex-Object-object" class="headerlink" title="Arrays.binarySearch(Object[] array, int fromIndex, int toIndex,Object object)"></a>Arrays.binarySearch(Object[] array, int fromIndex, int toIndex,Object object)</h3><ul>
 <li>使用二分查找数组类指定范围内的指定元素的索引</li>
 </ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Integer[] data = &#123;<span class="number">1</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">7</span>&#125;;</span><br><span class="line">Arrays.sort(data);</span><br><span class="line"><span class="comment">// &#123;1, 3&#125;，3的索引值为1</span></span><br><span class="line">System.out.println(Arrays.binarySearch(data, <span class="number">0</span>, <span class="number">2</span>, <span class="number">3</span>)); <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
-
+<pre class=" language-java"><code class="language-java">Integer<span class="token punctuation">[</span><span class="token punctuation">]</span> data <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">7</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+Arrays<span class="token punctuation">.</span><span class="token function">sort</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">// {1, 3}，3的索引值为1</span>
+System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>Arrays<span class="token punctuation">.</span><span class="token function">binarySearch</span><span class="token punctuation">(</span>data<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 1</span></code></pre>
 <h3 id="Arrays-copyOf-T-original-int-newLength"><a href="#Arrays-copyOf-T-original-int-newLength" class="headerlink" title="Arrays.copyOf(T[] original,int newLength)"></a>Arrays.copyOf(T[] original,int newLength)</h3><ul>
 <li>拷贝数组，其内部调用了 <strong>System.arraycopy()</strong> 方法，从下标 0 开始，如果超过原数组长度，则会用 null 进行填充</li>
 </ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Integer[] data1 = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>&#125;;</span><br><span class="line">Integer[] data2 = Arrays.copyOf(data1, <span class="number">2</span>);</span><br><span class="line">System.out.println(Arrays.toString(data2)); <span class="comment">// [1, 2]</span></span><br><span class="line">Integer[] data3 = Arrays.copyOf(data1, <span class="number">5</span>);</span><br><span class="line">System.out.println(Arrays.toString(data3)); <span class="comment">// [1, 2, 3, 4, null]</span></span><br></pre></td></tr></table></figure>
-
+<pre class=" language-Java"><code class="language-Java">Integer[] data1 = {1, 2, 3, 4};
+Integer[] data2 = Arrays.copyOf(data1, 2);
+System.out.println(Arrays.toString(data2)); // [1, 2]
+Integer[] data3 = Arrays.copyOf(data1, 5);
+System.out.println(Arrays.toString(data3)); // [1, 2, 3, 4, null]</code></pre>
 <h3 id="Arrays-copyOfRange-T-original-int-from-int-to"><a href="#Arrays-copyOfRange-T-original-int-from-int-to" class="headerlink" title="Arrays.copyOfRange(T[] original, int from, int to)"></a>Arrays.copyOfRange(T[] original, int from, int to)</h3><ul>
 <li>拷贝数组，指定起始位置和结束位置，如果超过原数组长度，则会用 null 进行填充</li>
 </ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Integer[] data1 = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>&#125;;</span><br><span class="line">Integer[] data2 = Arrays.copyOfRange(data1, <span class="number">0</span>, <span class="number">2</span>);</span><br><span class="line">System.out.println(Arrays.toString(data2)); <span class="comment">// [1, 2]</span></span><br><span class="line">Integer[] data2 = Arrays.copyOfRange(data1, <span class="number">0</span>, <span class="number">5</span>);</span><br><span class="line">System.out.println(Arrays.toString(data2)); <span class="comment">// [1, 2, 3, 4, null]</span></span><br></pre></td></tr></table></figure>
-
+<pre class=" language-java"><code class="language-java">Integer<span class="token punctuation">[</span><span class="token punctuation">]</span> data1 <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+Integer<span class="token punctuation">[</span><span class="token punctuation">]</span> data2 <span class="token operator">=</span> Arrays<span class="token punctuation">.</span><span class="token function">copyOfRange</span><span class="token punctuation">(</span>data1<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>Arrays<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span>data2<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// [1, 2]</span>
+Integer<span class="token punctuation">[</span><span class="token punctuation">]</span> data2 <span class="token operator">=</span> Arrays<span class="token punctuation">.</span><span class="token function">copyOfRange</span><span class="token punctuation">(</span>data1<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>Arrays<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span>data2<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// [1, 2, 3, 4, null]</span></code></pre>
 <h3 id="Arrays-equals-Object-array1-Object-array2"><a href="#Arrays-equals-Object-array1-Object-array2" class="headerlink" title="Arrays.equals(Object[] array1, Object[] array2)"></a>Arrays.equals(Object[] array1, Object[] array2)</h3><ul>
 <li>判断两个数组是否相等</li>
 <li>数组元素为基本数据类型时，依次比较值</li>
 <li>数组元素为引用数据类型时，依次调用元素的 equals() 方法进行比较</li>
 <li>即如果两个数组被认为是相等的，则两个数组中应包含相同顺序的相同元素</li>
 </ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Integer[] data1 = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;;</span><br><span class="line">Integer[] data2 = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;;</span><br><span class="line">System.out.println(Arrays.equals(data1, data2)); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
-
+<pre class=" language-JAVA"><code class="language-JAVA">Integer[] data1 = {1, 2, 3};
+Integer[] data2 = {1, 2, 3};
+System.out.println(Arrays.equals(data1, data2)); // true</code></pre>
 <h3 id="Arrays-deepEquals-Object-array1-Object-array2"><a href="#Arrays-deepEquals-Object-array1-Object-array2" class="headerlink" title="Arrays.deepEquals(Object[] array1, Object[] array2)"></a>Arrays.deepEquals(Object[] array1, Object[] array2)</h3><ul>
 <li>判断两个多维数组是否相等</li>
 <li>数组元素为基本数据类型时，依次比较值</li>
 <li>数组元素为引用数据类型时，依次调用元素的 equals() 方法进行比较</li>
 <li>即如果两个多维数组被认为是相等的，则两个多维数组中应包含相同顺序的相同元素</li>
 </ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Integer[][] data1 = &#123;&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>&#125;, &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>&#125;&#125;;</span><br><span class="line">Integer[][] data2 = &#123;&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>&#125;, &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>&#125;&#125;;</span><br><span class="line">System.out.println(Arrays.deepEquals(data1, data2)); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
-
+<pre class=" language-java"><code class="language-java">Integer<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span> data1 <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+Integer<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span> data2 <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>Arrays<span class="token punctuation">.</span><span class="token function">deepEquals</span><span class="token punctuation">(</span>data1<span class="token punctuation">,</span> data2<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// true</span>
+</code></pre>
 <h3 id="Arrays-hashCode-Object-array"><a href="#Arrays-hashCode-Object-array" class="headerlink" title="Arrays.hashCode(Object[] array)"></a>Arrays.hashCode(Object[] array)</h3><ul>
 <li>返回数组的哈希值</li>
 </ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Integer[] data = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;;</span><br><span class="line">System.out.println(Arrays.hashCode(data)); <span class="comment">// 30817</span></span><br></pre></td></tr></table></figure>
-
+<pre class=" language-java"><code class="language-java">Integer<span class="token punctuation">[</span><span class="token punctuation">]</span> data <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>Arrays<span class="token punctuation">.</span><span class="token function">hashCode</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 30817</span></code></pre>
 <h3 id="Arrays-deepHashCode-Object-array"><a href="#Arrays-deepHashCode-Object-array" class="headerlink" title="Arrays.deepHashCode(Object[] array)"></a>Arrays.deepHashCode(Object[] array)</h3><p>返回多维数组的哈希值</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Integer[][] data = &#123;&#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;, &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;&#125;;</span><br><span class="line">System.out.println(Arrays.deepHashCode(data)); <span class="comment">// 987105</span></span><br></pre></td></tr></table></figure>
-
+<pre class=" language-java"><code class="language-java">Integer<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span> data <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>Arrays<span class="token punctuation">.</span><span class="token function">deepHashCode</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 987105</span></code></pre>
 <h3 id="Arrays-toString-Object-array"><a href="#Arrays-toString-Object-array" class="headerlink" title="Arrays.toString(Object[] array)"></a>Arrays.toString(Object[] array)</h3><ul>
 <li>返回数组元素的字符串形式</li>
 </ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Integer[] data = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;;</span><br><span class="line">System.out.println(Arrays.toString(data)); <span class="comment">// [1, 2, 3]</span></span><br></pre></td></tr></table></figure>
-
+<pre class=" language-java"><code class="language-java">Integer<span class="token punctuation">[</span><span class="token punctuation">]</span> data <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>Arrays<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// [1, 2, 3]</span></code></pre>
 <h3 id="Arrays-deepToString-Object-array"><a href="#Arrays-deepToString-Object-array" class="headerlink" title="Arrays.deepToString(Object[] array)"></a>Arrays.deepToString(Object[] array)</h3><ul>
 <li>返回多维数组元素的字符串形式</li>
 </ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Integer[][] data = &#123;&#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;, &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;&#125;;</span><br><span class="line">System.out.println(Arrays.deepToString(data)); <span class="comment">// [[1, 2, 3], [1, 2, 3]]</span></span><br></pre></td></tr></table></figure>
-
+<pre class=" language-java"><code class="language-java">Integer<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span> data <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>Arrays<span class="token punctuation">.</span><span class="token function">deepToString</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// [[1, 2, 3], [1, 2, 3]]</span></code></pre>
 <h3 id="Arrays-setAll-T-array-IntFunction-lt-extends-T-gt-generator"><a href="#Arrays-setAll-T-array-IntFunction-lt-extends-T-gt-generator" class="headerlink" title="Arrays.setAll(T[] array,IntFunction&lt;? extends T&gt; generator)"></a>Arrays.setAll(T[] array,IntFunction&lt;? extends T&gt; generator)</h3><ul>
 <li>让数组中的所有元素,串行的使用方法提供的生成器函数,来计算每个元素(<strong>一元操作</strong>)</li>
 </ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Integer[] data = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>&#125;;</span><br><span class="line"><span class="comment">// i为索引值</span></span><br><span class="line">Arrays.setAll(data, i -&gt; data[i] * <span class="number">2</span>);</span><br><span class="line">System.out.println(Arrays.toString(data)); <span class="comment">// [2, 4, 6, 8]</span></span><br></pre></td></tr></table></figure>
-
+<pre class=" language-java"><code class="language-java">Integer<span class="token punctuation">[</span><span class="token punctuation">]</span> data <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">// i为索引值</span>
+Arrays<span class="token punctuation">.</span><span class="token function">setAll</span><span class="token punctuation">(</span>data<span class="token punctuation">,</span> i <span class="token operator">-</span><span class="token operator">></span> data<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">*</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>Arrays<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// [2, 4, 6, 8]</span></code></pre>
 <h3 id="Arrays-parallelSetAll-T-array-IntFunction-lt-extends-T-gt-generator"><a href="#Arrays-parallelSetAll-T-array-IntFunction-lt-extends-T-gt-generator" class="headerlink" title="Arrays.parallelSetAll(T[] array,IntFunction&lt;? extends T&gt; generator)"></a>Arrays.parallelSetAll(T[] array,IntFunction&lt;? extends T&gt; generator)</h3><ul>
 <li>让数组中的元素,并行地使用方法提供的生成器函数来计算每个元素(<strong>一元操作</strong>),当数据规模较大时,会有更好的性能</li>
 </ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Integer[] data = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>&#125;;</span><br><span class="line"><span class="comment">// i为索引值</span></span><br><span class="line">Arrays.parallelSetAll(data, i -&gt; data[i] * <span class="number">2</span>);</span><br><span class="line">System.out.println(Arrays.toString(data)); <span class="comment">// [2, 4, 6, 8]</span></span><br></pre></td></tr></table></figure>
-
+<pre class=" language-java"><code class="language-java">Integer<span class="token punctuation">[</span><span class="token punctuation">]</span> data <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">// i为索引值</span>
+Arrays<span class="token punctuation">.</span><span class="token function">parallelSetAll</span><span class="token punctuation">(</span>data<span class="token punctuation">,</span> i <span class="token operator">-</span><span class="token operator">></span> data<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">*</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>Arrays<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// [2, 4, 6, 8]</span></code></pre>
 <h3 id="Arrays-parallelPrefix-T-array-BinaryOperator-op"><a href="#Arrays-parallelPrefix-T-array-BinaryOperator-op" class="headerlink" title="Arrays.parallelPrefix(T[] array, BinaryOperator op)"></a>Arrays.parallelPrefix(T[] array, BinaryOperator op)</h3><ul>
 <li>让数组中的所有元素，并行地使用方法提供的生成器函数来计算每个元素 (二元操作)，当数据规模较大时，会有更好的性能</li>
 </ul>
 <p>I</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">nteger[] data = &#123;<span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>&#125;;</span><br><span class="line"><span class="comment">// 第一个元素2不变，将其与第二个元素3一起作为参数x, y传入，得到乘积6，作为数组新的第二个元素</span></span><br><span class="line"><span class="comment">// 再将6和第三个元素4一起作为参数x, y传入，得到乘积24，作为数组新的第三个元素，以此类推</span></span><br><span class="line">Arrays.parallelPrefix(data, (x, y) -&gt; x * y);</span><br><span class="line">System.out.println(Arrays.toString(data)); <span class="comment">// [2, 6, 24, 120]</span></span><br></pre></td></tr></table></figure>
-
-
-
+<pre class=" language-java"><code class="language-java">nteger<span class="token punctuation">[</span><span class="token punctuation">]</span> data <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">// 第一个元素2不变，将其与第二个元素3一起作为参数x, y传入，得到乘积6，作为数组新的第二个元素</span>
+<span class="token comment" spellcheck="true">// 再将6和第三个元素4一起作为参数x, y传入，得到乘积24，作为数组新的第三个元素，以此类推</span>
+Arrays<span class="token punctuation">.</span><span class="token function">parallelPrefix</span><span class="token punctuation">(</span>data<span class="token punctuation">,</span> <span class="token punctuation">(</span>x<span class="token punctuation">,</span> y<span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> x <span class="token operator">*</span> y<span class="token punctuation">)</span><span class="token punctuation">;</span>
+System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>Arrays<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// [2, 6, 24, 120]</span></code></pre>
 <h3 id="Arrays-parallelPrefix-T-array-int-fromIndex-int-toIndex-BinaryOperator-op"><a href="#Arrays-parallelPrefix-T-array-int-fromIndex-int-toIndex-BinaryOperator-op" class="headerlink" title="Arrays.parallelPrefix(T[] array, int fromIndex, int toIndex, BinaryOperator op"></a>Arrays.parallelPrefix(T[] array, int fromIndex, int toIndex, BinaryOperator op</h3><ul>
 <li>让指定范围内的数组元素，并行地使用方法提供的生成器函数来计算每个元素 (二元操作)，当数据规模较大时，会有更好的性能</li>
 </ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Integer[] data = &#123;<span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>&#125;;</span><br><span class="line"><span class="comment">// 第一个元素2不变，将其与第二个元素3一起作为参数x, y传入，得到乘积6，作为数组新的第二个元素</span></span><br><span class="line"><span class="comment">// 再将6和第三个元素4一起作为参数x, y传入，得到乘积24，作为数组新的第三个元素，以此类推</span></span><br><span class="line">Arrays.parallelPrefix(data, <span class="number">0</span>, <span class="number">3</span>, (x, y) -&gt; x * y);</span><br><span class="line">System.out.println(Arrays.toString(data)); <span class="comment">// [2, 6, 24, 5]</span></span><br></pre></td></tr></table></figure>
-
-
-
+<pre class=" language-java"><code class="language-java">Integer<span class="token punctuation">[</span><span class="token punctuation">]</span> data <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">// 第一个元素2不变，将其与第二个元素3一起作为参数x, y传入，得到乘积6，作为数组新的第二个元素</span>
+<span class="token comment" spellcheck="true">// 再将6和第三个元素4一起作为参数x, y传入，得到乘积24，作为数组新的第三个元素，以此类推</span>
+Arrays<span class="token punctuation">.</span><span class="token function">parallelPrefix</span><span class="token punctuation">(</span>data<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>x<span class="token punctuation">,</span> y<span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> x <span class="token operator">*</span> y<span class="token punctuation">)</span><span class="token punctuation">;</span>
+System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>Arrays<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// [2, 6, 24, 5]</span></code></pre>
 <h3 id="Arrays-spliterator-T-array"><a href="#Arrays-spliterator-T-array" class="headerlink" title="Arrays.spliterator(T[] array)"></a>Arrays.spliterator(T[] array)</h3><ul>
 <li>返回数组的分片迭代器，用于并行地遍历数组</li>
 </ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Students</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Integer age;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Students</span><span class="params">(String name, Integer age)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">this</span>.age = age;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 省略get、set方</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    Students[] data = <span class="keyword">new</span> Students[<span class="number">5</span>];</span><br><span class="line"></span><br><span class="line">    IntStream.range(<span class="number">0</span>,<span class="number">5</span>).forEach(i -&gt; data[i] = <span class="keyword">new</span> Students(<span class="string">"小明"</span>+i+<span class="string">"号"</span>, i));</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 返回分片迭代器</span></span><br><span class="line"></span><br><span class="line">    Spliterator&lt;Students&gt; spliterator = Arrays.spliterator(data);</span><br><span class="line"></span><br><span class="line">    spliterator.forEachRemaining(stu -&gt; &#123;</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">"学生姓名: "</span> + stu.getName() + <span class="string">"  "</span> + <span class="string">"学生年龄: "</span> + stu.getAge());</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 学生姓名: 小明0号  学生年龄: 0</span></span><br><span class="line"></span><br><span class="line">		<span class="comment">// 学生姓名: 小明1号  学生年龄: 1</span></span><br><span class="line"></span><br><span class="line">		<span class="comment">// 学生姓名: 小明2号  学生年龄: 2</span></span><br><span class="line"></span><br><span class="line">		<span class="comment">// 学生姓名: 小明3号  学生年龄: 3</span></span><br><span class="line"></span><br><span class="line">		<span class="comment">// 学生姓名: 小明4号  学生年龄: 4</span></span><br><span class="line"></span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Students</span><span class="token punctuation">{</span>
+    <span class="token keyword">private</span> String name<span class="token punctuation">;</span>
 
+    <span class="token keyword">private</span> Integer age<span class="token punctuation">;</span>
+
+    <span class="token keyword">public</span> <span class="token function">Students</span><span class="token punctuation">(</span>String name<span class="token punctuation">,</span> Integer age<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+        <span class="token keyword">this</span><span class="token punctuation">.</span>name <span class="token operator">=</span> name<span class="token punctuation">;</span>
+
+        <span class="token keyword">this</span><span class="token punctuation">.</span>age <span class="token operator">=</span> age<span class="token punctuation">;</span>
+
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">// 省略get、set方</span>
+
+<span class="token punctuation">}</span>
+
+<span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+    Students<span class="token punctuation">[</span><span class="token punctuation">]</span> data <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Students</span><span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+    IntStream<span class="token punctuation">.</span><span class="token function">range</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span>i <span class="token operator">-</span><span class="token operator">></span> data<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Students</span><span class="token punctuation">(</span><span class="token string">"小明"</span><span class="token operator">+</span>i<span class="token operator">+</span><span class="token string">"号"</span><span class="token punctuation">,</span> i<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">// 返回分片迭代器</span>
+
+    Spliterator<span class="token operator">&lt;</span>Students<span class="token operator">></span> spliterator <span class="token operator">=</span> Arrays<span class="token punctuation">.</span><span class="token function">spliterator</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    spliterator<span class="token punctuation">.</span><span class="token function">forEachRemaining</span><span class="token punctuation">(</span>stu <span class="token operator">-</span><span class="token operator">></span> <span class="token punctuation">{</span>
+
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"学生姓名: "</span> <span class="token operator">+</span> stu<span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">"  "</span> <span class="token operator">+</span> <span class="token string">"学生年龄: "</span> <span class="token operator">+</span> stu<span class="token punctuation">.</span><span class="token function">getAge</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token comment" spellcheck="true">// 学生姓名: 小明0号  学生年龄: 0</span>
+
+        <span class="token comment" spellcheck="true">// 学生姓名: 小明1号  学生年龄: 1</span>
+
+        <span class="token comment" spellcheck="true">// 学生姓名: 小明2号  学生年龄: 2</span>
+
+        <span class="token comment" spellcheck="true">// 学生姓名: 小明3号  学生年龄: 3</span>
+
+        <span class="token comment" spellcheck="true">// 学生姓名: 小明4号  学生年龄: 4</span>
+
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token punctuation">}</span>
+</code></pre>
 <h3 id="Arrays-stream-T-array"><a href="#Arrays-stream-T-array" class="headerlink" title="Arrays.stream(T[] array)"></a>Arrays.stream(T[] array)</h3><ul>
 <li>返回数组的流 (Stream)，然后我们就可以使用 Stream 相关的许多方法了</li>
 </ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Integer[] data = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>&#125;;</span><br><span class="line">List&lt;Integer&gt; list = Arrays.stream(data).collect(toList());</span><br><span class="line">System.out.println(list); <span class="comment">// [1, 2, 3, 4]</span></span><br></pre></td></tr></table></figure>
-
-
-
-
+<pre class=" language-java"><code class="language-java">Integer<span class="token punctuation">[</span><span class="token punctuation">]</span> data <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+List<span class="token operator">&lt;</span>Integer<span class="token operator">></span> list <span class="token operator">=</span> Arrays<span class="token punctuation">.</span><span class="token function">stream</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">collect</span><span class="token punctuation">(</span><span class="token function">toList</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>list<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// [1, 2, 3, 4]</span></code></pre>
 
             </div>
             <hr/>
@@ -888,8 +973,6 @@
 
 <!-- 代码语言 -->
 
-<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
-
 
 <!-- 代码块复制 -->
 
@@ -934,7 +1017,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             contentSelector: '#articleContent',
             headingsOffset: -($(window).height() * 0.4 - 45),
             collapseDepth: Number('0'),
-            headingSelector: 'h2, h3, h4'
+            headingSelector: 'h2, h3, h4, h5'
         });
 
         // modify the toc link href to support Chinese.
@@ -946,7 +1029,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
 
         // modify the heading title id to support Chinese.
         i = 0;
-        $('#articleContent').children('h2, h3, h4').each(function () {
+        $('#articleContent').children('h2, h3, h4, h5').each(function () {
             $(this).attr('id', tocHeading + (++i));
         });
 
@@ -1040,7 +1123,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
         <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
                    server="netease"
                    type="playlist"
-                   id="503838841"
+                   id="426843371"
                    fixed='true'
                    autoplay='false'
                    theme='#42b983'

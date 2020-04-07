@@ -104,28 +104,6 @@
     
   </li>
   
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/contact" class="waves-effect waves-light">
-      
-      <i class="fas fa-comments" style="zoom: 0.6;"></i>
-      
-      <span>留言板</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/friends" class="waves-effect waves-light">
-      
-      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
-      
-      <span>友情链接</span>
-    </a>
-    
-  </li>
-  
   <li>
     <a href="#searchModal" class="modal-trigger waves-effect waves-light">
       <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
@@ -202,28 +180,6 @@
 			    <i class="fa-fw fas fa-user-circle"></i>
 			
 			关于
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/contact" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-comments"></i>
-			
-			留言板
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/friends" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-address-book"></i>
-			
-			友情链接
 		</a>
           
         </li>
@@ -530,14 +486,22 @@
 <p>默认设置为底层事务系统的超时值，如果底层数据库事务系统没有设置超时值，那么就是none，没有超时限制。</p>
 <h3 id="spring事务回滚规则"><a href="#spring事务回滚规则" class="headerlink" title="spring事务回滚规则"></a>spring事务回滚规则</h3><p>默认配置下，spring只有在抛出的异常为运行时unchecked异常时才回滚该事务，也就是抛出的异常为RuntimeException的子类(Errors也会导致事务回滚)，而抛出checked异常则不会导致事务回滚。可以明确的配置在抛出哪些异常时回滚事务，包括checked异常。也可以明确定义那些异常抛出时不回滚事务。还可以编程性的通过setRollbackOnly()方法来指示一个事务必须回滚，在调用完setRollbackOnly()后你所能执行的唯一操作就是回滚。</p>
 <h2 id="以MyBatis为例，基于注解的声明式事务配置"><a href="#以MyBatis为例，基于注解的声明式事务配置" class="headerlink" title="以MyBatis为例，基于注解的声明式事务配置"></a>以MyBatis为例，基于注解的声明式事务配置</h2><p>1、添加tx名字空间</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xmlns:tx="http://www.springframework.org/schema/tx"</span><br></pre></td></tr></table></figure>
-
+<pre class=" language-xml"><code class="language-xml">xmlns:tx="http://www.springframework.org/schema/tx"</code></pre>
 <p>2、开启事务的注解支持</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 开启事务控制的注解支持 --&gt;</span>  </span><br><span class="line"><span class="tag">&lt;<span class="name">tx:annotation-driven</span> <span class="attr">transaction-manager</span>=<span class="string">"transactionManager"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">aop:aspectj-autoproxy</span>/&gt;</span></span><br></pre></td></tr></table></figure>
-
+<pre class=" language-xml"><code class="language-xml"><span class="token comment" spellcheck="true">&lt;!-- 开启事务控制的注解支持 --></span>  
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">tx:</span>annotation-driven</span> <span class="token attr-name">transaction-manager</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>transactionManager<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">aop:</span>aspectj-autoproxy</span><span class="token punctuation">/></span></span></code></pre>
 <p>3、MyBatis自动参与到spring事务管理中，无需额外配置，只要org.mybatis.spring.SqlSessionFactoryBean引用的数据源与DataSourceTransactionManager引用的数据源一致即可。</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"sqlSessionFactory"</span> <span class="attr">class</span>=<span class="string">"org.mybatis.spring.SqlSessionFactoryBean"</span>&gt;</span> </span><br><span class="line">		<span class="comment">&lt;!-- 注入数据源 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"dataSource"</span> <span class="attr">ref</span>=<span class="string">"dataSource"</span>/&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 绑定Mybatis的配置文件--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"configLocation"</span> <span class="attr">value</span>=<span class="string">"classpath:mybatis-config.xml"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span> </span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"transactionManager"</span> <span class="attr">class</span>=<span class="string">"org.springframework.jdbc.datasource.DataSourceTransactionManager"</span>&gt;</span>  </span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"dataSource"</span> <span class="attr">ref</span>=<span class="string">"dataSource"</span> /&gt;</span>  </span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<pre class=" language-xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>bean</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>sqlSessionFactory<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>org.mybatis.spring.SqlSessionFactoryBean<span class="token punctuation">"</span></span><span class="token punctuation">></span></span> 
+        <span class="token comment" spellcheck="true">&lt;!-- 注入数据源 --></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>dataSource<span class="token punctuation">"</span></span> <span class="token attr-name">ref</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>dataSource<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
+        <span class="token comment" spellcheck="true">&lt;!-- 绑定Mybatis的配置文件--></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>configLocation<span class="token punctuation">"</span></span> <span class="token attr-name">value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>classpath:mybatis-config.xml<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>bean</span><span class="token punctuation">></span></span> 
 
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>bean</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>transactionManager<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>org.springframework.jdbc.datasource.DataSourceTransactionManager<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>  
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>dataSource<span class="token punctuation">"</span></span> <span class="token attr-name">ref</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>dataSource<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>  
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>bean</span><span class="token punctuation">></span></span>  </code></pre>
 <p>事务有以下几个常用属性：</p>
 <p>a.read-only:设置该事务中是否允许修改数据。（对于只执行查询功能的事务，设置为TRUE可以提高事务的执行速度）  </p>
 <p>b.propagation：事务的传播机制。一般设置为required。可以保证在事务中的代码只在当前事务中运行，防止创建多个事务。</p>
@@ -549,14 +513,51 @@
 <p><strong>4、使用@Transactional注解</strong></p>
 <p>@Transactional 可以作用于接口、接口方法、类以及类方法上。当作用于类上时，该类的所有 public 方法将都具有该类型的事务属性，同时，我们也可以在方法级别使用该注解来覆盖类级别的定义。</p>
 <p>虽然 @Transactional 注解可以作用于接口、接口方法、类以及类方法上，但是 Spring <strong>建议不要在接口或者接口方法上使用该注解，因为这只有在使用基于接口的代理时它才会生效</strong>。另外， @Transactional 注解应该只被应用到 public 方法上<strong>，这是由 Spring AOP 的本质决定</strong>(因为AOP基于动态代理)**的。如果你在 protected、private 或者默认可见性的方法上使用 @Transactional 注解，这将被忽略，也不会抛出任何异常。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> demo.spring.dao;  </span><br><span class="line">    </span><br><span class="line">  <span class="keyword">import</span> java.util.Iterator;  </span><br><span class="line">  <span class="keyword">import</span> java.util.List;  </span><br><span class="line">    </span><br><span class="line">  <span class="keyword">import</span> javax.sql.DataSource;  </span><br><span class="line">    </span><br><span class="line">  <span class="keyword">import</span> org.springframework.jdbc.core.JdbcTemplate;  </span><br><span class="line">  <span class="keyword">import</span> org.springframework.transaction.annotation.Propagation;  </span><br><span class="line">  <span class="keyword">import</span> org.springframework.transaction.annotation.Transactional;  </span><br><span class="line">    </span><br><span class="line">  <span class="keyword">import</span> demo.spring.entity.Person;  </span><br><span class="line">  <span class="meta">@Transactional</span><span class="comment">//将此类进行事务管理  </span></span><br><span class="line">  <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PersonDaoImpl</span> <span class="keyword">implements</span> <span class="title">PersonDao</span> </span>&#123;  </span><br><span class="line">      <span class="keyword">private</span> JdbcTemplate jt;  </span><br><span class="line">        </span><br><span class="line">      <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setDataSource</span><span class="params">(DataSource dataSource)</span></span>&#123;  </span><br><span class="line">          jt = <span class="keyword">new</span> JdbcTemplate(dataSource);  </span><br><span class="line">      &#125;  </span><br><span class="line">      <span class="meta">@Override</span>  </span><br><span class="line">      <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">insert</span><span class="params">(<span class="keyword">long</span> id, String name, <span class="keyword">int</span> age)</span> </span>&#123;  </span><br><span class="line">          jt.update(<span class="string">"insert into person values('"</span>+id+<span class="string">"','"</span>+name+<span class="string">"','"</span>+age+<span class="string">"')"</span>);  </span><br><span class="line">    </span><br><span class="line">      &#125;  </span><br><span class="line">    </span><br><span class="line">      <span class="meta">@Transactional</span>(propagation= Propagation.REQUIRED)<span class="comment">//定义要事务管理的方法，指定传播行为  </span></span><br><span class="line">      <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">batchInsert</span><span class="params">(List persons)</span> </span>&#123;  </span><br><span class="line">          <span class="keyword">for</span>(Iterator it = persons.iterator(); it.hasNext(); )&#123;  </span><br><span class="line">              Person p = (Person) it.next();  </span><br><span class="line">              insert(p.getId(),p.getName(),p.getAge());  </span><br><span class="line">          &#125;  </span><br><span class="line">      &#125;  </span><br><span class="line">    </span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<pre class=" language-java"><code class="language-java">  <span class="token keyword">package</span> demo<span class="token punctuation">.</span>spring<span class="token punctuation">.</span>dao<span class="token punctuation">;</span>  
 
+    <span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>Iterator<span class="token punctuation">;</span>  
+    <span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>List<span class="token punctuation">;</span>  
 
+    <span class="token keyword">import</span> javax<span class="token punctuation">.</span>sql<span class="token punctuation">.</span>DataSource<span class="token punctuation">;</span>  
 
-<h2 id="以MyBatis为例，基于-xml文件的声明式事务配置"><a href="#以MyBatis为例，基于-xml文件的声明式事务配置" class="headerlink" title="以MyBatis为例，基于.xml文件的声明式事务配置"></a>以MyBatis为例，基于.xml文件的声明式事务配置</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">tx:advice</span> <span class="attr">id</span>=<span class="string">"advice"</span> <span class="attr">transaction-manager</span>=<span class="string">"transactionManager"</span>&gt;</span>  </span><br><span class="line">    <span class="tag">&lt;<span class="name">tx:attributes</span>&gt;</span>  </span><br><span class="line">        <span class="tag">&lt;<span class="name">tx:method</span> <span class="attr">name</span>=<span class="string">"update*"</span> <span class="attr">propagation</span>=<span class="string">"REQUIRED"</span> <span class="attr">read-only</span>=<span class="string">"false"</span> <span class="attr">rollback-for</span>=<span class="string">"java.lang.Exception"</span>/&gt;</span>  </span><br><span class="line">        <span class="tag">&lt;<span class="name">tx:method</span> <span class="attr">name</span>=<span class="string">"insert"</span> <span class="attr">propagation</span>=<span class="string">"REQUIRED"</span> <span class="attr">read-only</span>=<span class="string">"false"</span>/&gt;</span>  </span><br><span class="line">    <span class="tag">&lt;/<span class="name">tx:attributes</span>&gt;</span>  </span><br><span class="line"><span class="tag">&lt;/<span class="name">tx:advice</span>&gt;</span>  </span><br><span class="line">  </span><br><span class="line"><span class="tag">&lt;<span class="name">aop:config</span>&gt;</span>  </span><br><span class="line">    <span class="tag">&lt;<span class="name">aop:pointcut</span> <span class="attr">id</span>=<span class="string">"testService"</span> <span class="attr">expression</span>=<span class="string">"execution (* com.nnngu.service.MyBatisService.*(..))"</span>/&gt;</span>  </span><br><span class="line">    <span class="tag">&lt;<span class="name">aop:advisor</span> <span class="attr">advice-ref</span>=<span class="string">"advice"</span> <span class="attr">pointcut-ref</span>=<span class="string">"testService"</span>/&gt;</span>  </span><br><span class="line"><span class="tag">&lt;/<span class="name">aop:config</span>&gt;</span></span><br></pre></td></tr></table></figure>
+    <span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>jdbc<span class="token punctuation">.</span>core<span class="token punctuation">.</span>JdbcTemplate<span class="token punctuation">;</span>  
+    <span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>transaction<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span>Propagation<span class="token punctuation">;</span>  
+    <span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>transaction<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span>Transactional<span class="token punctuation">;</span>  
 
+    <span class="token keyword">import</span> demo<span class="token punctuation">.</span>spring<span class="token punctuation">.</span>entity<span class="token punctuation">.</span>Person<span class="token punctuation">;</span>  
+    <span class="token annotation punctuation">@Transactional</span><span class="token comment" spellcheck="true">//将此类进行事务管理  </span>
+    <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">PersonDaoImpl</span> <span class="token keyword">implements</span> <span class="token class-name">PersonDao</span> <span class="token punctuation">{</span>  
+        <span class="token keyword">private</span> JdbcTemplate jt<span class="token punctuation">;</span>  
 
+        <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setDataSource</span><span class="token punctuation">(</span>DataSource dataSource<span class="token punctuation">)</span><span class="token punctuation">{</span>  
+            jt <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">JdbcTemplate</span><span class="token punctuation">(</span>dataSource<span class="token punctuation">)</span><span class="token punctuation">;</span>  
+        <span class="token punctuation">}</span>  
+        <span class="token annotation punctuation">@Override</span>  
+        <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">insert</span><span class="token punctuation">(</span><span class="token keyword">long</span> id<span class="token punctuation">,</span> String name<span class="token punctuation">,</span> <span class="token keyword">int</span> age<span class="token punctuation">)</span> <span class="token punctuation">{</span>  
+            jt<span class="token punctuation">.</span><span class="token function">update</span><span class="token punctuation">(</span><span class="token string">"insert into person values('"</span><span class="token operator">+</span>id<span class="token operator">+</span><span class="token string">"','"</span><span class="token operator">+</span>name<span class="token operator">+</span><span class="token string">"','"</span><span class="token operator">+</span>age<span class="token operator">+</span><span class="token string">"')"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  
 
+        <span class="token punctuation">}</span>  
+
+        <span class="token annotation punctuation">@Transactional</span><span class="token punctuation">(</span>propagation<span class="token operator">=</span> Propagation<span class="token punctuation">.</span>REQUIRED<span class="token punctuation">)</span><span class="token comment" spellcheck="true">//定义要事务管理的方法，指定传播行为  </span>
+        <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">batchInsert</span><span class="token punctuation">(</span>List persons<span class="token punctuation">)</span> <span class="token punctuation">{</span>  
+            <span class="token keyword">for</span><span class="token punctuation">(</span>Iterator it <span class="token operator">=</span> persons<span class="token punctuation">.</span><span class="token function">iterator</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> it<span class="token punctuation">.</span><span class="token function">hasNext</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">)</span><span class="token punctuation">{</span>  
+                Person p <span class="token operator">=</span> <span class="token punctuation">(</span>Person<span class="token punctuation">)</span> it<span class="token punctuation">.</span><span class="token function">next</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  
+                <span class="token function">insert</span><span class="token punctuation">(</span>p<span class="token punctuation">.</span><span class="token function">getId</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>p<span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>p<span class="token punctuation">.</span><span class="token function">getAge</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  
+            <span class="token punctuation">}</span>  
+        <span class="token punctuation">}</span>  
+
+    <span class="token punctuation">}</span> </code></pre>
+<h2 id="以MyBatis为例，基于-xml文件的声明式事务配置"><a href="#以MyBatis为例，基于-xml文件的声明式事务配置" class="headerlink" title="以MyBatis为例，基于.xml文件的声明式事务配置"></a>以MyBatis为例，基于.xml文件的声明式事务配置</h2><pre class=" language-xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">tx:</span>advice</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>advice<span class="token punctuation">"</span></span> <span class="token attr-name">transaction-manager</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>transactionManager<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>  
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">tx:</span>attributes</span><span class="token punctuation">></span></span>  
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">tx:</span>method</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>update*<span class="token punctuation">"</span></span> <span class="token attr-name">propagation</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>REQUIRED<span class="token punctuation">"</span></span> <span class="token attr-name">read-only</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>false<span class="token punctuation">"</span></span> <span class="token attr-name">rollback-for</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>java.lang.Exception<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>  
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">tx:</span>method</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>insert<span class="token punctuation">"</span></span> <span class="token attr-name">propagation</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>REQUIRED<span class="token punctuation">"</span></span> <span class="token attr-name">read-only</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>false<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>  
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token namespace">tx:</span>attributes</span><span class="token punctuation">></span></span>  
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token namespace">tx:</span>advice</span><span class="token punctuation">></span></span>  
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">aop:</span>config</span><span class="token punctuation">></span></span>  
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">aop:</span>pointcut</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>testService<span class="token punctuation">"</span></span> <span class="token attr-name">expression</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>execution (* com.nnngu.service.MyBatisService.*(..))<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>  
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">aop:</span>advisor</span> <span class="token attr-name">advice-ref</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>advice<span class="token punctuation">"</span></span> <span class="token attr-name">pointcut-ref</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>testService<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>  
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token namespace">aop:</span>config</span><span class="token punctuation">></span></span>  </code></pre>
 <p>————————————————<br>参考文章:<br>原文链接：<a href="https://blog.csdn.net/csdn_huzeliang/article/details/78995795" target="_blank" rel="noopener">https://blog.csdn.net/csdn_huzeliang/article/details/78995795</a></p>
 
             </div>
@@ -809,8 +810,6 @@ cookie的作用
 
 <!-- 代码语言 -->
 
-<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
-
 
 <!-- 代码块复制 -->
 
@@ -855,7 +854,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             contentSelector: '#articleContent',
             headingsOffset: -($(window).height() * 0.4 - 45),
             collapseDepth: Number('0'),
-            headingSelector: 'h2, h3, h4'
+            headingSelector: 'h2, h3, h4, h5'
         });
 
         // modify the toc link href to support Chinese.
@@ -867,7 +866,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
 
         // modify the heading title id to support Chinese.
         i = 0;
-        $('#articleContent').children('h2, h3, h4').each(function () {
+        $('#articleContent').children('h2, h3, h4, h5').each(function () {
             $(this).attr('id', tocHeading + (++i));
         });
 
@@ -961,7 +960,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
         <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
                    server="netease"
                    type="playlist"
-                   id="503838841"
+                   id="426843371"
                    fixed='true'
                    autoplay='false'
                    theme='#42b983'

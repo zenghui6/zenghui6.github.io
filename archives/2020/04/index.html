@@ -104,28 +104,6 @@
     
   </li>
   
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/contact" class="waves-effect waves-light">
-      
-      <i class="fas fa-comments" style="zoom: 0.6;"></i>
-      
-      <span>留言板</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/friends" class="waves-effect waves-light">
-      
-      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
-      
-      <span>友情链接</span>
-    </a>
-    
-  </li>
-  
   <li>
     <a href="#searchModal" class="modal-trigger waves-effect waves-light">
       <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
@@ -202,28 +180,6 @@
 			    <i class="fa-fw fas fa-user-circle"></i>
 			
 			关于
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/contact" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-comments"></i>
-			
-			留言板
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/friends" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-address-book"></i>
-			
-			友情链接
 		</a>
           
         </li>
@@ -548,7 +504,10 @@ Selector
 一个服务端需要:
 一个主线程, 用来监听和接收数据
 
-123456789101112131415161718192021222324252627282930313233343536373839404142434445464
+package com.zenghui.demo.bio.server;
+
+import java.io.BufferedWriter;
+import java.io.
                                 
                             </div>
                             <div class="publish-info">
@@ -695,7 +654,9 @@ StringWriter
 封装共享变量
 将共享变量作为对象属性封装在内部,对所有公共方法制定并发访问策略
 
-123456789public class Counter &#123;  private 
+public class Counter {
+  private long value;
+ 
                                 
                             </div>
                             <div class="publish-info">
@@ -851,9 +812,9 @@ https://www.processon.com/view/link/5e882e48e4b0a1e6dcb29287
                         
                         <div class="card-action article-tags">
                             
-                            <a href="/tags/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/"><span class="chip bg-color">类加载机制</span></a>
-                            
                             <a href="/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA/"><span class="chip bg-color">虚拟机</span></a>
+                            
+                            <a href="/tags/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/"><span class="chip bg-color">类加载机制</span></a>
                             
                         </div>
                         
@@ -1096,7 +1057,7 @@ Swagger简介前后端分离
         <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
                    server="netease"
                    type="playlist"
-                   id="503838841"
+                   id="426843371"
                    fixed='true'
                    autoplay='false'
                    theme='#42b983'

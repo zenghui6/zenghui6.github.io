@@ -104,28 +104,6 @@
     
   </li>
   
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/contact" class="waves-effect waves-light">
-      
-      <i class="fas fa-comments" style="zoom: 0.6;"></i>
-      
-      <span>留言板</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/friends" class="waves-effect waves-light">
-      
-      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
-      
-      <span>友情链接</span>
-    </a>
-    
-  </li>
-  
   <li>
     <a href="#searchModal" class="modal-trigger waves-effect waves-light">
       <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
@@ -202,28 +180,6 @@
 			    <i class="fa-fw fas fa-user-circle"></i>
 			
 			关于
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/contact" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-comments"></i>
-			
-			留言板
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/friends" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-address-book"></i>
-			
-			友情链接
 		</a>
           
         </li>
@@ -474,7 +430,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    377
+                    369
                 </div>
                 
 
@@ -498,16 +454,20 @@
 <blockquote>
 <p>无锁</p>
 </blockquote>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#主键不存在</span></span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> <span class="keyword">user</span> <span class="keyword">where</span> <span class="keyword">id</span> = <span class="number">-1</span> <span class="keyword">for</span> <span class="keyword">update</span>;</span><br></pre></td></tr></table></figure>
+<pre class=" language-sql"><code class="language-sql"><span class="token comment" spellcheck="true">#主键不存在</span>
+<span class="token keyword">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> <span class="token keyword">user</span> <span class="token keyword">where</span> id <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">1</span> <span class="token keyword">for</span> <span class="token keyword">update</span><span class="token punctuation">;</span></code></pre>
 <blockquote>
 <p>行锁</p>
 </blockquote>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#主键明确</span></span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> <span class="keyword">user</span> <span class="keyword">where</span> <span class="keyword">id</span> =<span class="number">1</span> <span class="keyword">for</span> <span class="keyword">update</span>;</span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> <span class="keyword">user</span> <span class="keyword">where</span> <span class="keyword">id</span>=<span class="number">1</span> <span class="keyword">and</span> <span class="keyword">name</span>=<span class="string">'kkk'</span> <span class="keyword">for</span> <span class="keyword">update</span>;</span><br></pre></td></tr></table></figure>
+<pre class=" language-sql"><code class="language-sql"><span class="token comment" spellcheck="true">#主键明确</span>
+<span class="token keyword">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> <span class="token keyword">user</span> <span class="token keyword">where</span> id <span class="token operator">=</span><span class="token number">1</span> <span class="token keyword">for</span> <span class="token keyword">update</span><span class="token punctuation">;</span>
+<span class="token keyword">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> <span class="token keyword">user</span> <span class="token keyword">where</span> id<span class="token operator">=</span><span class="token number">1</span> <span class="token operator">and</span> name<span class="token operator">=</span><span class="token string">'kkk'</span> <span class="token keyword">for</span> <span class="token keyword">update</span><span class="token punctuation">;</span></code></pre>
 <blockquote>
 <p>表锁</p>
 </blockquote>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#主键不明确</span></span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> <span class="keyword">user</span> <span class="keyword">where</span> <span class="keyword">name</span>=<span class="string">'kkk'</span> <span class="keyword">for</span> <span class="keyword">update</span>;</span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> <span class="keyword">user</span> <span class="keyword">where</span> <span class="keyword">id</span> &lt;&gt; <span class="number">3</span> <span class="keyword">for</span> <span class="keyword">update</span>;</span><br></pre></td></tr></table></figure>
-
+<pre class=" language-sql"><code class="language-sql"><span class="token comment" spellcheck="true">#主键不明确</span>
+<span class="token keyword">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> <span class="token keyword">user</span> <span class="token keyword">where</span> name<span class="token operator">=</span><span class="token string">'kkk'</span> <span class="token keyword">for</span> <span class="token keyword">update</span><span class="token punctuation">;</span>
+<span class="token keyword">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> <span class="token keyword">user</span> <span class="token keyword">where</span> id <span class="token operator">&lt;></span> <span class="token number">3</span> <span class="token keyword">for</span> <span class="token keyword">update</span><span class="token punctuation">;</span></code></pre>
 <h2 id="锁算法"><a href="#锁算法" class="headerlink" title="锁算法"></a>锁算法</h2><h3 id="行锁算法"><a href="#行锁算法" class="headerlink" title="行锁算法"></a>行锁算法</h3><p> Record Lock:单个行记录上的锁</p>
 <ul>
 <li>键值在条件范围内</li>
@@ -517,16 +477,19 @@
 <ul>
 <li>锁定一个范围,但不包含记录本身</li>
 </ul>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#id只有1-50</span></span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> <span class="keyword">user</span> <span class="keyword">where</span> <span class="keyword">id</span>&gt;<span class="number">50</span> <span class="keyword">for</span> <span class="keyword">update</span>;</span><br></pre></td></tr></table></figure>
-
-
+<pre class=" language-sql"><code class="language-sql"><span class="token comment" spellcheck="true">#id只有1-50</span>
+<span class="token keyword">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> <span class="token keyword">user</span> <span class="token keyword">where</span> id<span class="token operator">></span><span class="token number">50</span> <span class="token keyword">for</span> <span class="token keyword">update</span><span class="token punctuation">;</span></code></pre>
 <p>Next-Key Lock:(行&amp;间隙)</p>
 <ul>
-<li>锁定一个范围,并且锁定记录本身<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#id只有1-50</span></span><br><span class="line">  <span class="keyword">select</span> * <span class="keyword">from</span> <span class="keyword">user</span> <span class="keyword">id</span>&gt;<span class="number">49</span> <span class="keyword">for</span> <span class="keyword">update</span>;</span><br></pre></td></tr></table></figure>
+<li>锁定一个范围,并且锁定记录本身<pre class=" language-sql"><code class="language-sql"><span class="token comment" spellcheck="true">#id只有1-50</span>
+  <span class="token keyword">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> <span class="token keyword">user</span> id<span class="token operator">></span><span class="token number">49</span> <span class="token keyword">for</span> <span class="token keyword">update</span><span class="token punctuation">;</span></code></pre>
 <h3 id="表锁算法"><a href="#表锁算法" class="headerlink" title="表锁算法"></a>表锁算法</h3>意向锁(升级机制)</li>
 <li>当一个事务带着表锁去访问一个加了行锁的资源,那么,此时这个行锁就会升级成意向锁,将表锁住.</li>
 </ul>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#事务A -升级表锁</span></span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> <span class="keyword">user</span> <span class="keyword">where</span> <span class="keyword">id</span>=<span class="number">10</span> <span class="keyword">for</span> <span class="keyword">update</span>;  //此时是行锁</span><br><span class="line"><span class="comment">#事务B -锁表</span></span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> <span class="keyword">user</span> <span class="keyword">where</span> <span class="keyword">name</span>=<span class="string">'kkk'</span> <span class="keyword">for</span> <span class="keyword">update</span>;//升级表锁</span><br></pre></td></tr></table></figure>
+<pre class=" language-sql"><code class="language-sql"><span class="token comment" spellcheck="true">#事务A -升级表锁</span>
+<span class="token keyword">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> <span class="token keyword">user</span> <span class="token keyword">where</span> id<span class="token operator">=</span><span class="token number">10</span> <span class="token keyword">for</span> <span class="token keyword">update</span><span class="token punctuation">;</span>  <span class="token comment" spellcheck="true">//此时是行锁</span>
+<span class="token comment" spellcheck="true">#事务B -锁表</span>
+<span class="token keyword">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> <span class="token keyword">user</span> <span class="token keyword">where</span> name<span class="token operator">=</span><span class="token string">'kkk'</span> <span class="token keyword">for</span> <span class="token keyword">update</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//升级表锁</span></code></pre>
 <p>自增锁</p>
 <ul>
 <li>事务插入自增类型的列时,获取自增锁<blockquote>
@@ -770,8 +733,6 @@ Map主要用于存储键值对,根据键得到值,因此不允许键重复,但�
 
 <!-- 代码语言 -->
 
-<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
-
 
 <!-- 代码块复制 -->
 
@@ -816,7 +777,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             contentSelector: '#articleContent',
             headingsOffset: -($(window).height() * 0.4 - 45),
             collapseDepth: Number('0'),
-            headingSelector: 'h2, h3, h4'
+            headingSelector: 'h2, h3, h4, h5'
         });
 
         // modify the toc link href to support Chinese.
@@ -828,7 +789,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
 
         // modify the heading title id to support Chinese.
         i = 0;
-        $('#articleContent').children('h2, h3, h4').each(function () {
+        $('#articleContent').children('h2, h3, h4, h5').each(function () {
             $(this).attr('id', tocHeading + (++i));
         });
 
@@ -922,7 +883,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
         <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
                    server="netease"
                    type="playlist"
-                   id="503838841"
+                   id="426843371"
                    fixed='true'
                    autoplay='false'
                    theme='#42b983'

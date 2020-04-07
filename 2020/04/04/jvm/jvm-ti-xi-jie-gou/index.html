@@ -104,28 +104,6 @@
     
   </li>
   
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/contact" class="waves-effect waves-light">
-      
-      <i class="fas fa-comments" style="zoom: 0.6;"></i>
-      
-      <span>留言板</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/friends" class="waves-effect waves-light">
-      
-      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
-      
-      <span>友情链接</span>
-    </a>
-    
-  </li>
-  
   <li>
     <a href="#searchModal" class="modal-trigger waves-effect waves-light">
       <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
@@ -202,28 +180,6 @@
 			    <i class="fa-fw fas fa-user-circle"></i>
 			
 			关于
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/contact" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-comments"></i>
-			
-			留言板
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/friends" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-address-book"></i>
-			
-			友情链接
 		</a>
           
         </li>
@@ -436,12 +392,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/">
-                                <span class="chip bg-color">类加载机制</span>
-                            </a>
-                        
                             <a href="/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA/">
                                 <span class="chip bg-color">虚拟机</span>
+                            </a>
+                        
+                            <a href="/tags/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/">
+                                <span class="chip bg-color">类加载机制</span>
                             </a>
                         
                     </div>
@@ -534,10 +490,25 @@
 <p>元空间逻辑上在堆中, 但实际上不在,取名非堆,为了区分</p>
 </blockquote>
 <p>看下面代码</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        <span class="comment">//放回虚拟机试图使用的最大内存</span></span><br><span class="line">        <span class="keyword">long</span> max = Runtime.getRuntime().maxMemory(); </span><br><span class="line">        <span class="comment">//返回JVM 的初始化总内存</span></span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">"max="</span>+max+<span class="string">"字节\t"</span>+(max/(<span class="keyword">double</span>)<span class="number">1024</span>/<span class="number">1024</span>)+<span class="string">"MB"</span>);</span><br><span class="line">        System.out.println(<span class="string">"total="</span>+total+<span class="string">"字节\t"</span>+(total/(<span class="keyword">double</span>)<span class="number">1024</span>/<span class="number">1024</span>)+<span class="string">"MB"</span>);</span><br><span class="line">        <span class="comment">// 默认情况下: 分配的中内存 是电脑内存的 1/4 , 而初始化的内存为1/64</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//OOM :</span></span><br><span class="line">    <span class="comment">//1. 尝试扩大堆内存看结果</span></span><br><span class="line">    <span class="comment">//2. 分析内存, 看一下哪个地方出现了问题(专业工具)</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">//设置虚拟机参数 -Xms1024m -Xmx1024m -XX:+PrintGCDetails</span></span><br><span class="line">    <span class="comment">// -Xms : 设置初始化内存分配大小</span></span><br><span class="line">    <span class="comment">// -Xmx : 设置最大分配内存</span></span><br><span class="line">    <span class="comment">// -XX:+PrintGCDetails  //打印GC信息</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre class=" language-Java"><code class="language-Java">public class Demo{
+    public static void main(String[] args){
+        //放回虚拟机试图使用的最大内存
+        long max = Runtime.getRuntime().maxMemory(); 
+        //返回JVM 的初始化总内存
 
+        System.out.println("max="+max+"字节\t"+(max/(double)1024/1024)+"MB");
+        System.out.println("total="+total+"字节\t"+(total/(double)1024/1024)+"MB");
+        // 默认情况下: 分配的中内存 是电脑内存的 1/4 , 而初始化的内存为1/64
+    }
+    //OOM :
+    //1. 尝试扩大堆内存看结果
+    //2. 分析内存, 看一下哪个地方出现了问题(专业工具)
 
-
+    //设置虚拟机参数 -Xms1024m -Xmx1024m -XX:+PrintGCDetails
+    // -Xms : 设置初始化内存分配大小
+    // -Xmx : 设置最大分配内存
+    // -XX:+PrintGCDetails  //打印GC信息
+}</code></pre>
 <p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="http://yanxuan.nosdn.127.net/dae1ccff7d64fff2771051d2bc1db5b6.png" alt="UTOOLS1586051269113.png"></p>
 <blockquote>
 <p>根据输出:</p>
@@ -656,12 +627,12 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/">
-                                    <span class="chip bg-color">类加载机制</span>
-                                </a>
-                            
                                 <a href="/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA/">
                                     <span class="chip bg-color">虚拟机</span>
+                                </a>
+                            
+                                <a href="/tags/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/">
+                                    <span class="chip bg-color">类加载机制</span>
                                 </a>
                             
                         </div>
@@ -833,8 +804,6 @@
 
 <!-- 代码语言 -->
 
-<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
-
 
 <!-- 代码块复制 -->
 
@@ -879,7 +848,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             contentSelector: '#articleContent',
             headingsOffset: -($(window).height() * 0.4 - 45),
             collapseDepth: Number('0'),
-            headingSelector: 'h2, h3, h4'
+            headingSelector: 'h2, h3, h4, h5'
         });
 
         // modify the toc link href to support Chinese.
@@ -891,7 +860,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
 
         // modify the heading title id to support Chinese.
         i = 0;
-        $('#articleContent').children('h2, h3, h4').each(function () {
+        $('#articleContent').children('h2, h3, h4, h5').each(function () {
             $(this).attr('id', tocHeading + (++i));
         });
 
@@ -985,7 +954,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
         <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
                    server="netease"
                    type="playlist"
-                   id="503838841"
+                   id="426843371"
                    fixed='true'
                    autoplay='false'
                    theme='#42b983'

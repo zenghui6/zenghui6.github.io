@@ -104,28 +104,6 @@
     
   </li>
   
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/contact" class="waves-effect waves-light">
-      
-      <i class="fas fa-comments" style="zoom: 0.6;"></i>
-      
-      <span>留言板</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/friends" class="waves-effect waves-light">
-      
-      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
-      
-      <span>友情链接</span>
-    </a>
-    
-  </li>
-  
   <li>
     <a href="#searchModal" class="modal-trigger waves-effect waves-light">
       <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
@@ -202,28 +180,6 @@
 			    <i class="fa-fw fas fa-user-circle"></i>
 			
 			关于
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/contact" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-comments"></i>
-			
-			留言板
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/friends" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-address-book"></i>
-			
-			友情链接
 		</a>
           
         </li>
@@ -470,7 +426,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    621
+                    625
                 </div>
                 
 
@@ -529,9 +485,11 @@
 <p>将镜像压缩打包,别拿到文件后可以直接load</p>
 <h3 id="创建自定义网络"><a href="#创建自定义网络" class="headerlink" title="创建自定义网络"></a>创建自定义网络</h3><p>docker network create –subnet=192.168.88.1/24 network_hadoop</p>
 <p>docker network list</p>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">NETWORK ID          NAME                DRIVER              SCOPE</span><br><span class="line">1fb22da7d8a3       <span class="built_in"> bridge </span>            <span class="built_in"> bridge </span>             local</span><br><span class="line">fe259334b842        host                host                local</span><br><span class="line">8c5971ff48d8        network_hadoop         <span class="built_in"> bridge </span>             local</span><br><span class="line">3aaf0356c19c        none                <span class="literal">null</span>                local</span><br></pre></td></tr></table></figure>
-
-<p>启动容器,指定网段和ip指定</p>
+<pre><code>NETWORK ID          NAME                DRIVER              SCOPE
+1fb22da7d8a3        bridge              bridge              local
+fe259334b842        host                host                local
+8c5971ff48d8        network_hadoop          bridge              local
+3aaf0356c19c        none                null                local</code></pre><p>启动容器,指定网段和ip指定</p>
 <p>docker run -d –name itcast01 -h itcast01 –net network_hadoop –ip 192.168.88.88 -P -p 8088:8088 -p 50070:50070 –privileged=true registry.cn-beijing.aliyuncs.com/jing-studio/centos7-hadoop /usr/sbin/init</p>
 <h3 id="停止全部运行的容器"><a href="#停止全部运行的容器" class="headerlink" title="停止全部运行的容器"></a>停止全部运行的容器</h3><p>docker stop $(docker ps -aq)</p>
 
@@ -766,8 +724,6 @@ cookie的作用
 
 <!-- 代码语言 -->
 
-<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
-
 
 <!-- 代码块复制 -->
 
@@ -812,7 +768,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             contentSelector: '#articleContent',
             headingsOffset: -($(window).height() * 0.4 - 45),
             collapseDepth: Number('0'),
-            headingSelector: 'h2, h3, h4'
+            headingSelector: 'h2, h3, h4, h5'
         });
 
         // modify the toc link href to support Chinese.
@@ -824,7 +780,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
 
         // modify the heading title id to support Chinese.
         i = 0;
-        $('#articleContent').children('h2, h3, h4').each(function () {
+        $('#articleContent').children('h2, h3, h4, h5').each(function () {
             $(this).attr('id', tocHeading + (++i));
         });
 
@@ -918,7 +874,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
         <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
                    server="netease"
                    type="playlist"
-                   id="503838841"
+                   id="426843371"
                    fixed='true'
                    autoplay='false'
                    theme='#42b983'

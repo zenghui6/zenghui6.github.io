@@ -104,28 +104,6 @@
     
   </li>
   
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/contact" class="waves-effect waves-light">
-      
-      <i class="fas fa-comments" style="zoom: 0.6;"></i>
-      
-      <span>留言板</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/friends" class="waves-effect waves-light">
-      
-      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
-      
-      <span>友情链接</span>
-    </a>
-    
-  </li>
-  
   <li>
     <a href="#searchModal" class="modal-trigger waves-effect waves-light">
       <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
@@ -202,28 +180,6 @@
 			    <i class="fa-fw fas fa-user-circle"></i>
 			
 			关于
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/contact" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-comments"></i>
-			
-			留言板
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/friends" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-address-book"></i>
-			
-			友情链接
 		</a>
           
         </li>
@@ -534,25 +490,50 @@
 </ol>
 <p>这里你会发现 TIMED_WAITING 和 WAITING 状态的区别，仅仅是触发条件多了<strong>超时参数</strong></p>
 <h4 id="从-NEW-到-RUNNABLE-状态"><a href="#从-NEW-到-RUNNABLE-状态" class="headerlink" title="从 NEW 到 RUNNABLE 状态"></a>从 NEW 到 RUNNABLE 状态</h4><p>Java 刚创建出来的 Thread 对象就是 NEW 状态，而创建 Thread 对象主要有两种方法。一种是继承 Thread 对象，重写 run() 方法。示例代码如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 自定义线程对象</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyThread</span> <span class="keyword">extends</span> <span class="title">Thread</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 线程需要执行的代码</span></span><br><span class="line">    ......</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 创建线程对象</span></span><br><span class="line">MyThread myThread = <span class="keyword">new</span> MyThread();</span><br></pre></td></tr></table></figure>
-
+<pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">// 自定义线程对象</span>
+<span class="token keyword">class</span> <span class="token class-name">MyThread</span> <span class="token keyword">extends</span> <span class="token class-name">Thread</span> <span class="token punctuation">{</span>
+  <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">run</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">// 线程需要执行的代码</span>
+    <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="token comment" spellcheck="true">// 创建线程对象</span>
+MyThread myThread <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">MyThread</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
 <p>另一种是实现 Runnable 接口，重写 run() 方法，并将该实现类作为创建 Thread 对象的参数。示例代码如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 实现 Runnable 接口</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Runner</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 线程需要执行的代码</span></span><br><span class="line">    ......</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 创建线程对象</span></span><br><span class="line">Thread thread = <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runner());</span><br></pre></td></tr></table></figure>
-
+<pre class=" language-Java"><code class="language-Java">// 实现 Runnable 接口
+class Runner implements Runnable {
+  @Override
+  public void run() {
+    // 线程需要执行的代码
+    ......
+  }
+}
+// 创建线程对象
+Thread thread = new Thread(new Runner());</code></pre>
 <p>创建对象完成后,是<code>NEW</code>状态</p>
 <p>NEW 状态的线程，不会被操作系统调度，因此不会执行。Java 线程要执行，就必须转换到 RUNNABLE 状态。从 NEW 状态转换到 RUNNABLE 状态很简单，只要调用线程对象的<code>start()</code>方法就可以了，示例代码如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">MyThread myThread = <span class="keyword">new</span> MyThread();</span><br><span class="line"><span class="comment">// 从 NEW 状态转换到 RUNNABLE 状态</span></span><br><span class="line">myThread.start()；</span><br></pre></td></tr></table></figure>
-
+<pre class=" language-Java"><code class="language-Java">MyThread myThread = new MyThread();
+// 从 NEW 状态转换到 RUNNABLE 状态
+myThread.start()；</code></pre>
 <h4 id="从-RUNNABLE-到-TERMINATED-状态"><a href="#从-RUNNABLE-到-TERMINATED-状态" class="headerlink" title="从 RUNNABLE 到 TERMINATED 状态"></a>从 RUNNABLE 到 TERMINATED 状态</h4><p>线程执行完 run() 方法后，会自动转换到 TERMINATED 状态，当然如果执行 run() 方法的时候异常抛出，也会导致线程终止。有时候我们需要强制中断 run() 方法的执行，例如 run() 方法访问一个很慢的网络，我们等不下去了，想终止怎么办呢？Java 的 Thread 类里面倒是有个 stop() 方法，不过已经标记为 @Deprecated，所以不建议使用了。正确的姿势其实是调用 <code>interrupt()</code> 方法</p>
 <h5 id="那-stop-和-interrupt-方法的主要区别是什么"><a href="#那-stop-和-interrupt-方法的主要区别是什么" class="headerlink" title="那 stop() 和 interrupt() 方法的主要区别是什么?"></a>那 stop() 和 interrupt() 方法的主要区别是什么?</h5><p><code>stop() 方法会真的杀死线程</code>，不给线程喘息的机会，如果线程持有 synchronized 隐式锁，也<strong>不会释放</strong>，那其他线程就再也没机会获得 synchronized 隐式锁，这实在是太危险了。所以该方法就不建议使用了，类似的方法还有 suspend() 和 resume() 方法，这两个方法同样也都不建议使用了，所以这里也就不多介绍了。</p>
 <p>而 interrupt() 方法就温柔多了，interrupt() 方法仅仅是通知线程，线程有机会执行一些后续操作，同时也可以无视这个通知。被 interrupt 的线程，是怎么收到通知的呢？一种是<code>异常</code>，另一种是<code>主动检测</code>。</p>
 <p>当线程 A 处于 WAITING、TIMED_WAITING 状态时，如果其他线程调用线程 A 的 interrupt() 方法，会使线程 A 返回到 RUNNABLE 状态，同时线程 A 的代码会触发 InterruptedException 异常。上面我们提到转换到 WAITING、TIMED_WAITING 状态的触发条件，都是调用了类似 wait()、join()、sleep() 这样的方法，我们看这些方法的签名，发现都会 throws InterruptedException 这个异常。这个异常的触发条件就是：其他线程调用了该线程的 interrupt() 方法。</p>
 <p>当线程 A 处于 RUNNABLE 状态时，并且阻塞在 java.nio.channels.InterruptibleChannel 上时，如果其他线程调用线程 A 的 interrupt() 方法，线程 A 会触发 java.nio.channels.ClosedByInterruptException 这个异常；而阻塞在 java.nio.channels.Selector 上时，如果其他线程调用线程 A 的 interrupt() 方法，线程 A 的 java.nio.channels.Selector 会立即返回。</p>
 <p>上面这两种情况属于被中断的线程通过异常的方式获得了通知。还有一种是主动检测，如果线程处于 RUNNABLE 状态，并且没有阻塞在某个 I/O 操作上，例如中断计算圆周率的线程 A，这时就得依赖线程 A 主动检测中断状态了。如果其他线程调用线程 A 的 interrupt() 方法，那么线程 A 可以通过 <code>isInterrupted()</code> 方法，检测是不是自己被中断了。</p>
-<h3 id="思考题"><a href="#思考题" class="headerlink" title="思考题"></a>思考题</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">#代码是否正确</span><br><span class="line">Thread th = Thread.currentThread();</span><br><span class="line"><span class="keyword">while</span>(<span class="keyword">true</span>) &#123;</span><br><span class="line">  <span class="keyword">if</span>(th.isInterrupted()) &#123;</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 省略业务代码无数</span></span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    Thread.sleep(<span class="number">100</span>);</span><br><span class="line">  &#125;<span class="keyword">catch</span> (InterruptedException e)&#123;</span><br><span class="line">    e.printStackTrace();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
+<h3 id="思考题"><a href="#思考题" class="headerlink" title="思考题"></a>思考题</h3><pre class=" language-Java"><code class="language-Java">#代码是否正确
+Thread th = Thread.currentThread();
+while(true) {
+  if(th.isInterrupted()) {
+    break;
+  }
+  // 省略业务代码无数
+  try {
+    Thread.sleep(100);
+  }catch (InterruptedException e){
+    e.printStackTrace();
+  }
+}</code></pre>
 <blockquote>
 <p>抛出InterruptedException异常，而这个抛出这个异常<strong>会清除当前线程的中断标识</strong>，导致th.isInterrupted()一直都是返回false的</p>
 </blockquote>
@@ -708,12 +689,12 @@ https://www.processon.com/view/link/5e882e48e4b0a1e6dcb29287
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/">
-                        <span class="chip bg-color">类加载机制</span>
-                    </a>
-                    
                     <a href="/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA/">
                         <span class="chip bg-color">虚拟机</span>
+                    </a>
+                    
+                    <a href="/tags/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6/">
+                        <span class="chip bg-color">类加载机制</span>
                     </a>
                     
                 </div>
@@ -782,8 +763,6 @@ https://www.processon.com/view/link/5e882e48e4b0a1e6dcb29287
 
 <!-- 代码语言 -->
 
-<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
-
 
 <!-- 代码块复制 -->
 
@@ -828,7 +807,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             contentSelector: '#articleContent',
             headingsOffset: -($(window).height() * 0.4 - 45),
             collapseDepth: Number('0'),
-            headingSelector: 'h2, h3, h4'
+            headingSelector: 'h2, h3, h4, h5'
         });
 
         // modify the toc link href to support Chinese.
@@ -840,7 +819,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
 
         // modify the heading title id to support Chinese.
         i = 0;
-        $('#articleContent').children('h2, h3, h4').each(function () {
+        $('#articleContent').children('h2, h3, h4, h5').each(function () {
             $(this).attr('id', tocHeading + (++i));
         });
 
@@ -934,7 +913,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
         <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
                    server="netease"
                    type="playlist"
-                   id="503838841"
+                   id="426843371"
                    fixed='true'
                    autoplay='false'
                    theme='#42b983'

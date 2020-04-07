@@ -104,28 +104,6 @@
     
   </li>
   
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/contact" class="waves-effect waves-light">
-      
-      <i class="fas fa-comments" style="zoom: 0.6;"></i>
-      
-      <span>留言板</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/friends" class="waves-effect waves-light">
-      
-      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
-      
-      <span>友情链接</span>
-    </a>
-    
-  </li>
-  
   <li>
     <a href="#searchModal" class="modal-trigger waves-effect waves-light">
       <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
@@ -202,28 +180,6 @@
 			    <i class="fa-fw fas fa-user-circle"></i>
 			
 			关于
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/contact" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-comments"></i>
-			
-			留言板
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/friends" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-address-book"></i>
-			
-			友情链接
 		</a>
           
         </li>
@@ -474,7 +430,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.1k
+                    1k
                 </div>
                 
 
@@ -502,17 +458,62 @@
 <h3 id="封装共享变量"><a href="#封装共享变量" class="headerlink" title="封装共享变量"></a>封装共享变量</h3><blockquote>
 <p>将共享变量作为对象属性封装在内部,对所有公共方法制定并发访问策略</p>
 </blockquote>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Counter</span> </span>&#123;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">long</span> value;</span><br><span class="line">  <span class="function"><span class="keyword">synchronized</span> <span class="keyword">long</span> <span class="title">get</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> value;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="keyword">synchronized</span> <span class="keyword">long</span> <span class="title">addOne</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> ++value;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Counter</span> <span class="token punctuation">{</span>
+  <span class="token keyword">private</span> <span class="token keyword">long</span> value<span class="token punctuation">;</span>
+  <span class="token keyword">synchronized</span> <span class="token keyword">long</span> <span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword">return</span> value<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword">synchronized</span> <span class="token keyword">long</span> <span class="token function">addOne</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token operator">++</span>value<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
 <p>但是,很多工作场景都不会这么简单,往往会有很多的共享变量,</p>
 <p>例如, 信用卡账户有卡号,姓名,身份证,信用额度等, 如果每个都要考虑并发安全问题,那可太累了.但其实,很多共享变量是不会变的,例如信用卡的卡号,姓名,身份证,<code>对于这些不会变化的共享变量,建议用 final 关键字来修饰</code>.这样既能避免并发问题,也能很明了的表面你的设计意图,说明你已经考虑过了这些共享变量的并发安全问题</p>
 <h3 id="识别共享变量间的约束条件"><a href="#识别共享变量间的约束条件" class="headerlink" title="识别共享变量间的约束条件"></a>识别共享变量间的约束条件</h3><p>例如,一个库存管理系统,它的库存量不能太高,也不能太低,它有一个上限和一个下限制,这两个变量明显是线程共享变量</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SafeWM</span> </span>&#123;</span><br><span class="line">  <span class="comment">// 库存上限</span></span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">final</span> AtomicLong upper =</span><br><span class="line">        <span class="keyword">new</span> AtomicLong(<span class="number">0</span>);</span><br><span class="line">  <span class="comment">// 库存下限</span></span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">final</span> AtomicLong lower =</span><br><span class="line">        <span class="keyword">new</span> AtomicLong(<span class="number">0</span>);</span><br><span class="line">  <span class="comment">// 设置库存上限</span></span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">setUpper</span><span class="params">(<span class="keyword">long</span> v)</span></span>&#123;</span><br><span class="line">    upper.set(v);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 设置库存下限</span></span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">setLower</span><span class="params">(<span class="keyword">long</span> v)</span></span>&#123;</span><br><span class="line">    lower.set(v);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 省略其他业务代码</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">SafeWM</span> <span class="token punctuation">{</span>
+  <span class="token comment" spellcheck="true">// 库存上限</span>
+  <span class="token keyword">private</span> <span class="token keyword">final</span> AtomicLong upper <span class="token operator">=</span>
+        <span class="token keyword">new</span> <span class="token class-name">AtomicLong</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token comment" spellcheck="true">// 库存下限</span>
+  <span class="token keyword">private</span> <span class="token keyword">final</span> AtomicLong lower <span class="token operator">=</span>
+        <span class="token keyword">new</span> <span class="token class-name">AtomicLong</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token comment" spellcheck="true">// 设置库存上限</span>
+  <span class="token keyword">void</span> <span class="token function">setUpper</span><span class="token punctuation">(</span><span class="token keyword">long</span> v<span class="token punctuation">)</span><span class="token punctuation">{</span>
+    upper<span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span>v<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token comment" spellcheck="true">// 设置库存下限</span>
+  <span class="token keyword">void</span> <span class="token function">setLower</span><span class="token punctuation">(</span><span class="token keyword">long</span> v<span class="token punctuation">)</span><span class="token punctuation">{</span>
+    lower<span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span>v<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token comment" spellcheck="true">// 省略其他业务代码</span>
+<span class="token punctuation">}</span></code></pre>
 <p>上面代码我们明显忽视了一个约束条件,就是<strong>库存下线要小于库存上限</strong></p>
 <p>哪我们加上判断条件</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SafeWM</span> </span>&#123;</span><br><span class="line">  <span class="comment">// 库存上限</span></span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">final</span> AtomicLong upper =</span><br><span class="line">        <span class="keyword">new</span> AtomicLong(<span class="number">0</span>);</span><br><span class="line">  <span class="comment">// 库存下限</span></span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">final</span> AtomicLong lower =</span><br><span class="line">        <span class="keyword">new</span> AtomicLong(<span class="number">0</span>);</span><br><span class="line">  <span class="comment">// 设置库存上限</span></span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">setUpper</span><span class="params">(<span class="keyword">long</span> v)</span></span>&#123;</span><br><span class="line">    <span class="comment">// 检查参数合法性</span></span><br><span class="line">    <span class="keyword">if</span> (v &lt; lower.get()) &#123;</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException();</span><br><span class="line">    &#125;</span><br><span class="line">    upper.set(v);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 设置库存下限</span></span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">setLower</span><span class="params">(<span class="keyword">long</span> v)</span></span>&#123;</span><br><span class="line">    <span class="comment">// 检查参数合法性</span></span><br><span class="line">    <span class="keyword">if</span> (v &gt; upper.get()) &#123;</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException();</span><br><span class="line">    &#125;</span><br><span class="line">    lower.set(v);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 省略其他业务代码</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<pre class=" language-Java"><code class="language-Java">public class SafeWM {
+  // 库存上限
+  private final AtomicLong upper =
+        new AtomicLong(0);
+  // 库存下限
+  private final AtomicLong lower =
+        new AtomicLong(0);
+  // 设置库存上限
+  void setUpper(long v){
+    // 检查参数合法性
+    if (v < lower.get()) {
+      throw new IllegalArgumentException();
+    }
+    upper.set(v);
+  }
+  // 设置库存下限
+  void setLower(long v){
+    // 检查参数合法性
+    if (v > upper.get()) {
+      throw new IllegalArgumentException();
+    }
+    lower.set(v);
+  }
+  // 省略其他业务代码
+}</code></pre>
 <p>我们在 setUpper() 和 setLower() 中增加了参数校验，这乍看上去好像是对的，但其实存在并发问题，问题在于存在竞态条件。这里我顺便插一句，其实当你看到代码里出现 if 语句的时候，就应该立刻意识到可能存在竞态条件。</p>
 <p>我们假设库存的下限和上限分别是 (2,10)，线程 A 调用 setUpper(5) 将上限设置为 5，线程 B 调用 setLower(7) 将下限设置为 7，如果线程 A 和线程 B 完全同时执行，你会发现线程 A 能够通过参数校验，因为这个时候，下限还没有被线程 B 设置，还是 2，而 5&gt;2；线程 B 也能够通过参数校验，因为这个时候，上限还没有被线程 A 设置，还是 10，而 7&lt;10。当线程 A 和线程 B 都通过参数校验后，就把库存的下限和上限设置成 (7, 5) 了，显然此时的结果是不符合<strong>库存下限要小于库存上限</strong>这个约束条件的。</p>
 <blockquote>
@@ -774,8 +775,6 @@ StringWriter
 
 <!-- 代码语言 -->
 
-<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
-
 
 <!-- 代码块复制 -->
 
@@ -820,7 +819,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
             contentSelector: '#articleContent',
             headingsOffset: -($(window).height() * 0.4 - 45),
             collapseDepth: Number('0'),
-            headingSelector: 'h2, h3, h4'
+            headingSelector: 'h2, h3, h4, h5'
         });
 
         // modify the toc link href to support Chinese.
@@ -832,7 +831,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
 
         // modify the heading title id to support Chinese.
         i = 0;
-        $('#articleContent').children('h2, h3, h4').each(function () {
+        $('#articleContent').children('h2, h3, h4, h5').each(function () {
             $(this).attr('id', tocHeading + (++i));
         });
 
@@ -926,7 +925,7 @@ code[class*="language-"], pre[class*="language-"] { white-space: pre !important;
         <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
                    server="netease"
                    type="playlist"
-                   id="503838841"
+                   id="426843371"
                    fixed='true'
                    autoplay='false'
                    theme='#42b983'
