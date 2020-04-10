@@ -1,6 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>SpringBoot 自动装配原理</title>
+    <url>/2020/04/10/springboot-zi-dong-zhuang-pei-yuan-li/</url>
+    <content><![CDATA[<h2 id="原理初探"><a href="#原理初探" class="headerlink" title="原理初探"></a>原理初探</h2><h3 id="自动配置"><a href="#自动配置" class="headerlink" title="自动配置"></a>自动配置</h3><p>pom.xml</p>
+<ul>
+<li>spring-boot-dependencies: 核心依赖在父工程中!</li>
+<li>我们在引入一些SpringBoot依赖时,不需要指定版本,因为父工程中已经有了这些版本信息!</li>
+</ul>
+<p><strong>启动器</strong></p>
+<pre class=" language-xml"><code class="language-xml"> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.springframework.boot<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>spring-boot-starter<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span></code></pre>
+<ul>
+<li>启动器: 说白了就是Springboot的启动场景;</li>
+<li>比如Spring-boot-starter-web, 它就会帮我们自动导入web环境所有的依赖!</li>
+<li>SpringBoot 会将所有功能的功能场景,都编程一个一个的启动器!</li>
+<li>我们要使用什么功能,只有加入对应的启动器就行</li>
+</ul>
+<p><strong>启动类</strong></p>
+<pre class=" language-java"><code class="language-java"><span class="token annotation punctuation">@SpringBootApplication</span>        <span class="token comment" spellcheck="true">//表示这是个SpringBoot应用,加载所有的资源</span>
+<span class="token comment" spellcheck="true">//配置dao接口扫描包</span>
+<span class="token annotation punctuation">@MapperScan</span><span class="token punctuation">(</span><span class="token string">"com.zenghui.wangpan.mapper"</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">WangpanApplication</span> <span class="token punctuation">{</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        SpringApplication<span class="token punctuation">.</span><span class="token function">run</span><span class="token punctuation">(</span>WangpanApplication<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">,</span> args<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span></code></pre>
+<p><strong>注解</strong></p>
+<pre class=" language-java"><code class="language-java"><span class="token annotation punctuation">@SpringBootConfiguration</span>    <span class="token comment" spellcheck="true">// SpringBoot的配置</span>
+    <span class="token annotation punctuation">@Configuration</span>            <span class="token comment" spellcheck="true">// Spring配置类</span>
+    <span class="token annotation punctuation">@Component</span>                <span class="token comment" spellcheck="true">// 说明这个是个Spring组件</span>
+
+<span class="token annotation punctuation">@EnableAutoConfiguration</span>    <span class="token comment" spellcheck="true">// 自动配置</span>
+    <span class="token annotation punctuation">@AutoConfigurationPackage</span>  <span class="token comment" spellcheck="true">// 自动配置包</span>
+        <span class="token annotation punctuation">@Import</span><span class="token punctuation">(</span>AutoConfigurationPackages<span class="token punctuation">.</span>Registrar<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">//自动配置包 注册</span>
+
+    <span class="token annotation punctuation">@Import</span><span class="token punctuation">(</span>AutoConfigurationImportSelector<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">//自动配置导入选择</span>
+</code></pre>
+<p>AutoConfigurationImportSelector,这个类会去读取一个名为 <code>spring.factories</code>的文件,</p>
+<p>这里面定义了所有可以加载的自动化配置类, 但不是所有的配置类都会生效, 只有导入了对应starter包的才会生效,通过条件注解就可以判断是否导入了对应的包</p>
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="http://yanxuan.nosdn.127.net/585f6f319fa00208cbd83b5da164cb1a.png" alt="spring.factories.png"></p>
+<p><strong>条件注解</strong> conditional</p>
+<p>自动装配的精髓</p>
+<ul>
+<li>@ConditionalOnClass : 如果这里面的条件都满足,才会生效</li>
+<li>@ConditionMissClass : 当类不存在时, 才生效</li>
+</ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ol>
+<li>springboot 在启动的时候, 从类路径下 /META-INF/spring.factories 获取指定的值;</li>
+<li>将这些自动配置的类导入容器, 自动配置类就会生效,帮我们进行自动配置!</li>
+<li>以前我们需要自动配置的东西, 现在SpringBoot 帮我们做了!</li>
+<li>整合javaEE, 解决方案和自动配置的东西都在<code>spring-boot-autoconfigure-2.2.5.RELEASE.jar</code>这个包下</li>
+<li>它会把所有需要导入的组件, 以类名的方式返回, 这些组件就会变添加到容器;</li>
+<li>容器中也会存在非常多的xxxAutoConfiguration的文件, 这就是这些类给容器中导入了这个场景需要的所有组件, 并自动配置;</li>
+</ol>
+]]></content>
+      <categories>
+        <category>SpringBoot</category>
+      </categories>
+      <tags>
+        <tag>框架</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Redis笔记</title>
     <url>/2020/04/08/redis-bi-ji/</url>
     <content><![CDATA[<h2 id="NOSQL概述"><a href="#NOSQL概述" class="headerlink" title="NOSQL概述"></a>NOSQL概述</h2><h3 id="为什么要用Nosql"><a href="#为什么要用Nosql" class="headerlink" title="为什么要用Nosql"></a>为什么要用Nosql</h3><blockquote>
