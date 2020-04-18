@@ -228,7 +228,7 @@ public class Worker extends Builder{
         <category>设计模式</category>
       </categories>
       <tags>
-        <tag>创建性模式</tag>
+        <tag>创建型模式</tag>
       </tags>
   </entry>
   <entry>
@@ -599,7 +599,7 @@ public enum EnumSingle {
         <category>设计模式</category>
       </categories>
       <tags>
-        <tag>创建性模式</tag>
+        <tag>创建型模式</tag>
       </tags>
   </entry>
   <entry>
