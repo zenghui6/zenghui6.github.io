@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>测试</title>
+    <url>/2020/04/21/ce-shi/</url>
+    <content><![CDATA[<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2>]]></content>
+      <categories>
+        <category>分类</category>
+      </categories>
+  </entry>
+  <entry>
     <title>原型模式</title>
     <url>/2020/04/18/23-chong-she-ji-mo-shi/yuan-xing-mo-shi/</url>
     <content><![CDATA[<p>这种模式是<strong>实现了一个原型接口</strong>，该接口用于创建当前对象的克隆。当直接创建对象的代价比较大时，则采用这种模式。例如，一个对象需要在一个高代价的数据库操作之后被创建。我们可以缓存该对象，在下一个请求时返回它的克隆，在需要的时候更新数据库，以此来减少数据库调用。</p>
@@ -2733,7 +2741,7 @@ public class SwaggerConfig {
   </entry>
   <entry>
     <title>快速排序及其优化</title>
-    <url>/2020/03/27/kuai-su-pai-xu-ji-qi-you-hua/</url>
+    <url>/2020/03/27/suan-fa-yu-shu-ju-jie-gou/kuai-su-pai-xu-ji-qi-you-hua/</url>
     <content><![CDATA[<h3 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h3><h4 id="思想"><a href="#思想" class="headerlink" title="思想"></a>思想</h4><p>快速排序是属于交换排序的基本思想. 选择一个基准值 val , 把比 val 小的放前面,比val 大的放后面, 最后把val 放在两个区域中间, val 就到了最终的位置</p>
 <p>很明显快排是一个<strong>原地排序</strong>, 也是一个<strong>不稳定排序</strong></p>
 <p>时间复杂度: O (nlogn)</p>
@@ -2882,7 +2890,7 @@ public class SwaggerConfig {
   </entry>
   <entry>
     <title>快速排序及其优化</title>
-    <url>/2020/03/27/suan-fa-yu-shu-ju-jie-gou/kuai-su-pai-xu-ji-qi-you-hua/</url>
+    <url>/2020/03/27/kuai-su-pai-xu-ji-qi-you-hua/</url>
     <content><![CDATA[<h3 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h3><h4 id="思想"><a href="#思想" class="headerlink" title="思想"></a>思想</h4><p>快速排序是属于交换排序的基本思想. 选择一个基准值 val , 把比 val 小的放前面,比val 大的放后面, 最后把val 放在两个区域中间, val 就到了最终的位置</p>
 <p>很明显快排是一个<strong>原地排序</strong>, 也是一个<strong>不稳定排序</strong></p>
 <p>时间复杂度: O (nlogn)</p>
