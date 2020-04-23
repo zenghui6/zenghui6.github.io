@@ -1,12 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>测试</title>
-    <url>/2020/04/21/ce-shi/</url>
-    <content><![CDATA[<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2>]]></content>
+    <title>适配器模式</title>
+    <url>/2020/04/23/23-chong-she-ji-mo-shi/gua-pei-qi-mo-shi/</url>
+    <content><![CDATA[<h2 id="角色分析"><a href="#角色分析" class="headerlink" title="角色分析"></a>角色分析</h2><ul>
+<li>目标接口： 客户所期待的接口， 目标可以是具体的或者抽象的类，也可以是接口。如客户电脑的接口为USB</li>
+<li>需要适配的类：如需要将网线转换为USB</li>
+<li>适配器： 通过包装一个需要适配的类，将原接口装换成目标对象！如将网线接口转换为USB!</li>
+</ul>
+<h2 id="代码分析"><a href="#代码分析" class="headerlink" title="代码分析"></a>代码分析</h2><p><strong>电脑的USB类</strong></p>
+<pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">//电脑，需要连接usb转换器</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Computer</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">//上网行为，电脑想上网只需要一个转接头</span>
+    <span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">net</span><span class="token punctuation">(</span>NetToUsb adapter<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        adapter<span class="token punctuation">.</span><span class="token function">requestHandler</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
+<p><strong>网线</strong></p>
+<pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">//需要适配的网线</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Adaptee</span> <span class="token punctuation">{</span>
+
+    <span class="token comment" spellcheck="true">//接通上网</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">request</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"网线连接上网"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
+<p><strong>转换器接口</strong></p>
+<pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">//网线转接口</span>
+<span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">NetToUsb</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">//处理网络请求</span>
+    <span class="token keyword">void</span> <span class="token function">requestHandler</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre>
+<p><strong>具体的转化器实现</strong></p>
+<pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">//组合 (对象适配器， 常用)</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Adapter2</span> <span class="token keyword">implements</span> <span class="token class-name">NetToUsb</span> <span class="token punctuation">{</span>
+
+    <span class="token comment" spellcheck="true">//传入的网线</span>
+    <span class="token keyword">private</span> Adaptee adaptee<span class="token punctuation">;</span>
+
+    <span class="token keyword">public</span> <span class="token function">Adapter2</span><span class="token punctuation">(</span>Adaptee adaptee<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>adaptee <span class="token operator">=</span> adaptee<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">requestHandler</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+       adaptee<span class="token punctuation">.</span><span class="token function">request</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment" spellcheck="true">//可以上网了</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
+<p><strong>运行测试</strong></p>
+<pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">//2.组合</span>
+Computer computer1 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Computer</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+Adaptee adaptee1  <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Adaptee</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//网线</span>
+<span class="token comment" spellcheck="true">//转换器连接网线</span>
+Adapter2 adapter1 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Adapter2</span><span class="token punctuation">(</span>adaptee1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">//电脑连接转换器</span>
+computer1<span class="token punctuation">.</span><span class="token function">net</span><span class="token punctuation">(</span>adapter1<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+]]></content>
       <categories>
-        <category>分类</category>
+        <category>设计模式</category>
       </categories>
+      <tags>
+        <tag>结构性模式</tag>
+      </tags>
   </entry>
   <entry>
     <title>原型模式</title>
